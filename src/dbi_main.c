@@ -18,7 +18,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.2 2001/04/04 21:59:13 dap24 Exp $
+ * $Id: dbi_main.c,v 1.3 2001/04/04 23:09:05 dap24 Exp $
  */
 
 #include <stdio.h>
@@ -497,20 +497,20 @@ int dbi_goto_row(dbi_result_t *result, unsigned int row) {
 	return retval;
 }
 
-const char **dbi_list_dbs(dbi_driver_t *driver) {
-	const char **retval = driver->plugin->functions->list_dbs(driver);
-	if (retval == NULL) {
+dbi_result_t *dbi_list_dbs(dbi_driver_t *driver) {
+	dbi_result_t *result = driver->plugin->functions->list_dbs(driver);
+	if (result == NULL) {
 		_error_handler(driver);
 	}
-	return retval;
+	return result;
 }
 
-const char **dbi_list_tables(dbi_driver_t *driver, const char *db) {
-	const char **retval = driver->plugin->functions->list_tables(driver, db);
-	if (retval == NULL) {
+dbi_result_t *dbi_list_tables(dbi_driver_t *driver, const char *db) {
+	dbi_result_t *result = driver->plugin->functions->list_tables(driver, db);
+	if (result == NULL) {
 		_error_handler(driver);
 	}
-	return retval;
+	return result;
 }
 
 unsigned int dbi_num_rows(dbi_result_t *result) {

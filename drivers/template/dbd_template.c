@@ -22,7 +22,7 @@
  * Copyright (C) 2001, Herbert Z. Bartholemew <hbz@bombdiggity.net>.
  * http://www.bombdiggity.net/~hzb/dbd_template/
  * 
- * $Id: dbd_template.c,v 1.5 2001/04/04 21:59:13 dap24 Exp $
+ * $Id: dbd_template.c,v 1.6 2001/04/04 23:09:05 dap24 Exp $
  */
 
 #include <stdio.h>
@@ -166,12 +166,12 @@ int dbd_goto_row(dbi_result_t *result, unsigned int row) {
 	return 0;
 }
 
-const char **dbd_list_dbs(dbi_driver_t *myself) {
+dbi_result_t *dbd_list_dbs(dbi_driver_t *myself) {
 	/* do whatever's necessary... */
 	return NULL;
 }
 
-const char **dbd_list_tables(dbi_driver_t *myself, const char *db) {
+dbi_result_t *dbd_list_tables(dbi_driver_t *myself, const char *db) {
 	/* do whatever's necessary... */
 	return NULL;
 }
