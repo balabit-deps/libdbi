@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.25 2002/01/29 05:59:39 dap Exp $
+ * $Id: dbi.h,v 1.26 2002/02/16 18:57:35 dap Exp $
  */
 
 #ifndef __DBI_H__
@@ -89,7 +89,7 @@ void dbi_conn_clear_option(dbi_conn Conn, const char *key);
 void dbi_conn_clear_options(dbi_conn Conn);
 void dbi_conn_close(dbi_conn Conn);
 
-int dbi_conn_error(dbi_conn Conn, char **errmsg_dest);
+int dbi_conn_error(dbi_conn Conn, const char **errmsg_dest);
 void dbi_conn_error_handler(dbi_conn Conn, void *function, void *user_argument);
 
 int dbi_conn_connect(dbi_conn Conn);

@@ -22,10 +22,10 @@
 			<Address><EMail>david@neongoat.com</EMail></Address>
 		</Affiliation>
 	</Author>
-	<Edition>Document revision: $Id: programmers-guide.sgml,v 1.8 2002/01/29 07:42:03 dap Exp $</Edition>
-	<PubDate>June 11, 2001</PubDate>
+	<Edition>Document revision: $Id: programmers-guide.sgml,v 1.9 2002/02/16 18:57:35 dap Exp $</Edition>
+	<PubDate>$Date: 2002/02/16 18:57:35 $</PubDate>
 	<Copyright>
-		<Year>2001</Year>
+		<Year>2001-2002</Year>
 		<Holder>David Parker, Neon Goat Productions</Holder>
 	</Copyright>
 	<LegalNotice>
@@ -77,7 +77,7 @@
 	</Section>
 	<Section id="gnugpl"><Title>Modifications and redistribution of libdbi</Title>
 		<Para>
-			libdbi is Copyright &copy; 2001, David Parker and Mark Tobenkin.
+			libdbi is Copyright &copy; 2001-2002, David Parker and Mark Tobenkin.
 		</Para>
 		<Para>			
 			libdbi is free software; you can redistribute it and/or

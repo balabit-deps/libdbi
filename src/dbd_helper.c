@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.9 2001/12/09 10:28:29 mmt Exp $
+ * $Id: dbd_helper.c,v 1.10 2002/02/16 18:57:35 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -105,3 +105,15 @@ int _dbd_quote_chars(const char *toescape, const char *quotes, const char *orig,
 
 	return strlen(dest);
 }
+
+void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int errno) {
+	if (conn->error_message) free(conn->error_message);
+	
+	conn->error_number = errno;
+	conn->error_message = strdup(errmsg);
+
+	if (conn->error_handler != NULL) {
+		conn->error_handler(conn, conn->error_handler_argument);
+	}
+}
+
