@@ -21,7 +21,7 @@
  * Copyright (C) 2001, Herbert Z. Bartholemew <hbz@bombdiggity.net>.
  * http://www.bombdiggity.net/~hzb/dbd_template/
  * 
- * $Id: dbd_template.c,v 1.1 2001/03/28 06:26:20 dap24 Exp $
+ * $Id: dbd_template.c,v 1.2 2001/03/29 04:29:23 mmt Exp $
  */
 
 #include <stdio.h>
@@ -69,7 +69,7 @@ int dbd_connect(dbi_driver_t *myself) {
 	/* grab any other options the database needs and connect! */
 	/* myself->generic_connection and myself->connection should
 	 * also be set if applicable */
-	return 0
+	return 0;
 }
 
 int dbd_fetch_field(dbi_result_t *result, const char *key, void *dest) {
