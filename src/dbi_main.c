@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.44 2002/12/20 06:00:16 dap Exp $
+ * $Id: dbi_main.c,v 1.45 2003/03/29 00:39:14 dap24 Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -63,6 +63,7 @@ int dbi_conn_set_error(dbi_conn Conn, int errnum, const char *formatstr, ...) __
 static const char *ERROR = "ERROR";
 static dbi_driver_t *rootdriver;
 static dbi_conn_t *rootconn;
+static int complain = 1;
 
 /* XXX DBI CORE FUNCTIONS XXX */
 
@@ -106,6 +107,7 @@ int dbi_initialize(const char *driverdir) {
 					if (driver && driver->functions) free(driver->functions);
 					if (driver) free(driver);
 					driver = NULL; /* don't include in linked list */
+					if (complain) fprintf(stderr, "libdbi: Failed to load driver: %s\n", fullpath);
 				}
 			}
 		}
@@ -144,6 +146,16 @@ void dbi_shutdown() {
 
 const char *dbi_version() {
 	return "libdbi v" VERSION;
+}
+
+int dbi_set_verbosity(int verbosity) {
+	/* whether or not to spew stderr messages when something bad happens (and
+	 * isn't handled through the normal connection-oriented DBI error
+	 * mechanisms) */
+
+	int prev = complain;
+	complain = verbosity;
+	return prev;
 }
 
 /* XXX DRIVER FUNCTIONS XXX */
