@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.34 2002/08/07 06:50:18 dap Exp $
+ * $Id: dbi.h,v 1.35 2002/10/21 06:21:52 dap Exp $
  */
 
 #ifndef __DBI_H__
@@ -108,7 +108,8 @@ int dbi_conn_connect(dbi_conn Conn);
 int dbi_conn_get_socket(dbi_conn Conn);
 dbi_result dbi_conn_get_db_list(dbi_conn Conn, const char *pattern);
 dbi_result dbi_conn_get_table_list(dbi_conn Conn, const char *db, const char *pattern);
-dbi_result dbi_conn_query(dbi_conn Conn, const char *formatstr, ...); 
+dbi_result dbi_conn_query(dbi_conn Conn, const char *statement); 
+dbi_result dbi_conn_queryf(dbi_conn Conn, const char *formatstr, ...);
 dbi_result dbi_conn_query_null(dbi_conn Conn, const unsigned char *statement, unsigned long st_length); 
 int dbi_conn_select_db(dbi_conn Conn, const char *db);
 unsigned long long dbi_conn_sequence_last(dbi_conn Conn, const char *name); /* name of the sequence or table */
