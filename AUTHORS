@@ -8,6 +8,9 @@ Main developers:
 These people have also contributed to the project:
 (if I forgot you, please let me know!)
 
+* Peter O'Gorman <pogma@opendarwin.org>
+  - configure/Makefile/libtool fixes, OSX guru
+
 * Markus Hoenicka <hoenicka_markus at compuserve.com>
   - win32 port, atoll() portability, list_* tweaks, assorted bugfixes, error_flag scheme
   
@@ -43,4 +46,4 @@ Thanks:
 * The authors of libao, which clued me in to dynamic libraries.
 * Randy Jay Yarger, George Reese, and Tim King (authors of MySQL & mSQL by O'Reilly)
 
-$Id: AUTHORS,v 1.10 2003/03/28 19:35:43 dap24 Exp $
+$Id: AUTHORS,v 1.11 2003/04/30 17:57:09 mhoenicka Exp $
