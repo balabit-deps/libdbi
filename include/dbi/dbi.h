@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.44 2003/03/29 00:39:12 dap24 Exp $
+ * $Id: dbi.h,v 1.45 2003/03/29 00:54:13 dap24 Exp $
  */
 
 #ifndef __DBI_H__
@@ -54,7 +54,7 @@ typedef struct {
 	signed char minute;
 	signed char second;
 	signed short millisecond;
-	signed char utc_offset; // -8 means -0800
+	signed long utc_offset; // seconds east of UTC
 } dbi_time;
 
 typedef struct {
