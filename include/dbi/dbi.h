@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.46 2003/06/21 21:36:19 dap24 Exp $
+ * $Id: dbi.h,v 1.47 2003/12/25 00:42:22 dap24 Exp $
  */
 
 #ifndef __DBI_H__
@@ -148,7 +148,9 @@ int dbi_result_free(dbi_result Result);
 int dbi_result_seek_row(dbi_result Result, unsigned long long row);
 int dbi_result_first_row(dbi_result Result);
 int dbi_result_last_row(dbi_result Result);
+int dbi_result_has_prev_row(dbi_result Result);
 int dbi_result_prev_row(dbi_result Result);
+int dbi_result_has_next_row(dbi_result Result);
 int dbi_result_next_row(dbi_result Result);
 unsigned long long dbi_result_get_currow(dbi_result Result);
 unsigned long long dbi_result_get_numrows(dbi_result Result);

@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.31 2003/12/25 00:12:16 dap24 Exp $
+ * $Id: dbi_result.c,v 1.32 2003/12/25 00:42:23 dap24 Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -73,7 +73,12 @@ int dbi_result_seek_row(dbi_result Result, unsigned long long row) {
 	dbi_result_t *result = Result;
 	int retval;
 
-	if (!result || (result->result_state == NOTHING_RETURNED) || (row <= 0) || (row > result->numrows_matched)) return 0;
+	if (!result) return 0;
+	
+	if ((result->result_state == NOTHING_RETURNED) || (row <= 0) || (row > result->numrows_matched)) {
+		_error_handler(result->conn, DBI_ERROR_BADIDX);
+		return 0;
+	}
 
 	if (_is_row_fetched(result, row) == 1) {
 		/* jump right to it */
@@ -107,20 +112,38 @@ int dbi_result_last_row(dbi_result Result) {
 	return dbi_result_seek_row(Result, dbi_result_get_numrows(Result));
 }
 
+int dbi_result_has_prev_row(dbi_result Result) {
+	dbi_result_t *result = Result;
+	if (!result) return 0;
+	if ((result->result_state == NOTHING_RETURNED) || (result->currowidx <= 1)) {
+		return 0;
+	}
+	return 1;
+}
+
 int dbi_result_prev_row(dbi_result Result) {
 	dbi_result_t *result = Result;
 	if (!result) return 0;
-	if (result->currowidx <= 1) {
+	if (!dbi_result_has_prev_row(Result)) {
 		_error_handler(result->conn, DBI_ERROR_BADIDX);
 		return 0;
 	}
 	return dbi_result_seek_row(Result, result->currowidx-1);
 }
 
+int dbi_result_has_next_row(dbi_result Result) {
+	dbi_result_t *result = Result;
+	if (!result) return 0;
+	if ((result->result_state == NOTHING_RETURNED) || (result->currowidx >= dbi_result_get_numrows(Result))) {
+		return 0;
+	}
+	return 1;
+}
+
 int dbi_result_next_row(dbi_result Result) {
 	dbi_result_t *result = Result;
 	if (!result) return 0;
-	if (result->currowidx >= dbi_result_get_numrows(Result)) {
+	if (!dbi_result_has_next_row(Result)) {
 		_error_handler(result->conn, DBI_ERROR_BADIDX);
 		return 0;
 	}
