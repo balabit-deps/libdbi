@@ -16,6 +16,19 @@ The plugin architecture allows for new database drivers to be easily added by a
 third party with flexbile licensing.
 
 
+INSTALLATION:
+-------------
+
+Perform the regular ./configure, make, make install. See INSTALL for the
+generic details of each step. Some of the libdbi-specific options to configure
+that may interest you are: --with-mysql, --with-pgsql. These will enable
+compilation of specific database drivers, of which you will need at least one
+to make libdbi do anything useful. See ./configure --help for more libdbi
+configuration options.
+
+If you are building the Win32 port, see README.win32.
+
+
 FEATURES:
 ---------
 
@@ -118,5 +131,5 @@ http://libdbi.sourceforge.net
 David A. Parker <david@neongoat.com>
 Mark M. Tobenkin <mark@brentwoodradio.com>
 
-$Id: README,v 1.6 2002/06/14 22:29:06 dap Exp $
+$Id: README,v 1.7 2002/06/19 01:23:32 dap Exp $
 

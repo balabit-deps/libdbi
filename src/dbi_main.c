@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.33 2002/06/14 23:56:18 dap Exp $
+ * $Id: dbi_main.c,v 1.34 2002/06/19 01:23:33 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -409,7 +409,7 @@ int dbi_conn_error(dbi_conn Conn, const char **errmsg_dest) {
 		number_portion[0] = '\0';
 	}
 
-	asprintf(&errmsg, "%s%s", number_portion, conn->error_message);
+	asprintf(&errmsg, "%s%s", number_portion, conn->error_message ? conn->error_message : "");
 	*errmsg_dest = errmsg;
 
 	return conn->error_number;
