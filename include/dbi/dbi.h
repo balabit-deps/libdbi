@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.20 2001/08/23 20:16:45 dap24 Exp $
+ * $Id: dbi.h,v 1.21 2001/10/15 01:48:58 mmt Exp $
  */
 
 #ifndef __DBI_H__
@@ -92,6 +92,7 @@ int dbi_driver_error(dbi_driver Driver, char **errmsg_dest);
 void dbi_driver_error_handler(dbi_driver Driver, void *function, void *user_argument);
 
 int dbi_driver_connect(dbi_driver Driver);
+int dbi_driver_get_socket(dbi_driver Driver);
 dbi_result dbi_driver_get_db_list(dbi_driver Driver, const char *pattern);
 dbi_result dbi_driver_get_table_list(dbi_driver Driver, const char *db);
 dbi_result dbi_driver_query(dbi_driver Driver, const char *formatstr, ...); 
