@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.48 2003/12/25 01:09:36 dap24 Exp $
+ * $Id: dbi.h,v 1.49 2003/12/25 01:13:50 dap24 Exp $
  */
 
 #ifndef __DBI_H__
@@ -100,7 +100,7 @@ dbi_driver dbi_driver_open(const char *name); /* goes thru linked list until it 
 int dbi_driver_is_reserved_word(dbi_driver Driver, const char *word);
 void *dbi_driver_specific_function(dbi_driver Driver, const char *name);
 int dbi_driver_quote_string(dbi_driver Driver, const char *orig, char **newstr);
-int dbi_driver_quote_string_in_place(dbi_driver Driver, char **orig);
+int dbi_driver_quote_string_inplace(dbi_driver Driver, char **orig);
 int dbi_driver_cap_get(dbi_driver Driver, const char *capname);
 
 const char *dbi_driver_get_name(dbi_driver Driver);

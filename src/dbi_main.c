@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.54 2003/12/25 01:09:36 dap24 Exp $
+ * $Id: dbi_main.c,v 1.55 2003/12/25 01:13:50 dap24 Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -358,7 +358,7 @@ int dbi_driver_quote_string(dbi_driver Driver, const char *orig, char **newquote
 	return newlen;
 }
 
-int dbi_driver_quote_string_in_place(dbi_driver Driver, char **orig) {
+int dbi_driver_quote_string_inplace(dbi_driver Driver, char **orig) {
 	char *temp = NULL;
 	char *newstr = NULL;
 	int newlen;
