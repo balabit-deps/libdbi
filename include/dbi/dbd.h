@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd.h,v 1.12 2002/03/29 03:57:54 dap Exp $
+ * $Id: dbd.h,v 1.13 2002/06/14 01:42:12 dap Exp $
  */
 
 #ifndef __DBD_H__
@@ -54,6 +54,8 @@ dbi_row_t *_dbd_row_allocate(unsigned int numfields);
 void _dbd_row_finalize(dbi_result_t *result, dbi_row_t *row, unsigned int idx);
 void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int errno);
 dbi_result_t *_dbd_result_create_from_stringarray(dbi_conn_t *conn, unsigned int numrows_matched, const char **stringarray);
+void _dbd_register_driver_cap(dbi_driver_t *driver, const char *capname, int value);
+void _dbd_register_conn_cap(dbi_conn_t *conn, const char *capname, int value);
 
 #ifdef __cplusplus
 }

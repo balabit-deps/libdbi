@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.19 2002/06/14 00:28:53 dap Exp $
+ * $Id: dbi_result.c,v 1.20 2002/06/14 01:42:12 dap Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -308,7 +308,6 @@ unsigned long dbi_result_get_field_attribs_idx(dbi_result Result, unsigned int i
 
 int dbi_result_free(dbi_result Result) {
 	dbi_result_t *result = Result;
-	int idx = 0;
 	int retval;
 	if (!result) return -1;
 	
@@ -404,7 +403,7 @@ static void _free_result_rows(dbi_result_t *result) {
 		if (!result->rows[rowidx]) continue;
 			
 		for (fieldidx = 0; fieldidx < result->numfields; fieldidx++) {
-			if ((result->field_types[fieldidx] == DBI_TYPE_STRING) || (result->field_types[fieldidx] == DBI_TYPE_BINARY) && result->rows[rowidx]->field_values[fieldidx].d_string) {
+			if (((result->field_types[fieldidx] == DBI_TYPE_STRING) || (result->field_types[fieldidx] == DBI_TYPE_BINARY)) && result->rows[rowidx]->field_values[fieldidx].d_string) {
 				free(result->rows[rowidx]->field_values[fieldidx].d_string);
 			}
 		}

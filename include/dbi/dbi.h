@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.30 2002/06/14 00:28:53 dap Exp $
+ * $Id: dbi.h,v 1.31 2002/06/14 01:42:12 dap Exp $
  */
 
 #ifndef __DBI_H__
@@ -73,6 +73,7 @@ dbi_driver dbi_driver_open(const char *name); /* goes thru linked list until it 
 int dbi_driver_is_reserved_word(dbi_driver Driver, const char *word);
 void *dbi_driver_specific_function(dbi_driver Driver, const char *name);
 int dbi_driver_quote_string(dbi_driver Driver, char **orig);
+int dbi_driver_cap_get(dbi_driver Driver, const char *capname);
 
 const char *dbi_driver_get_name(dbi_driver Driver);
 const char *dbi_driver_get_filename(dbi_driver Driver);
@@ -92,6 +93,7 @@ int dbi_conn_get_option_numeric(dbi_conn Conn, const char *key);
 const char *dbi_conn_get_option_list(dbi_conn Conn, const char *current); /* returns key of next option, or the first option key if current is NULL */
 void dbi_conn_clear_option(dbi_conn Conn, const char *key);
 void dbi_conn_clear_options(dbi_conn Conn);
+int dbi_conn_cap_get(dbi_conn Conn, const char *capname);
 void dbi_conn_close(dbi_conn Conn);
 
 int dbi_conn_error(dbi_conn Conn, const char **errmsg_dest);
