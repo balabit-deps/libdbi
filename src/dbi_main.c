@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.39 2002/10/21 06:47:16 dap Exp $
+ * $Id: dbi_main.c,v 1.40 2002/10/26 23:19:46 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -175,7 +175,7 @@ int dbi_driver_is_reserved_word(dbi_driver Driver, const char *word) {
 	if (!driver) return 0;
 	
 	while (driver->reserved_words[idx]) {
-		if (strcasecmp(word, driver->reserved_words[idx++]) == 0) {
+		if (strcasecmp(word, driver->reserved_words[idx]) == 0) {
 			return 1;
 		}
 		idx++;
