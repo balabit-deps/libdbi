@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.16 2002/06/14 22:08:22 dap Exp $
+ * $Id: dbd_helper.c,v 1.17 2002/06/14 23:29:25 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -41,7 +41,7 @@ static _capability_t *_find_or_create_conn_cap(dbi_conn_t *conn, const char *cap
 int _dbd_result_add_to_conn(dbi_result_t *result) {
 	dbi_conn_t *conn = result->conn;
 	
-	if (conn->resuls_size < conn->results_used+1) {
+	if (conn->results_size < conn->results_used+1) {
 		dbi_result_t **results = (dbi_result_t **) realloc(conn->results, sizeof(dbi_result_t *) * (conn->results_size+1));
 		if (!results) {
 			return 0;
