@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.8 2001/07/18 21:39:50 dap24 Exp $
+ * $Id: dbi_main.c,v 1.9 2001/07/19 08:15:25 dap24 Exp $
  */
 
 #include <stdio.h>
@@ -278,6 +278,12 @@ void dbi_driver_close(dbi_driver Driver) {
 	driver->error_handler = NULL;
 	driver->error_handler_argument = NULL;
 	free(driver);
+}
+
+dbi_plugin dbi_driver_get_plugin(dbi_driver Driver) {
+	dbi_driver_t *driver = Driver;
+	if (!driver) return NULL;
+	return driver->plugin;
 }
 
 int dbi_driver_error(dbi_driver Driver, char *errmsg_dest) {

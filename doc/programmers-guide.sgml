@@ -12,7 +12,7 @@
 
 <BookInfo>
 	<Title>Database Independent Abstraction Layer for C</Title>
-	<SubTitle>libdbi Developer's Guide</SubTitle>
+	<SubTitle>libdbi Programmer's Guide</SubTitle>
 	<Author>
 		<Firstname>David</Firstname>
 		<Othername>A.</Othername>
@@ -22,7 +22,7 @@
 			<Address><EMail>david@neongoat.com</EMail></Address>
 		</Affiliation>
 	</Author>
-	<Edition>Document revision: $Id: programmers-guide.sgml,v 1.6 2001/07/18 21:39:50 dap24 Exp $</Edition>
+	<Edition>Document revision: $Id: programmers-guide.sgml,v 1.7 2001/07/19 08:15:25 dap24 Exp $</Edition>
 	<PubDate>June 11, 2001</PubDate>
 	<Copyright>
 		<Year>2001</Year>

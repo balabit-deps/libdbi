@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.3 2001/07/18 21:39:50 dap24 Exp $
+ * $Id: dbi_result.c,v 1.4 2001/07/19 08:15:25 dap24 Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -181,6 +181,12 @@ int dbi_result_free(dbi_result Result) {
 		_error_handler(result->driver);
 	}
 	return retval;
+}
+
+dbi_driver dbi_result_get_driver(dbi_result Result) {
+	dbi_result_t *result = Result;
+	if (!result) return NULL;
+	return result->driver;
 }
 
 /* RESULT: mass retrieval functions */

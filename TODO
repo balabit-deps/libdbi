@@ -1,11 +1,8 @@
-$Id: TODO,v 1.4 2001/07/18 21:39:50 dap24 Exp $
+$Id: TODO,v 1.5 2001/07/19 08:15:24 dap24 Exp $
 
 ** PRE-RELEASE TODO: **
-- review reference section of docs
-- add packaging for postgresql plugin
-- make noted changes to debian packaging
-- finish libdbi website
-- dbi_driver_get_plugin(), dbi_result_get_driver(), other accessors?
+- finish mysql and pgsql plugins
+- finish plugins/ dir on libdbi website
 
 - revamp error handling
 - _dbd_* plugin authors' convenience library
