@@ -1,5 +1,6 @@
 /*
- *
+ * ripped from gcc
+ * $Id: asprintf.c,v 1.2 2002/03/26 03:42:41 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
