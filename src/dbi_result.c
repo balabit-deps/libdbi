@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.17 2002/03/29 03:57:54 dap Exp $
+ * $Id: dbi_result.c,v 1.18 2002/03/29 05:02:14 dap Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -350,8 +350,7 @@ static void _free_result_rows(dbi_result_t *result) {
 			
 		for (fieldidx = 0; fieldidx < result->numfields; fieldidx++) {
 			if ((result->field_types[fieldidx] == DBI_TYPE_STRING) || (result->field_types[fieldidx] == DBI_TYPE_BINARY) && result->rows[rowidx]->field_values[fieldidx].d_string) {
-					free(result->rows[rowidx]->field_values[fieldidx].d_string);
-				}
+				free(result->rows[rowidx]->field_values[fieldidx].d_string);
 			}
 		}
 		

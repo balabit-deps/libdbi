@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.12 2002/03/29 04:49:35 dap Exp $
+ * $Id: dbd_helper.c,v 1.13 2002/03/29 05:02:14 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -145,10 +145,11 @@ dbi_result_t *_dbd_result_create_from_stringarray(dbi_conn_t *conn, unsigned int
 	/* then alloc a row, set row's data, and finalize (for each row) */
 	for (currow = 0; currow < numrows_matched; currow++) {
 		dbi_row_t *row = _dbd_row_allocate(numfields);
-		row->field_values[0]->d_string = strdup(stringarray[currow]);
+		row->field_values[0].d_string = strdup(stringarray[currow]);
 		row->field_sizes[0] = strlen(stringarray[currow]);
 		_dbd_row_finalize(result, row, 0);
 	}
 	
 	return result;
 }
+
