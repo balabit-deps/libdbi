@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.40 2002/12/20 06:00:15 dap Exp $
+ * $Id: dbi.h,v 1.41 2002/12/20 06:23:28 dap Exp $
  */
 
 #ifndef __DBI_H__
@@ -123,6 +123,7 @@ int dbi_result_first_row(dbi_result Result);
 int dbi_result_last_row(dbi_result Result);
 int dbi_result_prev_row(dbi_result Result);
 int dbi_result_next_row(dbi_result Result);
+unsigned long long dbi_result_get_currow(dbi_result Result);
 unsigned long long dbi_result_get_numrows(dbi_result Result);
 unsigned long long dbi_result_get_numrows_affected(dbi_result Result);
 unsigned long long dbi_result_get_field_size(dbi_result Result, const char *fieldname);

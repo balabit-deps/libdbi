@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.27 2002/12/20 04:52:17 dap Exp $
+ * $Id: dbi_result.c,v 1.28 2002/12/20 06:23:28 dap Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -126,6 +126,12 @@ int dbi_result_next_row(dbi_result Result) {
 		return 0;
 	}
 	return dbi_result_seek_row(Result, result->currowidx+1);
+}
+
+unsigned long long dbi_result_get_currow(dbi_result Result) {
+	dbi_result_t *result = Result;
+	if (!result) return 0;
+	return result->currowidx;
 }
 
 unsigned long long dbi_result_get_numrows(dbi_result Result) {
