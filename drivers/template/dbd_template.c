@@ -21,8 +21,18 @@
  * Copyright (C) 2001, Herbert Z. Bartholemew <hbz@bombdiggity.net>.
  * http://www.bombdiggity.net/~hzb/dbd_template/
  * 
- * $Id: dbd_template.c,v 1.9 2001/07/11 22:19:40 dap24 Exp $
+ * $Id: dbd_template.c,v 1.10 2001/07/20 01:40:19 dap24 Exp $
  */
+
+
+/* XXX XXX XXX
+ *
+ * BEWARE PLUGIN AUTHORS! THIS CODE IS OUT OF DATE! USE THE POSTGRESQL OR MYSQL
+ * CODE AS AN EXAMPLE INSTEAD!
+ *
+ * XXX XXX XXX */
+
+
 
 #include <stdio.h>
 #include <stdlib.h>
