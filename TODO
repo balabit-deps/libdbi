@@ -1,4 +1,7 @@
-$Id: TODO,v 1.10 2002/08/07 06:50:16 dap Exp $
+$Id: TODO,v 1.11 2003/03/28 21:53:53 dap24 Exp $
+
+- add a pkg-config thingy
+- go through the rest of this todo and remove stuff that's done
 
 - ability to completely disjoin result sets
 - prepared statements!
