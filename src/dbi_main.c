@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.25 2002/03/26 04:18:31 dap Exp $
+ * $Id: dbi_main.c,v 1.26 2002/03/29 03:57:54 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -540,13 +540,13 @@ dbi_result dbi_conn_get_db_list(dbi_conn Conn, const char *pattern) {
 	return (dbi_result)result;
 }
 
-dbi_result dbi_conn_get_table_list(dbi_conn Conn, const char *db) {
+dbi_result dbi_conn_get_table_list(dbi_conn Conn, const char *db, const char *pattern) {
 	dbi_conn_t *conn = Conn;
 	dbi_result_t *result;
 	
 	if (!conn) return NULL;
 	
-	result = conn->driver->functions->list_tables(conn, db);
+	result = conn->driver->functions->list_tables(conn, db, pattern);
 	
 	if (result == NULL) {
 		_error_handler(conn);

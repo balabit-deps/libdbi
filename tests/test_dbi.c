@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
 	const char *errmsg;
 	int numdrivers;
 
-	printf("\nlibdbi test program: $Id: test_dbi.c,v 1.14 2002/02/16 18:57:35 dap Exp $\nLibrary version: %s\n\n", dbi_version());
+	printf("\nlibdbi test program: $Id: test_dbi.c,v 1.15 2002/03/29 03:57:54 dap Exp $\nLibrary version: %s\n\n", dbi_version());
 	
 	printf("libdbi driver directory? [%s] ", DBI_DRIVER_DIR);
 	fgets(driverdir, 256, stdin);
@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
 
 	printf("\nSuccessfully connected! Available tables: \n\t");
 	
-	if ((result = dbi_conn_get_table_list(conn, dbname)) == NULL) {
+	if ((result = dbi_conn_get_table_list(conn, dbname, NULL)) == NULL) {
 		dbi_conn_error(conn, &errmsg);
 		printf("AAH! Can't get table list! Error message: %s\n", errmsg);
 		dbi_conn_close(conn);
