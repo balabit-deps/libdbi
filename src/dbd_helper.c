@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.2 2001/07/21 22:15:07 dap24 Exp $
+ * $Id: dbd_helper.c,v 1.3 2001/07/31 00:42:40 dap24 Exp $
  */
 
 #include <stdio.h>
@@ -80,5 +80,24 @@ dbi_row_t *_dbd_row_allocate(unsigned int numfields, unsigned int has_string_fie
 void _dbd_row_finalize(dbi_result_t *result, dbi_row_t *row, unsigned int idx) {
 	/* rowidx is one-based in the DBI user level */
 	result->rows[idx+1] = row;
+}
+
+unsigned long _dbd_isolate_attrib(unsigned long attribs, unsigned long rangemin, unsigned rangemax) {
+	/* hahaha! who woulda ever thunk strawberry's code would come in handy? */
+	unsigned short startbit = log(rangemin)/log(2);
+	unsigned short endbit = log(rangemax)/log(2);
+	//unsigned short numbits = sizeof(attribs) * 8;
+	unsigned long attrib_mask = 0;
+	int x;
+	
+/*	// XXX there's probably a better way to do this
+	for (x = 0; x < numbits-endbit+1; x++) attribs <<= 1;
+	for (x = 0; x < numbits-endbit+1; x++) attribs >>= 1;
+	for (x = 0; x < startbit; x++) attribs >>= 1; */
+
+	for (x = startbit; x <= endbit; x++)
+		attrib_mask |= (unsigned long) pow(2, x);
+
+	return (attribs & attrib_mask);
 }
 
