@@ -21,7 +21,7 @@
  * Copyright (C) 2001, Herbert Z. Bartholemew <hbz@bombdiggity.net>.
  * http://www.bombdiggity.net/~hzb/dbd_template/
  * 
- * $Id: dbd_template.c,v 1.8 2001/07/11 18:05:18 dap24 Exp $
+ * $Id: dbd_template.c,v 1.9 2001/07/11 22:19:40 dap24 Exp $
  */
 
 #include <stdio.h>
@@ -29,8 +29,7 @@
 #include <string.h>
 
 #include <dbi/dbi.h>
-#include "../../src/dbi_main.h"
-/* any database library includes */
+#include <dbi/dbi-dev.h>
 
 
 /*******************************

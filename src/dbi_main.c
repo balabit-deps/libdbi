@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.6 2001/07/11 18:35:26 dap24 Exp $
+ * $Id: dbi_main.c,v 1.7 2001/07/11 22:19:40 dap24 Exp $
  */
 
 #include <stdio.h>
@@ -33,7 +33,7 @@
 #include <limits.h>
 
 #include <dbi/dbi.h>
-#include "dbi_main.h"
+#include <dbi/dbi-dev.h>
 
 #define LIBDBI_VERSION "0.5"
 

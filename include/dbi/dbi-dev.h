@@ -17,11 +17,11 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.h,v 1.1 2001/07/11 18:05:18 dap24 Exp $
+ * $Id: dbi-dev.h,v 1.1 2001/07/11 22:19:40 dap24 Exp $
  */
 
-#ifndef __DBI_MAIN_H__
-#define __DBI_MAIN_H__
+#ifndef __DBI_DEV_H__
+#define __DBI_DEV_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -145,4 +145,4 @@ typedef struct dbi_driver_s {
 }
 #endif /* __cplusplus */
 
-#endif	/* __DBI_MAIN_H__ */
+#endif	/* __DBI_DEV_H__ */

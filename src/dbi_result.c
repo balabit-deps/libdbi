@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.1 2001/07/11 18:05:18 dap24 Exp $
+ * $Id: dbi_result.c,v 1.2 2001/07/11 22:19:40 dap24 Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -31,7 +31,7 @@
 #include <limits.h>
 
 #include <dbi/dbi.h>
-#include "dbi_main.h"
+#include <dbi/dbi-dev.h>
 
 extern void _error_handler(dbi_driver_t *driver);
 
@@ -201,9 +201,9 @@ static int _parse_field_formatstr(const char *format, char ***tokens_dest, char 
 	do {
 		temp2 = strchr(chunk, '.');
 		if (!temp2) continue;
-		fieldtype = chunk+1; /* ignore the % */
+		fieldname = chunk;
 		*temp2 = '\0';
-		fieldname = (temp2+1);
+		fieldtype = (temp2+2); /* ignore the % */
 
 		/* XXX allocate and dup */
 		tokens = realloc(tokens, sizeof(tokens)+sizeof(char *));
