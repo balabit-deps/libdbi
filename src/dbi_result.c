@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.30 2003/06/21 21:36:19 dap24 Exp $
+ * $Id: dbi_result.c,v 1.31 2003/12/25 00:12:16 dap24 Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -86,6 +86,7 @@ int dbi_result_seek_row(dbi_result Result, unsigned long long row) {
 	retval = result->conn->driver->functions->goto_row(result, row-1);
 	if (retval == -1) {
 		_error_handler(result->conn, DBI_ERROR_DBD);
+		return -1;
 	}
 	retval = result->conn->driver->functions->fetch_row(result, row-1);
 	if (retval == 0) {
