@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.17 2002/06/14 01:42:12 dap Exp $
+ * $Id: dbi-dev.h,v 1.18 2002/06/14 04:20:21 dap Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -121,6 +121,8 @@ typedef struct dbi_functions_s {
 	int (*quote_string)(dbi_driver_t_pointer, const char *, char *);
 	char *(*select_db)(dbi_conn_t_pointer, const char *);
 	int (*geterror)(dbi_conn_t_pointer, int *, char **);
+	unsigned long long (*get_seq_last)(dbi_conn_t_pointer, const char *);
+	unsigned long long (*get_seq_next)(dbi_conn_t_pointer, const char *);
 } dbi_functions_t;
 
 typedef struct dbi_custom_function_s {
