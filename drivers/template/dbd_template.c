@@ -21,7 +21,7 @@
  * Copyright (C) 2001, Herbert Z. Bartholemew <hbz@bombdiggity.net>.
  * http://www.bombdiggity.net/~hzb/dbd_template/
  * 
- * $Id: dbd_template.c,v 1.2 2001/03/29 04:29:23 mmt Exp $
+ * $Id: dbd_template.c,v 1.3 2001/03/29 08:34:35 mmt Exp $
  */
 
 #include <stdio.h>
@@ -72,7 +72,7 @@ int dbd_connect(dbi_driver_t *myself) {
 	return 0;
 }
 
-int dbd_fetch_field(dbi_result_t *result, const char *key, void *dest) {
+int dbd_fetch_field(dbi_result_t *result, const char *key, void *&dest) {
 	/* grab the value in the field, convert it to the
 	 * appropriate C datatype, and stuff it into dest */
 	return 0;
