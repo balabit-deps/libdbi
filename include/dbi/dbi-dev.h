@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.24 2002/12/03 08:25:33 dap Exp $
+ * $Id: dbi-dev.h,v 1.25 2002/12/20 06:36:35 dap Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -67,7 +67,7 @@ typedef struct dbi_result_s {
 	unsigned short *field_types;
 	unsigned long *field_attribs;
 
-	enum { NOTHING_RETURNED, ROWS_RETURNED, GETTING_ROWS } result_state; /* nothing_returned: wasn't a SELECT query. returns_rows: select, but no rows fetched yet. getting_rows: select, at least one row has been fetched */
+	enum { NOTHING_RETURNED, ROWS_RETURNED } result_state;
 	dbi_row_t **rows; /* array of filled rows, elements set to NULL if not fetched yet */
 	unsigned long long currowidx;
 } dbi_result_t;
