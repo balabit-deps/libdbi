@@ -1,6 +1,6 @@
 
 libdbi - Database Independent Abstraction Layer for C
-Copyright (C) 2001, David Parker and Mark Tobenkin.
+Copyright (C) 2001-2002, David Parker and Mark Tobenkin.
 http://libdbi.sourceforge.net
 
 
@@ -33,5 +33,5 @@ details.
 See the file COPYING or http://www.gnu.org for more details.
 
 
-$Id: README.win32,v 1.1 2001/08/23 20:16:45 dap24 Exp $
+$Id: README.win32,v 1.2 2002/01/29 05:59:39 dap Exp $
 

@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.24 2002/01/28 22:32:06 dap Exp $
+ * $Id: dbi.h,v 1.25 2002/01/29 05:59:39 dap Exp $
  */
 
 #ifndef __DBI_H__
@@ -29,6 +29,7 @@ extern "C" {
 
 #include <stdlib.h>
 #include <stdarg.h>
+#include <time.h>
 
 /* opaque type definitions */
 typedef void * dbi_driver;
