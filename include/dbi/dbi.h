@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.50 2004/01/03 17:22:52 mhoenicka Exp $
+ * $Id: dbi.h,v 1.51 2004/08/25 08:01:42 dap24 Exp $
  */
 
 #ifndef __DBI_H__
@@ -89,6 +89,10 @@ typedef void (*dbi_conn_error_handler_func)(dbi_conn, void *);
 
 #define DBI_DATETIME_DATE		(1 << 0)
 #define DBI_DATETIME_TIME		(1 << 1)
+
+/* values for the bitmask in field_flags (unique to each row) */
+#define DBI_VALUE_NULL			(1 << 0)
+
 
 int dbi_initialize(const char *driverdir);
 void dbi_shutdown();
@@ -170,6 +174,8 @@ unsigned long dbi_result_get_field_attrib(dbi_result Result, const char *fieldna
 unsigned long dbi_result_get_field_attrib_idx(dbi_result Result, unsigned short idx, unsigned long attribmin, unsigned long attribmax);
 unsigned long dbi_result_get_field_attribs(dbi_result Result, const char *fieldname);
 unsigned long dbi_result_get_field_attribs_idx(dbi_result Result, unsigned short idx);
+int dbi_result_field_is_null(dbi_result Result, const char *fieldname);
+int dbi_result_field_is_null_idx(dbi_result Result, unsigned short idx);
 int dbi_result_disjoin(dbi_result Result);
 
 int dbi_result_get_fields(dbi_result Result, const char *format, ...);

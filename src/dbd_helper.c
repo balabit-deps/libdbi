@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.26 2004/01/14 00:01:11 mhoenicka Exp $
+ * $Id: dbd_helper.c,v 1.27 2004/08/25 08:01:43 dap24 Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -101,6 +101,7 @@ dbi_row_t *_dbd_row_allocate(unsigned short numfields) {
 	if (!row) return NULL;
 	row->field_values = calloc(numfields, sizeof(dbi_data_t));
 	row->field_sizes = calloc(numfields, sizeof(unsigned long long));
+	row->field_flags = calloc(numfields, sizeof(unsigned char));
 	return row;
 }
 

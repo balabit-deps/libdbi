@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.32 2003/12/25 00:42:23 dap24 Exp $
+ * $Id: dbi_result.c,v 1.33 2004/08/25 08:01:43 dap24 Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -330,6 +330,51 @@ unsigned long dbi_result_get_field_attribs_idx(dbi_result Result, unsigned short
 	}
 
 	return result->field_attribs[idx];
+}
+
+void _set_field_flag(dbi_row_t *row, unsigned short fieldidx, unsigned char flag, unsigned char value) {
+	unsigned char *flags = &row->field_flags[fieldidx];
+	*flags &= ~flag; // set that bit to 0
+	if (value) {
+		*flags |= flag; // if value = 1, set the flag
+	}
+}
+
+int _get_field_flag(dbi_row_t *row, unsigned short fieldidx, unsigned char flag) {
+	return (row->field_flags[fieldidx] & flag) ? 1 : 0;
+}
+
+int dbi_result_field_is_null(dbi_result Result, const char *fieldname) {
+	dbi_result_t *result = Result;
+	short idx = 0;
+
+	if (!result) return 0;
+	idx = _find_field(result, fieldname);
+	if (idx < 0) {
+		_error_handler(result->conn, DBI_ERROR_BADNAME);
+		return 0;
+	}
+
+	return dbi_result_field_is_null_idx(Result, idx+1);
+}
+
+int dbi_result_field_is_null_idx(dbi_result Result, unsigned short idx) {
+	dbi_result_t *result = Result;
+	unsigned long long currowidx;
+	idx--;
+	
+	if (!result || !result->rows) return 0;
+	currowidx = result->currowidx;
+	if (!result->rows[currowidx] || !result->rows[currowidx]->field_flags) {
+		_error_handler(result->conn, DBI_ERROR_BADOBJECT);
+		return 0;
+	}
+	if (idx >= result->numfields) {
+		_error_handler(result->conn, DBI_ERROR_BADIDX);
+		return 0;
+	}
+
+	return _get_field_flag(result->rows[currowidx], idx, DBI_VALUE_NULL);
 }
 
 int _disjoin_from_conn(dbi_result_t *result) {
