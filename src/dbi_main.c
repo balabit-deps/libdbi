@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.18 2001/08/23 20:16:46 dap24 Exp $
+ * $Id: dbi_main.c,v 1.19 2001/08/24 00:57:54 dap24 Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -788,21 +788,4 @@ unsigned long _isolate_attrib(unsigned long attribs, unsigned long rangemin, uns
 
 	return (attribs & attrib_mask);
 }
-
-#ifndef HAVE_ATOLL
-long long int atoll(const char *nptr) {
-	long long int tmp = 0;
-	int curpos;
-	int base10 = 0;
-	char fakestr[2];
-	
-	if (!str || strlen(nptr) < 1) return 0;
-	fakestr[1] = '\0';
-	for (curpos = strlen(nptr)-1; curpos >= 0; curpos--,base10++) {
-		fakestr[0] = nptr[curpos];
-		tmp += atol(fakestr) * (long)pow(10, base10);
-	}
-	return tmp;
-}
-#endif
 
