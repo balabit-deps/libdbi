@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.28 2002/03/29 03:57:54 dap Exp $
+ * $Id: dbi.h,v 1.29 2002/03/29 04:49:35 dap Exp $
  */
 
 #ifndef __DBI_H__
@@ -35,6 +35,9 @@ extern "C" {
 typedef void * dbi_driver;
 typedef void * dbi_conn;
 typedef void * dbi_result;
+
+/* function callback definitions */
+typedef void (*dbi_conn_error_handler_func)(dbi_conn, void *);
 
 /* values for the int in field_types[] */
 #define DBI_TYPE_INTEGER 1
@@ -90,7 +93,7 @@ void dbi_conn_clear_options(dbi_conn Conn);
 void dbi_conn_close(dbi_conn Conn);
 
 int dbi_conn_error(dbi_conn Conn, const char **errmsg_dest);
-void dbi_conn_error_handler(dbi_conn Conn, void *function, void *user_argument);
+void dbi_conn_error_handler(dbi_conn Conn, dbi_conn_error_handler_func function, void *user_argument);
 
 int dbi_conn_connect(dbi_conn Conn);
 int dbi_conn_get_socket(dbi_conn Conn);

@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.14 2002/03/29 03:57:54 dap Exp $
+ * $Id: dbi-dev.h,v 1.15 2002/03/29 04:49:35 dap Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -26,6 +26,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include <dbi/dbi.h> /* for dbi_conn_error_handler_func */
 
 /*********************
  * SQL RELATED TYPES *
@@ -138,7 +140,7 @@ typedef struct dbi_conn_s {
 	char *current_db;
 	int error_number; /*XXX*/
 	char *error_message; /*XXX*/
-	void *error_handler;
+	dbi_conn_error_handler_func error_handler;
 	void *error_handler_argument;
 	struct dbi_conn_s *next; /* so libdbi can unload all conns at exit */
 } dbi_conn_t;
