@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.19 2002/10/25 22:16:51 dap Exp $
+ * $Id: dbd_helper.c,v 1.20 2003/06/17 06:34:19 dap24 Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -251,3 +251,39 @@ static _capability_t *_find_or_create_conn_cap(dbi_conn_t *conn, const char *cap
 
 	return cap;
 }
+
+time_t _dbd_parse_datetime(const char *raw, unsigned long attribs) {
+	struct tm unixtime;
+	char *unparsed;
+	char *cur;
+
+	unixtime.tm_sec = unixtime.tm_min = unixtime.tm_hour = 0;
+	unixtime.tm_mday = unixtime.tm_mon = unixtime.tm_year = 0;
+	unixtime.tm_isdst = -1;
+	
+	if (raw && (unparsed = strdup(raw)) != NULL) {
+	cur = unparsed;
+	if (strlen(cur) > 10 && attribs & DBI_DATETIME_DATE) {
+		cur[4] = '\0';
+		cur[7] = '\0';
+		cur[10] = '\0';
+		unixtime.tm_year = atoi(cur)-1900;
+		unixtime.tm_mon = atoi(cur+5)-1; /* months are 0 through 11 */
+		unixtime.tm_mday = atoi(cur+8);
+		if (attribs & DBI_DATETIME_TIME) cur += 11;
+	}
+	
+	if (strlen(cur) > 5 && attribs & DBI_DATETIME_TIME) {
+		cur[2] = '\0';
+		cur[5] = '\0';
+		unixtime.tm_hour = atoi(cur);
+		unixtime.tm_min = atoi(cur+3);
+		unixtime.tm_sec = atoi(cur+6);
+	}
+
+	free(unparsed);
+	}
+
+	return mktime(&unixtime);
+}
+
