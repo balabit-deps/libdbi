@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.10 2001/07/20 01:23:22 dap24 Exp $
+ * $Id: dbi_main.c,v 1.11 2001/07/20 23:38:43 dap24 Exp $
  */
 
 #include <stdio.h>
@@ -501,16 +501,6 @@ dbi_result dbi_driver_query(dbi_driver Driver, const char *formatstr, ...) {
 		_error_handler(driver);
 	}
 	free(statement);
-	
-	/* at this point we have a dbi_result_t newly allocated by the plugin */
-	result->driver = driver;
-	result->field_bindings = NULL;
-	result->numfields = 0;
-	result->field_names = NULL;
-	result->field_types = NULL;
-	result->field_attribs = NULL;
-	result->rows = NULL;
-	result->currowidx = 0;
 	
 	return (dbi_result)result;
 }
