@@ -17,10 +17,14 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.12 2001/08/22 21:25:48 dap24 Exp $
+ * $Id: dbi_result.c,v 1.13 2001/08/23 20:16:46 dap24 Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,8 +36,6 @@
 
 #include <dbi/dbi.h>
 #include <dbi/dbi-dev.h>
-
-#include "config.h"
 
 extern void _error_handler(dbi_driver_t *driver);
 
@@ -176,7 +178,7 @@ int dbi_result_get_field_idx(dbi_result Result, const char *fieldname) {
 
 const char *dbi_result_get_field_name(dbi_result Result, unsigned int fieldnum) {
 	dbi_result_t *result = Result;
-	if (!result || (fieldnum >= result->numfields)) return NULL;
+	if (!result || (fieldnum > result->numfields)) return NULL;
 	return (const char *) result->field_names[fieldnum-1];
 }
 

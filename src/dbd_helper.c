@@ -17,8 +17,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.5 2001/08/22 21:25:48 dap24 Exp $
+ * $Id: dbd_helper.c,v 1.6 2001/08/23 20:16:46 dap24 Exp $
  */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,8 +34,6 @@
 
 #include <dbi/dbi.h>
 #include <dbi/dbi-dev.h>
-
-#include "config.h"
 
 dbi_result_t *_dbd_result_create(dbi_driver_t *driver, void *handle, unsigned int numrows_matched, unsigned int numrows_affected) {
 	dbi_result_t *result = (dbi_result_t *) malloc(sizeof(dbi_result_t));
