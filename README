@@ -1,7 +1,6 @@
 
 libdbi - Database Independent Abstraction Layer for C
-Copyright (C) 2001, Brentwood Linux Users and Evangelists (BLUE).
-Copyright (C) David Parker and Mark Tobenkin.
+Copyright (C) 2001, David Parker and Mark Tobenkin.
 http://libdbi.sourceforge.net
 
 
@@ -45,5 +44,5 @@ http://libdbi.sourceforge.net
 David Parker <david@neongoat.com>
 Mark Tobenkin <mark@brentwoodradio.com>
 
-$Id: README,v 1.1 2001/04/04 23:09:05 dap24 Exp $
+$Id: README,v 1.2 2001/06/18 03:19:42 dap24 Exp $
 
