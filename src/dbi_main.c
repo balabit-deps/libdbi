@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.38 2002/10/21 06:21:52 dap Exp $
+ * $Id: dbi_main.c,v 1.39 2002/10/21 06:47:16 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -466,7 +466,7 @@ int dbi_conn_set_error(dbi_conn Conn, int errnum, const char *formatstr, ...) {
 
 /* DRIVER: option manipulation */
 
-int dbi_conn_set_option(dbi_conn Conn, const char *key, char *value) {
+int dbi_conn_set_option(dbi_conn Conn, const char *key, const char *value) {
 	dbi_conn_t *conn = Conn;
 	dbi_option_t *option;
 	
