@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.2 2001/07/11 22:19:40 dap24 Exp $
+ * $Id: dbi_result.c,v 1.3 2001/07/18 21:39:50 dap24 Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -84,7 +84,6 @@ int dbi_result_seek_row(dbi_result Result, unsigned int row) {
 		/* jump right to it */
 		result->currowidx = row;
 		_activate_bindings(result);
-		/* REPLAY BINDINGS */
 		return 1;
 	}
 	
@@ -92,7 +91,7 @@ int dbi_result_seek_row(dbi_result Result, unsigned int row) {
 	if (retval == -1) {
 		_error_handler(result->driver);
 	}
-	retval = result->driver->plugin->functions->fetch_row(result);
+	retval = result->driver->plugin->functions->fetch_row(result, row);
 	if (retval == -1) {
 		retval = 0;
 		_error_handler(result->driver);
