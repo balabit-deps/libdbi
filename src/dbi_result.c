@@ -1,6 +1,6 @@
 /*
  * libdbi - database independent abstraction layer for C.
- * Copyright (C) 2001-2002, David Parker and Mark Tobenkin.
+ * Copyright (C) 2001-2003, David Parker and Mark Tobenkin.
  * http://libdbi.sourceforge.net
  * 
  * This library is free software; you can redistribute it and/or
@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.29 2003/02/26 22:11:34 dap Exp $
+ * $Id: dbi_result.c,v 1.30 2003/06/21 21:36:19 dap24 Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
