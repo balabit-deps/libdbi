@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.19 2002/06/14 22:08:22 dap Exp $
+ * $Id: dbi-dev.h,v 1.20 2002/06/14 23:56:18 dap Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -161,6 +161,7 @@ typedef struct dbi_conn_s {
 
 unsigned long _isolate_attrib(unsigned long attribs, unsigned long rangemin, unsigned rangemax);
 void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag);
+int _disjoin_from_conn(dbi_result_t *result);
 
 #ifdef __cplusplus
 }
