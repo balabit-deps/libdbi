@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.25 2004/01/08 19:48:05 mhoenicka Exp $
+ * $Id: dbd_helper.c,v 1.26 2004/01/14 00:01:11 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -34,6 +34,10 @@
 
 #include <dbi/dbi.h>
 #include <dbi/dbi-dev.h>
+
+#ifndef HAVE_TIMEGM
+time_t timegm(struct tm *tm);
+#endif
 
 static _capability_t *_find_or_create_driver_cap(dbi_driver_t *driver, const char *capname);
 static _capability_t *_find_or_create_conn_cap(dbi_conn_t *conn, const char *capname);
