@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.23 2003/12/24 21:28:17 mhoenicka Exp $
+ * $Id: dbd_helper.c,v 1.24 2003/12/26 19:08:08 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -259,7 +259,9 @@ time_t _dbd_parse_datetime(const char *raw, unsigned long attribs) {
 	int check_time = 1;
 
 	unixtime.tm_sec = unixtime.tm_min = unixtime.tm_hour = 0;
-	unixtime.tm_mday = unixtime.tm_mon = unixtime.tm_year = 0;
+	unixtime.tm_mday = 1; /* days are 1 through 31 */
+	unixtime.tm_mon = 0;
+	unixtime.tm_year = 70; /* can't start before Unix epoch */
 	unixtime.tm_isdst = -1;
 	
 	if (raw && (unparsed = strdup(raw)) != NULL) {
