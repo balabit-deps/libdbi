@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.56 2004/01/03 17:23:54 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.57 2004/11/23 09:08:21 dap24 Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -469,17 +469,19 @@ int dbi_conn_error(dbi_conn Conn, const char **errmsg_dest) {
 	char number_portion[20];
 	static char *errmsg = NULL; // XXX quick hack, revisit this when API is redesigned
 
-	if (errmsg) free(errmsg);
-	
-	if (conn->error_number) {
-		snprintf(number_portion, 20, "%d: ", conn->error_number);
-	}
-	else {
-		number_portion[0] = '\0';
-	}
+	if (errmsg_dest) {
+		if (errmsg) free(errmsg);
+		
+		if (conn->error_number) {
+			snprintf(number_portion, 20, "%d: ", conn->error_number);
+		}
+		else {
+			number_portion[0] = '\0';
+		}
 
-	asprintf(&errmsg, "%s%s", number_portion, conn->error_message ? conn->error_message : "");
-	*errmsg_dest = errmsg;
+		asprintf(&errmsg, "%s%s", number_portion, conn->error_message ? conn->error_message : "");
+		*errmsg_dest = errmsg;
+	}
 
 	return conn->error_number;
 }
