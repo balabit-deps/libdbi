@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.7 2001/11/09 21:17:22 dap Exp $
+ * $Id: dbd_helper.c,v 1.8 2001/11/18 06:58:47 mmt Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -89,7 +89,7 @@ int _dbd_quote_chars(const char *toescape, const char *quotes, const char *orig,
 	strncpy(dest, orig, destsize);
 
 	while (curorig) {
-		curescaped = toescaped;
+		curescaped = toescape;
 		while (curescaped) {
 			if (*curorig == *curescaped) {
 				*curdest = '\\';
@@ -104,3 +104,4 @@ int _dbd_quote_chars(const char *toescape, const char *quotes, const char *orig,
 	}
 
 	return strlen(dest);
+}
