@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd.h,v 1.16 2002/08/07 06:50:18 dap Exp $
+ * $Id: dbd.h,v 1.17 2002/10/25 22:16:51 dap Exp $
  */
 
 #ifndef __DBD_H__
@@ -50,9 +50,9 @@ unsigned long long dbd_get_seq_next(dbi_conn_t *conn, const char *sequence);
 
 /* _DBD_* DRIVER AUTHORS HELPER FUNCTIONS */
 dbi_result_t *_dbd_result_create(dbi_conn_t *conn, void *handle, unsigned long long numrows_matched, unsigned long long numrows_affected);
-void _dbd_result_set_numfields(dbi_result_t *result, unsigned int numfields);
-void _dbd_result_add_field(dbi_result_t *result, unsigned int idx, char *name, unsigned short type, unsigned int attribs);
-dbi_row_t *_dbd_row_allocate(unsigned int numfields);
+void _dbd_result_set_numfields(dbi_result_t *result, unsigned short numfields);
+void _dbd_result_add_field(dbi_result_t *result, unsigned short idx, char *name, unsigned short type, unsigned int attribs);
+dbi_row_t *_dbd_row_allocate(unsigned short numfields);
 void _dbd_row_finalize(dbi_result_t *result, dbi_row_t *row, unsigned long long idx);
 void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int errno);
 dbi_result_t *_dbd_result_create_from_stringarray(dbi_conn_t *conn, unsigned long long numrows_matched, const char **stringarray);

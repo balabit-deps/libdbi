@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.21 2002/08/07 06:50:18 dap Exp $
+ * $Id: dbi-dev.h,v 1.22 2002/10/25 22:16:51 dap Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -62,10 +62,10 @@ typedef struct dbi_result_s {
 	unsigned long long numrows_affected;
 	_field_binding_t_pointer field_bindings;
 	
-	unsigned int numfields; /* can be zero or NULL until first fetchrow */
+	unsigned short numfields; /* can be zero or NULL until first fetchrow */
 	char **field_names;
 	unsigned short *field_types;
-	unsigned int *field_attribs;
+	unsigned long *field_attribs;
 
 	enum { NOTHING_RETURNED, ROWS_RETURNED, GETTING_ROWS } result_state; /* nothing_returned: wasn't a SELECT query. returns_rows: select, but no rows fetched yet. getting_rows: select, at least one row has been fetched */
 	dbi_row_t **rows; /* array of filled rows, elements set to NULL if not fetched yet */
