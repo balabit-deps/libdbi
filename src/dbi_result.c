@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.7 2001/07/31 00:42:40 dap24 Exp $
+ * $Id: dbi_result.c,v 1.8 2001/08/10 07:39:07 mmt Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -113,6 +113,7 @@ int dbi_result_prev_row(dbi_result Result) {
 
 int dbi_result_next_row(dbi_result Result) {
 	dbi_result_t *result = Result;
+	if(!result) return 0;
 	if (result->currowidx >= dbi_result_get_numrows(Result)) return 0;
 	return dbi_result_seek_row(Result, result->currowidx+1);
 }
