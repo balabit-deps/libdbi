@@ -22,7 +22,7 @@
 			<Address><EMail>david@neongoat.com</EMail></Address>
 		</Affiliation>
 	</Author>
-	<Edition>Document revision: $Id: programmers-guide.sgml,v 1.4 2001/07/11 18:05:18 dap24 Exp $</Edition>
+	<Edition>Document revision: $Id: programmers-guide.sgml,v 1.5 2001/07/12 01:11:46 dap24 Exp $</Edition>
 	<PubDate>June 11, 2001</PubDate>
 	<Copyright>
 		<Year>2001</Year>
@@ -70,7 +70,7 @@
 			initiallization and made available to the programmer. Once a plugin is
 			<Emphasis>instantiated</Emphasis>, it represents a distinct database session and is
 			called a <Quote>driver</Quote>. Multiple drivers may exist for a single plugin, and
-			all will function independantly of each other.
+			all will function independently of each other.
 		</Para>
 	</Section>
 	<Section id="gnugpl"><Title>Modifications and redistribution of libdbi</Title>
