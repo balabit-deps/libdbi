@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd.h,v 1.17 2002/10/25 22:16:51 dap Exp $
+ * $Id: dbd.h,v 1.18 2002/12/03 08:25:33 dap Exp $
  */
 
 #ifndef __DBD_H__
@@ -47,6 +47,7 @@ char *dbd_select_db(dbi_conn_t *conn, const char *db);
 int dbd_geterror(dbi_conn_t *conn, int *errno, char **errstr);
 unsigned long long dbd_get_seq_last(dbi_conn_t *conn, const char *sequence);
 unsigned long long dbd_get_seq_next(dbi_conn_t *conn, const char *sequence);
+int dbd_ping(dbi_conn_t *conn);
 
 /* _DBD_* DRIVER AUTHORS HELPER FUNCTIONS */
 dbi_result_t *_dbd_result_create(dbi_conn_t *conn, void *handle, unsigned long long numrows_matched, unsigned long long numrows_affected);

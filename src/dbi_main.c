@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.41 2002/11/06 00:35:34 dap Exp $
+ * $Id: dbi_main.c,v 1.42 2002/12/03 08:25:33 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -786,6 +786,15 @@ unsigned long long dbi_conn_sequence_next(dbi_conn Conn, const char *name) {
 	return result;
 }
 
+int dbi_conn_ping(dbi_conn Conn) {
+	dbi_conn_t *conn = Conn;
+	int result;
+
+	if (!conn) return 0;
+	result = conn->driver->functions->ping(conn);
+	return result;
+}
+
 /* XXX INTERNAL PRIVATE IMPLEMENTATION FUNCTIONS XXX */
 
 static dbi_driver_t *_get_driver(const char *filename) {
@@ -829,7 +838,8 @@ static dbi_driver_t *_get_driver(const char *filename) {
 			((driver->functions->select_db = dlsym(dlhandle, "dbd_select_db")) == NULL) || dlerror() ||
 			((driver->functions->geterror = dlsym(dlhandle, "dbd_geterror")) == NULL) || dlerror() ||
 			((driver->functions->get_seq_last = dlsym(dlhandle, "dbd_get_seq_last")) == NULL) || dlerror() ||
-			((driver->functions->get_seq_next = dlsym(dlhandle, "dbd_get_seq_next")) == NULL) || dlerror()
+			((driver->functions->get_seq_next = dlsym(dlhandle, "dbd_get_seq_next")) == NULL) || dlerror() ||
+			((driver->functions->ping = dlsym(dlhandle, "dbd_ping")) == NULL) || dlerror()
 			)
 		{
 			free(driver->functions);
