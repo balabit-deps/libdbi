@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
 	const char *errmsg;
 	int numdrivers;
 
-	printf("\nlibdbi test program: $Id: test_dbi.c,v 1.15 2002/03/29 03:57:54 dap Exp $\nLibrary version: %s\n\n", dbi_version());
+	printf("\nlibdbi test program: $Id: test_dbi.c,v 1.16 2002/10/16 05:58:26 dap Exp $\nLibrary version: %s\n\n", dbi_version());
 	
 	printf("libdbi driver directory? [%s] ", DBI_DRIVER_DIR);
 	fgets(driverdir, 256, stdin);
@@ -50,9 +50,9 @@ int main(int argc, char **argv) {
 	}
 	drivername[strlen(drivername)-1] = '\0';
 
-	printf("database hostname? [localhost] ");
+	printf("database hostname? [(blank for local socket if possible)] ");
 	fgets(hostname, 64, stdin);
-	if (hostname[0] == '\n') strncpy(hostname, "localhost", 63), hostname[63] = '\0';
+	if (hostname[0] == '\n') strncpy(hostname, "", 63), hostname[63] = '\0';
 	else hostname[strlen(hostname)-1] = '\0';
 	
 	printf("database username? [none] ");
