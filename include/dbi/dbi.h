@@ -18,7 +18,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.9 2001/04/04 23:09:05 dap24 Exp $
+ * $Id: dbi.h,v 1.10 2001/04/08 21:05:20 mmt Exp $
  */
 
 #ifndef __DBI_H__
@@ -44,7 +44,7 @@ typedef struct dbi_driver_s *dbi_driver_t_pointer;
 typedef struct dbi_row_s {
 	void *row_handle; /* will be typecast into driver-specific type */
 	unsigned int numfields;
-	const char **field_names;
+	char **field_names;
 	int *field_types;
 	unsigned int *field_type_attributes;
 	void **field_values;
