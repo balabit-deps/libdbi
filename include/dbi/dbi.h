@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.17 2001/08/15 07:16:43 dap24 Exp $
+ * $Id: dbi.h,v 1.18 2001/08/15 19:20:47 dap24 Exp $
  */
 
 #ifndef __DBI_H__
@@ -75,7 +75,7 @@ const char *dbi_plugin_get_url(dbi_plugin Plugin);
 const char *dbi_plugin_get_version(dbi_plugin Plugin);
 const char *dbi_plugin_get_date_compiled(dbi_plugin Plugin);
 
-int dbi_plugin_escape_string(dbi_plugin Plugin, char **orig);
+int dbi_plugin_quote_string(dbi_plugin Plugin, char **orig);
 
 dbi_driver dbi_driver_new(const char *name); /* shortcut for dbi_driver_open(dbi_plugin_open("foo")) */
 dbi_driver dbi_driver_open(dbi_plugin Plugin); /* returns an actual instance of the driver */

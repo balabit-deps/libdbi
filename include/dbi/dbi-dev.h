@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.6 2001/08/15 07:16:43 dap24 Exp $
+ * $Id: dbi-dev.h,v 1.7 2001/08/15 19:20:47 dap24 Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -142,6 +142,7 @@ typedef struct dbi_driver_s {
 } dbi_driver_t;
 
 unsigned long _isolate_attrib(unsigned long attribs, unsigned long rangemin, unsigned rangemax);
+void _error_handler(dbi_driver_t *driver);
 
 #ifdef __cplusplus
 }

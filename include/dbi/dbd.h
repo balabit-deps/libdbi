@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd.h,v 1.4 2001/08/15 07:16:43 dap24 Exp $
+ * $Id: dbd.h,v 1.5 2001/08/15 19:20:47 dap24 Exp $
  */
 
 #ifndef __DBD_H__
@@ -51,7 +51,6 @@ void _dbd_result_set_numfields(dbi_result_t *result, unsigned int numfields);
 void _dbd_result_add_field(dbi_result_t *result, unsigned int idx, char *name, unsigned short type, unsigned int attribs);
 dbi_row_t *_dbd_row_allocate(unsigned int numfields);
 void _dbd_row_finalize(dbi_result_t *result, dbi_row_t *row, unsigned int idx);
-unsigned long _dbd_isolate_attrib(unsigned long attribs, unsigned long rangemin, unsigned rangemax);
 
 #ifdef __cplusplus
 }

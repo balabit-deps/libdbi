@@ -2,18 +2,20 @@
 The following people have been involved in libdbi development:
 
 Main developers:
-* David Parker		<david@neongoat.com>
-* Mark Tobenkin		<mark@brentwoodradio.com>
+* David Parker		<david at neongoat.com>
+* Mark Tobenkin		<mark at brentwoodradio.com>
 
 Plugin developers:
-* MySQL			Mark Tobenkin <mark@brentwoodradio.com>
-* PostgreSQL	David Parker <david@neongoat.com>
+* MySQL			Mark Tobenkin <mark at brentwoodradio.com>
+* PostgreSQL	David Parker <david at neongoat.com>
 
 These people have also contributed patches or ideas, or have done testing:
+* Ryan Eatmon <reatmon at jabber.org>
+* Lars Erlandsen <lars.erlandsen at arcordia.com>
 
 Thanks:
 * Vorbis and Icecast contributors. Monty, Jack, and all the rest are coding machines.
 * The authors of libao, which clued me in to dynamic libraries.
 * Randy Jay Yarger, George Reese, and Tim King (authors of MySQL & mSQL by O'Reilly)
 
-$Id: AUTHORS,v 1.2 2001/08/04 20:37:33 dap24 Exp $
+$Id: AUTHORS,v 1.3 2001/08/15 19:20:47 dap24 Exp $

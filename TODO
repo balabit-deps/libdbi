@@ -1,9 +1,8 @@
-$Id: TODO,v 1.6 2001/08/04 21:09:54 dap24 Exp $
+$Id: TODO,v 1.7 2001/08/15 19:20:47 dap24 Exp $
 
-- create DBI unixtime intrinsic type, parse database date/time fields
-- add function to fetch row by index instead of name
+- add binding by index, mass-field functions by index
+- more sanity checking in get and get_idx functions
 - revamp error handling
-- add more accessor/convenience functinos (think gui)
 - tweak print DSSSL to shade ProgramListing content
 - plugins:
 	* msql
