@@ -5,10 +5,6 @@ Main developers:
 * David A. Parker <david at neongoat.com>
 * Mark Tobenkin <mark at brentwoodradio.com>
 
-Driver developers:
-* MySQL - Mark Tobenkin <mark at brentwoodradio.com>
-* PostgreSQL - David A. Parker <david at neongoat.com>
-
 These people have also contributed to the project:
 (if I forgot you, please let me know!)
 
@@ -47,4 +43,4 @@ Thanks:
 * The authors of libao, which clued me in to dynamic libraries.
 * Randy Jay Yarger, George Reese, and Tim King (authors of MySQL & mSQL by O'Reilly)
 
-$Id: AUTHORS,v 1.9 2002/10/26 23:19:44 dap Exp $
+$Id: AUTHORS,v 1.10 2003/03/28 19:35:43 dap24 Exp $
