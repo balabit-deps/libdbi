@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.49 2003/06/17 06:34:19 dap24 Exp $
+ * $Id: dbi_main.c,v 1.50 2003/06/19 15:31:38 dap24 Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -453,7 +453,9 @@ dbi_driver dbi_conn_get_driver(dbi_conn Conn) {
 int dbi_conn_error(dbi_conn Conn, const char **errmsg_dest) {
 	dbi_conn_t *conn = Conn;
 	char number_portion[20];
-	char *errmsg;
+	static char *errmsg = NULL; // XXX quick hack, revisit this when API is redesigned
+
+	if (errmsg) free(errmsg);
 	
 	if (conn->error_number) {
 		snprintf(number_portion, 20, "%d: ", conn->error_number);
