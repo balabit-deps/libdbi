@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.22 2003/06/21 21:36:19 dap24 Exp $
+ * $Id: dbd_helper.c,v 1.23 2003/12/24 21:28:17 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -256,32 +256,47 @@ time_t _dbd_parse_datetime(const char *raw, unsigned long attribs) {
 	struct tm unixtime;
 	char *unparsed;
 	char *cur;
+	int check_time = 1;
 
 	unixtime.tm_sec = unixtime.tm_min = unixtime.tm_hour = 0;
 	unixtime.tm_mday = unixtime.tm_mon = unixtime.tm_year = 0;
 	unixtime.tm_isdst = -1;
 	
 	if (raw && (unparsed = strdup(raw)) != NULL) {
-	cur = unparsed;
-	if (strlen(cur) > 9 && attribs & DBI_DATETIME_DATE) {
-		cur[4] = '\0';
-		cur[7] = '\0';
-		cur[10] = '\0';
-		unixtime.tm_year = atoi(cur)-1900;
-		unixtime.tm_mon = atoi(cur+5)-1; /* months are 0 through 11 */
-		unixtime.tm_mday = atoi(cur+8);
-		if (attribs & DBI_DATETIME_TIME) cur += 11;
-	}
-	
-	if (strlen(cur) > 5 && attribs & DBI_DATETIME_TIME) {
-		cur[2] = '\0';
-		cur[5] = '\0';
-		unixtime.tm_hour = atoi(cur);
-		unixtime.tm_min = atoi(cur+3);
-		unixtime.tm_sec = atoi(cur+6);
-	}
+	  cur = unparsed;
 
-	free(unparsed);
+	  /* this code assumes the following input in cur: */
+	  /* DATE: YYYY-MM-DD (the dashes may be any other separator) */
+	  /* TIME: HH:MM:SS (the colons may be any other separator) */
+	  /* DATETIME: YYYY-MM-DD HH:MM:SS (the dashes and colons may 
+	     be any other separator) */
+	  if (strlen(cur) > 9 && attribs & DBI_DATETIME_DATE) {
+	    if (strlen(cur) < 11) {
+	      check_time = 0;
+	    }
+	    cur[4] = '\0';
+	    cur[7] = '\0';
+	    cur[10] = '\0';
+	    unixtime.tm_year = atoi(cur)-1900;
+	    unixtime.tm_mon = atoi(cur+5)-1; /* months are 0 through 11 */
+	    unixtime.tm_mday = atoi(cur+8);
+	    if (attribs & DBI_DATETIME_TIME) {
+	      cur += 11;
+	      if (*cur == ' ') {
+		cur++;
+	      }
+	    }
+	  }
+	  
+	  if (check_time && strlen(cur) > 7 && attribs & DBI_DATETIME_TIME) {
+	    cur[2] = '\0';
+	    cur[5] = '\0';
+	    unixtime.tm_hour = atoi(cur);
+	    unixtime.tm_min = atoi(cur+3);
+	    unixtime.tm_sec = atoi(cur+6);
+	  }
+
+	  free(unparsed);
 	}
 
 	return mktime(&unixtime);
