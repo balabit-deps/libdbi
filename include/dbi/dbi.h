@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.26 2002/02/16 18:57:35 dap Exp $
+ * $Id: dbi.h,v 1.27 2002/03/26 04:18:31 dap Exp $
  */
 
 #ifndef __DBI_H__
@@ -97,6 +97,7 @@ int dbi_conn_get_socket(dbi_conn Conn);
 dbi_result dbi_conn_get_db_list(dbi_conn Conn, const char *pattern);
 dbi_result dbi_conn_get_table_list(dbi_conn Conn, const char *db);
 dbi_result dbi_conn_query(dbi_conn Conn, const char *formatstr, ...); 
+dbi_result dbi_conn_query_null(dbi_conn Conn, const unsigned char *statement, unsigned long st_length); 
 int dbi_conn_select_db(dbi_conn Conn, const char *db);
 
 dbi_conn dbi_result_get_conn(dbi_result Result);
