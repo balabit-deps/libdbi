@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.24 2003/12/26 19:08:08 mhoenicka Exp $
+ * $Id: dbd_helper.c,v 1.25 2004/01/08 19:48:05 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -301,6 +301,7 @@ time_t _dbd_parse_datetime(const char *raw, unsigned long attribs) {
 	  free(unparsed);
 	}
 
-	return mktime(&unixtime);
+	/* output is UTC, not local time */
+	return timegm(&unixtime);
 }
 
