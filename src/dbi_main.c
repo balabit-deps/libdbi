@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.30 2002/06/14 04:20:21 dap Exp $
+ * $Id: dbi_main.c,v 1.31 2002/06/14 22:08:22 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -340,6 +340,8 @@ dbi_conn dbi_conn_open(dbi_driver Driver) {
 	conn->error_handler = NULL;
 	conn->error_handler_argument = NULL;
 	_update_internal_conn_list(conn, 1);
+	conn->results = NULL;
+	conn->results_size = conn->results_used = 0;
 
 	return (dbi_conn)conn;
 }
@@ -363,6 +365,8 @@ void dbi_conn_close(dbi_conn Conn) {
 	
 	conn->error_handler = NULL;
 	conn->error_handler_argument = NULL;
+	free(conn->results);
+
 	free(conn);
 }
 
