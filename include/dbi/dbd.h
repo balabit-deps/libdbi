@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd.h,v 1.3 2001/08/14 06:27:34 dap24 Exp $
+ * $Id: dbd.h,v 1.4 2001/08/15 07:16:43 dap24 Exp $
  */
 
 #ifndef __DBD_H__
@@ -35,13 +35,13 @@ void dbd_register_plugin(const dbi_info_t **_plugin_info, const char ***_custom_
 int dbd_initialize(dbi_plugin_t *plugin);
 int dbd_connect(dbi_driver_t *driver);
 int dbd_disconnect(dbi_driver_t *driver);
-int dbd_escape_string(dbi_plugin_t *plugin, const char *orig, char *dest); /* XXX add */
 int dbd_fetch_row(dbi_result_t *result, unsigned int rownum);
 int dbd_free_query(dbi_result_t *result);
 int dbd_goto_row(dbi_result_t *result, unsigned int row);
 dbi_result_t *dbd_list_dbs(dbi_driver_t *driver);
 dbi_result_t *dbd_list_tables(dbi_driver_t *driver, const char *db);
 dbi_result_t *dbd_query(dbi_driver_t *driver, const char *statement);
+int dbd_quote_string(dbi_plugin_t *plugin, const char *orig, char *dest);
 char *dbd_select_db(dbi_driver_t *driver, const char *db);
 int dbd_geterror(dbi_driver_t *driver, int *errno, char **errstr);
 

@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.5 2001/08/14 06:27:34 dap24 Exp $
+ * $Id: dbi-dev.h,v 1.6 2001/08/15 07:16:43 dap24 Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -44,7 +44,7 @@ typedef union dbi_data_u {
 	float d_float;
 	double d_double;
 	char *d_string;
-	time_t d_datetime; /* XXX add */
+	time_t d_datetime;
 } dbi_data_t;
 
 typedef struct dbi_row_s {
@@ -102,13 +102,13 @@ typedef struct dbi_functions_s {
 	int (*initialize)(dbi_plugin_t_pointer);
 	int (*connect)(dbi_driver_t_pointer);
 	int (*disconnect)(dbi_driver_t_pointer);
-	int (*escape_string)(dbi_plugin_t_pointer, const char **, char **);
 	int (*fetch_row)(dbi_result_t *, unsigned int);
 	int (*free_query)(dbi_result_t *);
 	int (*goto_row)(dbi_result_t *, unsigned int);
 	dbi_result_t *(*list_dbs)(dbi_driver_t_pointer);
 	dbi_result_t *(*list_tables)(dbi_driver_t_pointer, const char *);
 	dbi_result_t *(*query)(dbi_driver_t_pointer, const char *);
+	int (*quote_string)(dbi_plugin_t_pointer, const char *, char *);
 	char *(*select_db)(dbi_driver_t_pointer, const char *);
 	int (*geterror)(dbi_driver_t_pointer, int *, char **);
 } dbi_functions_t;
