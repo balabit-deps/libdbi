@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.14 2001/07/19 08:15:25 dap24 Exp $
+ * $Id: dbi.h,v 1.15 2001/07/21 22:15:07 dap24 Exp $
  */
 
 #ifndef __DBI_H__
@@ -84,7 +84,7 @@ void dbi_driver_clear_option(dbi_driver Driver, const char *key);
 void dbi_driver_clear_options(dbi_driver Driver);
 void dbi_driver_close(dbi_driver Driver);
 
-int dbi_driver_error(dbi_driver Driver, char *errmsg_dest);
+int dbi_driver_error(dbi_driver Driver, char **errmsg_dest);
 void dbi_driver_error_handler(dbi_driver Driver, void *function, void *user_argument);
 
 int dbi_driver_connect(dbi_driver Driver);

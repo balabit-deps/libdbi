@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.1 2001/07/20 23:38:43 dap24 Exp $
+ * $Id: dbd_helper.c,v 1.2 2001/07/21 22:15:07 dap24 Exp $
  */
 
 #include <stdio.h>
@@ -43,9 +43,9 @@ dbi_result_t *_dbd_result_create(dbi_driver_t *driver, void *handle, unsigned in
 	result->field_names = NULL;
 	result->field_types = NULL;
 	result->field_attribs = NULL;
-	result->result_state = NOTHING_RETURNED;
+	result->result_state = (numrows_matched > 0) ? ROWS_RETURNED : NOTHING_RETURNED;
 	result->has_string_fields = 0;
-	result->rows = NULL;
+	result->rows = calloc(numrows_matched, sizeof(dbi_row_t *));
 	result->currowidx = 0;
 	return result;
 }
@@ -78,6 +78,7 @@ dbi_row_t *_dbd_row_allocate(unsigned int numfields, unsigned int has_string_fie
 }
 
 void _dbd_row_finalize(dbi_result_t *result, dbi_row_t *row, unsigned int idx) {
-	result->rows[idx] = row;
+	/* rowidx is one-based in the DBI user level */
+	result->rows[idx+1] = row;
 }
 
