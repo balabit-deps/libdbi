@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd.h,v 1.15 2002/06/14 22:08:22 dap Exp $
+ * $Id: dbd.h,v 1.16 2002/08/07 06:50:18 dap Exp $
  */
 
 #ifndef __DBD_H__
@@ -35,9 +35,9 @@ void dbd_register_driver(const dbi_info_t **_driver_info, const char ***_custom_
 int dbd_initialize(dbi_driver_t *driver);
 int dbd_connect(dbi_conn_t *conn);
 int dbd_disconnect(dbi_conn_t *conn);
-int dbd_fetch_row(dbi_result_t *result, unsigned int rownum);
+int dbd_fetch_row(dbi_result_t *result, unsigned long long rownum);
 int dbd_free_query(dbi_result_t *result);
-int dbd_goto_row(dbi_result_t *result, unsigned int row);
+int dbd_goto_row(dbi_result_t *result, unsigned long long row);
 dbi_result_t *dbd_list_dbs(dbi_conn_t *conn, const char *pattern);
 dbi_result_t *dbd_list_tables(dbi_conn_t *conn, const char *db, const char *pattern);
 dbi_result_t *dbd_query(dbi_conn_t *conn, const char *statement);
@@ -49,13 +49,13 @@ unsigned long long dbd_get_seq_last(dbi_conn_t *conn, const char *sequence);
 unsigned long long dbd_get_seq_next(dbi_conn_t *conn, const char *sequence);
 
 /* _DBD_* DRIVER AUTHORS HELPER FUNCTIONS */
-dbi_result_t *_dbd_result_create(dbi_conn_t *conn, void *handle, unsigned int numrows_matched, unsigned int numrows_affected);
+dbi_result_t *_dbd_result_create(dbi_conn_t *conn, void *handle, unsigned long long numrows_matched, unsigned long long numrows_affected);
 void _dbd_result_set_numfields(dbi_result_t *result, unsigned int numfields);
 void _dbd_result_add_field(dbi_result_t *result, unsigned int idx, char *name, unsigned short type, unsigned int attribs);
 dbi_row_t *_dbd_row_allocate(unsigned int numfields);
-void _dbd_row_finalize(dbi_result_t *result, dbi_row_t *row, unsigned int idx);
+void _dbd_row_finalize(dbi_result_t *result, dbi_row_t *row, unsigned long long idx);
 void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int errno);
-dbi_result_t *_dbd_result_create_from_stringarray(dbi_conn_t *conn, unsigned int numrows_matched, const char **stringarray);
+dbi_result_t *_dbd_result_create_from_stringarray(dbi_conn_t *conn, unsigned long long numrows_matched, const char **stringarray);
 void _dbd_register_driver_cap(dbi_driver_t *driver, const char *capname, int value);
 void _dbd_register_conn_cap(dbi_conn_t *conn, const char *capname, int value);
 int _dbd_result_add_to_conn(dbi_result_t *result);

@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.35 2002/06/19 16:14:11 dap Exp $
+ * $Id: dbi_main.c,v 1.36 2002/08/07 06:50:18 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -295,6 +295,10 @@ int dbi_driver_quote_string(dbi_driver Driver, char **orig) {
 	if (!driver || !orig || !*orig) return -1;
 
 	newstr = malloc((strlen(*orig)*2)+4+1); /* worst case, we have to escape every character and add 2*2 surrounding quotes */
+
+	if (!newstr) {
+		return -1;
+	}
 	
 	newlen = driver->functions->quote_string(driver, *orig, newstr);
 	if (newlen < 0) {
