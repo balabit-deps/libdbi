@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.52 2003/10/23 17:57:50 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.53 2003/10/27 21:17:45 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -531,7 +531,7 @@ int dbi_conn_set_option(dbi_conn Conn, const char *key, const char *value) {
 	}
 
 	if (option->string_value) free(option->string_value);
-	option->string_value = strdup(value);
+	option->string_value = (value) ? strdup(value) : NULL;
 	option->numeric_value = 0;
 	
 	return 0;
