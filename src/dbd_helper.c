@@ -1,6 +1,6 @@
 /*
  * libdbi - database independent abstraction layer for C.
- * Copyright (C) 2001, David Parker and Mark Tobenkin.
+ * Copyright (C) 2001-2002, David Parker and Mark Tobenkin.
  * http://libdbi.sourceforge.net
  * 
  * This library is free software; you can redistribute it and/or
@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.13 2002/03/29 05:02:14 dap Exp $
+ * $Id: dbd_helper.c,v 1.14 2002/06/14 00:28:53 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -109,6 +109,7 @@ int _dbd_quote_chars(const char *toescape, const char *quotes, const char *orig,
 void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int errno) {
 	if (conn->error_message) free(conn->error_message);
 	
+	conn->error_flag = DBI_ERROR_DBD;
 	conn->error_number = errno;
 	conn->error_message = strdup(errmsg);
 
