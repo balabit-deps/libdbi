@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.11 2002/01/28 22:32:06 dap Exp $
+ * $Id: dbi-dev.h,v 1.12 2002/01/29 07:42:03 dap Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -78,7 +78,7 @@ typedef struct _field_binding_s {
 } _field_binding_t;
 
 /***************************************
- * PLUGIN INFRASTRUCTURE RELATED TYPES *
+ * DRIVER INFRASTRUCTURE RELATED TYPES *
  ***************************************/
 
 typedef struct dbi_info_s {
