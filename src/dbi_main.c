@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.40 2002/10/26 23:19:46 dap Exp $
+ * $Id: dbi_main.c,v 1.41 2002/11/06 00:35:34 dap Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -1017,7 +1017,7 @@ void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag) {
 	}
 }
 
-unsigned long _isolate_attrib(unsigned long attribs, unsigned long rangemin, unsigned rangemax) {
+unsigned long _isolate_attrib(unsigned long attribs, unsigned long rangemin, unsigned long rangemax) {
 	/* hahaha! who woulda ever thunk strawberry's code would come in handy? */
 	unsigned short startbit = log(rangemin)/log(2);
 	unsigned short endbit = log(rangemax)/log(2);
