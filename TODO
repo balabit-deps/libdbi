@@ -1,18 +1,14 @@
-$Id: TODO,v 1.5 2001/07/19 08:15:24 dap24 Exp $
+$Id: TODO,v 1.6 2001/08/04 21:09:54 dap24 Exp $
 
-** PRE-RELEASE TODO: **
-- finish mysql and pgsql plugins
-- finish plugins/ dir on libdbi website
-
+- create DBI unixtime intrinsic type, parse database date/time fields
+- add function to fetch row by index instead of name
 - revamp error handling
-- _dbd_* plugin authors' convenience library
 - add more accessor/convenience functinos (think gui)
 - tweak print DSSSL to shade ProgramListing content
 - plugins:
-	* mysql (finish plugin and run stress tests)
 	* msql
-	* postgresql (finish and test)
 	* oracle
 	* ODBC ?
 	* others?
+- write plugin author's guide, update template plugin
 - create a config.h and use it to determine datatype information (how many bits an 'int' is, etc. mainly for portability to non-lintel systems)
