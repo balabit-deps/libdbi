@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.11 2001/08/15 19:20:47 dap24 Exp $
+ * $Id: dbi_result.c,v 1.12 2001/08/22 21:25:48 dap24 Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -32,6 +32,8 @@
 
 #include <dbi/dbi.h>
 #include <dbi/dbi-dev.h>
+
+#include "config.h"
 
 extern void _error_handler(dbi_driver_t *driver);
 

@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.4 2001/08/14 06:27:34 dap24 Exp $
+ * $Id: dbd_helper.c,v 1.5 2001/08/22 21:25:48 dap24 Exp $
  */
 
 #include <stdio.h>
@@ -30,6 +30,8 @@
 
 #include <dbi/dbi.h>
 #include <dbi/dbi-dev.h>
+
+#include "config.h"
 
 dbi_result_t *_dbd_result_create(dbi_driver_t *driver, void *handle, unsigned int numrows_matched, unsigned int numrows_affected) {
 	dbi_result_t *result = (dbi_result_t *) malloc(sizeof(dbi_result_t));
@@ -57,7 +59,7 @@ void _dbd_result_set_numfields(dbi_result_t *result, unsigned int numfields) {
 }
 
 void _dbd_result_add_field(dbi_result_t *result, unsigned int idx, char *name, unsigned short type, unsigned int attribs) {
-	result->field_names[idx] = strdup(name);
+	if (name) result->field_names[idx] = strdup(name);
 	result->field_types[idx] = type;
 	result->field_attribs[idx] = attribs;
 }
