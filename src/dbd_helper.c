@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.20 2003/06/17 06:34:19 dap24 Exp $
+ * $Id: dbd_helper.c,v 1.21 2003/06/18 19:45:17 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -263,7 +263,7 @@ time_t _dbd_parse_datetime(const char *raw, unsigned long attribs) {
 	
 	if (raw && (unparsed = strdup(raw)) != NULL) {
 	cur = unparsed;
-	if (strlen(cur) > 10 && attribs & DBI_DATETIME_DATE) {
+	if (strlen(cur) > 9 && attribs & DBI_DATETIME_DATE) {
 		cur[4] = '\0';
 		cur[7] = '\0';
 		cur[10] = '\0';
