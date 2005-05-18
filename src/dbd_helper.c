@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.27 2004/08/25 08:01:43 dap24 Exp $
+ * $Id: dbd_helper.c,v 1.28 2005/05/18 20:53:16 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -87,7 +87,7 @@ void _dbd_result_set_numfields(dbi_result_t *result, unsigned short numfields) {
 	result->numfields = numfields;
 	result->field_names = calloc(numfields, sizeof(char *));
 	result->field_types = calloc(numfields, sizeof(unsigned short));
-	result->field_attribs = calloc(numfields, sizeof(unsigned int));
+	result->field_attribs = calloc(numfields, sizeof(unsigned int *));
 }
 
 void _dbd_result_add_field(dbi_result_t *result, unsigned short idx, char *name, unsigned short type, unsigned int attribs) {
@@ -165,7 +165,7 @@ dbi_result_t *_dbd_result_create_from_stringarray(dbi_conn_t *conn, unsigned lon
 	result->numfields = numfields;
 	result->field_names = NULL;
 	result->field_types = calloc(numfields, sizeof(unsigned short));
-	result->field_attribs = calloc(numfields, sizeof(unsigned int));
+	result->field_attribs = calloc(numfields, sizeof(unsigned int *));
 	result->result_state = (numrows_matched > 0) ? ROWS_RETURNED : NOTHING_RETURNED;
 	result->rows = calloc(numrows_matched+1, sizeof(dbi_row_t *));
 	result->currowidx = 0;
