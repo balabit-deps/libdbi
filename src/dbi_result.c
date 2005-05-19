@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.33 2004/08/25 08:01:43 dap24 Exp $
+ * $Id: dbi_result.c,v 1.34 2005/05/19 18:00:41 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -517,6 +517,7 @@ static void _free_result_rows(dbi_result_t *result) {
 		
 		free(result->rows[rowidx]->field_values);
 		free(result->rows[rowidx]->field_sizes);
+		free(result->rows[rowidx]->field_flags);
 		free(result->rows[rowidx]);
 	}
 	
