@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.52 2005/05/16 16:42:40 mhoenicka Exp $
+ * $Id: dbi.h,v 1.53 2005/05/22 20:03:20 mhoenicka Exp $
  */
 
 #ifndef __DBI_H__
@@ -105,6 +105,8 @@ int dbi_driver_is_reserved_word(dbi_driver Driver, const char *word);
 void *dbi_driver_specific_function(dbi_driver Driver, const char *name);
 int dbi_driver_quote_string_copy(dbi_driver Driver, const char *orig, char **newstr);
 int dbi_driver_quote_string(dbi_driver Driver, char **orig);
+const char* dbi_driver_encoding_from_iana(dbi_driver Driver, const char* iana_encoding);
+const char* dbi_driver_encoding_to_iana(dbi_driver Driver, const char* db_encoding);
 int dbi_driver_cap_get(dbi_driver Driver, const char *capname);
 
 const char *dbi_driver_get_name(dbi_driver Driver);

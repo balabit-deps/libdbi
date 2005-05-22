@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.58 2005/05/16 16:45:30 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.59 2005/05/22 20:04:17 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -374,6 +374,27 @@ int dbi_driver_quote_string(dbi_driver Driver, char **orig) {
 
 	return newlen;
 }
+
+const char* dbi_driver_encoding_from_iana(dbi_driver Driver, const char* iana_encoding) {
+  dbi_driver_t *driver = Driver;
+	
+  if (!driver) {
+    return NULL;
+  }
+
+  return driver->functions->encoding_from_iana(iana_encoding);
+}
+
+const char* dbi_driver_encoding_to_iana(dbi_driver Driver, const char* db_encoding) {
+  dbi_driver_t *driver = Driver;
+	
+  if (!driver) {
+    return NULL;
+  }
+
+  return driver->functions->encoding_to_iana(db_encoding);
+}
+
 
 /* XXX DRIVER FUNCTIONS XXX */
 
@@ -949,6 +970,8 @@ static dbi_driver_t *_get_driver(const char *filename) {
 			((driver->functions->goto_row = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_goto_row")) == NULL) ||
 			((driver->functions->get_socket = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_get_socket")) == NULL) ||
 			((driver->functions->get_encoding = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_get_encoding")) == NULL) ||
+			((driver->functions->encoding_from_iana = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_encoding_from_iana")) == NULL) ||
+			((driver->functions->encoding_to_iana = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_encoding_to_iana")) == NULL) ||
 			((driver->functions->list_dbs = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_list_dbs")) == NULL) ||
 			((driver->functions->list_tables = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_list_tables")) == NULL) ||
 			((driver->functions->query = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_query")) == NULL) ||
