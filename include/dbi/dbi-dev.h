@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.32 2005/05/22 20:02:12 mhoenicka Exp $
+ * $Id: dbi-dev.h,v 1.33 2005/07/03 19:43:33 mhoenicka Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -62,7 +62,7 @@ typedef struct dbi_result_s {
 	unsigned long long numrows_affected;
 	_field_binding_t_pointer field_bindings;
 	
-	unsigned short numfields; /* can be zero or NULL until first fetchrow */
+	unsigned long numfields; /* can be zero or NULL until first fetchrow */
 	char **field_names;
 	unsigned short *field_types;
 	unsigned long *field_attribs;
@@ -168,8 +168,8 @@ typedef struct dbi_conn_s {
 unsigned long _isolate_attrib(unsigned long attribs, unsigned long rangemin, unsigned long rangemax);
 void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag);
 int _disjoin_from_conn(dbi_result_t *result);
-void _set_field_flag(dbi_row_t *row, unsigned short fieldidx, unsigned char flag, unsigned char value);
-int _get_field_flag(dbi_row_t *row, unsigned short fieldidx, unsigned char flag);
+void _set_field_flag(dbi_row_t *row, unsigned long fieldidx, unsigned char flag, unsigned char value);
+int _get_field_flag(dbi_row_t *row, unsigned long fieldidx, unsigned char flag);
 
 #ifdef __cplusplus
 }
