@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.61 2005/07/13 20:24:45 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.62 2005/07/17 00:44:19 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -911,7 +911,7 @@ dbi_result dbi_conn_query_null(dbi_conn Conn, const unsigned char *statement, si
 
 int dbi_conn_select_db(dbi_conn Conn, const char *db) {
 	dbi_conn_t *conn = Conn;
-	char *retval;
+	const char *retval;
 	
 	if (!conn) return -1;
 	
