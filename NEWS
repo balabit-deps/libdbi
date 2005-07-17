@@ -1,10 +1,10 @@
 libdbi NEWS file
 ================
 
-$Id: NEWS,v 1.1 2005/07/14 22:07:05 mhoenicka Exp $
+$Id: NEWS,v 1.2 2005/07/17 21:17:50 mhoenicka Exp $
 
-________________________
-libdbi 0.8.0 (July 2005)
+_______________________________________________
+libdbi 0.8.0 (the "When I come around" release)
 
 Major internal fixes. Remember that the integer type changes are
 mostly silent on 32bit platforms, but you should check in detail. The
@@ -118,7 +118,7 @@ dbi_conn_quote_binary_copy()
 implemented in the current version, but you should use their
 replacements as these functions are likely to be dropped in a future
 release:
-:
+
 dbi_result_get_field_size()
 dbi_result_get_field_size_idx()
 dbi_result_get_long()
