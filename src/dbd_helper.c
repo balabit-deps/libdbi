@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.31 2005/07/13 20:22:18 mhoenicka Exp $
+ * $Id: dbd_helper.c,v 1.32 2005/07/17 00:43:02 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -110,7 +110,7 @@ void _dbd_row_finalize(dbi_result_t *result, dbi_row_t *row, unsigned long long 
 	result->rows[rowidx+1] = row;
 }
 
-size_t _dbd_quote_chars(char *dest, const char *orig, size_t orig_size, const char *toescape) {
+size_t _dbd_escape_chars(char *dest, const char *orig, size_t orig_size, const char *toescape) {
 	char *curdest = dest;
 	const char *curorig = orig;
 	const char *curescaped;
@@ -257,7 +257,7 @@ static _capability_t *_find_or_create_conn_cap(dbi_conn_t *conn, const char *cap
 	return cap;
 }
 
-time_t _dbd_parse_datetime(const char *raw, unsigned long attribs) {
+time_t _dbd_parse_datetime(const char *raw, unsigned int attribs) {
 	struct tm unixtime;
 	char *unparsed;
 	char *cur;
