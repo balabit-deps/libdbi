@@ -1,12 +1,13 @@
 /*
  * ripped from gcc
- * $Id: asprintf.c,v 1.2 2002/03/26 03:42:41 dap Exp $
+ * $Id: asprintf.c,v 1.3 2005/07/25 23:32:12 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
