@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.32 2005/07/17 00:43:02 mhoenicka Exp $
+ * $Id: dbd_helper.c,v 1.33 2005/07/25 23:23:51 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -418,7 +418,8 @@ time_t _dbd_parse_datetime(const char *raw, unsigned int attribs) {
 ** not been NULL.
 */
 size_t _dbd_encode_binary(const unsigned char *in, size_t n, unsigned char *out){
-  int i, j, e, m;
+  int i, j, m;
+  int e = 0; /* shut up compiler */
   unsigned char x;
   int cnt[256];
   if( n<=0 ){

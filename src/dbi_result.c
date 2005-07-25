@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.37 2005/07/13 20:29:53 mhoenicka Exp $
+ * $Id: dbi_result.c,v 1.38 2005/07/25 23:24:49 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -516,10 +516,13 @@ int dbi_result_disjoin(dbi_result Result) {
 
 int dbi_result_free(dbi_result Result) {
   dbi_result_t *result = Result;
-  int retval;
+  int retval = 0;
+
   if (!result) return -1;
 	
-  if (result->conn) retval = _disjoin_from_conn(result);
+  if (result->conn) {
+    retval = _disjoin_from_conn(result);
+  }
 
   while (result->field_bindings) {
     _remove_binding_node(result, result->field_bindings);
