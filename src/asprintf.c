@@ -1,6 +1,6 @@
 /*
  * ripped from gcc
- * $Id: asprintf.c,v 1.3 2005/07/25 23:32:12 mhoenicka Exp $
+ * $Id: asprintf.c,v 1.4 2005/07/28 19:40:48 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -88,7 +88,7 @@ int int_vasprintf(char **result, const char *format, va_list *args)
                 }
         }
 
-        *result = (char*) malloc(total_width);
+        *result = malloc(total_width);
 
         if (*result != NULL) {
                 return vsprintf(*result, format, *args);
