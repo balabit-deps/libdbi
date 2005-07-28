@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.64 2005/07/26 18:48:57 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.65 2005/07/28 19:13:02 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -430,7 +430,7 @@ dbi_conn dbi_conn_open(dbi_driver Driver) {
 		return NULL;
 	}
 
-	conn = (dbi_conn_t *) malloc(sizeof(dbi_conn_t));
+	conn = malloc(sizeof(dbi_conn_t));
 	if (!conn) {
 		return NULL;
 	}
@@ -988,14 +988,14 @@ static dbi_driver_t *_get_driver(const char *filename) {
 		return NULL;
 	}
 	else {
-		driver = (dbi_driver_t *) malloc(sizeof(dbi_driver_t));
+		driver = malloc(sizeof(dbi_driver_t));
 		if (!driver) return NULL;
 
 		driver->dlhandle = dlhandle;
 		driver->filename = strdup(filename);
 		driver->next = NULL;
 		driver->caps = NULL;
-		driver->functions = (dbi_functions_t *) malloc(sizeof(dbi_functions_t));
+		driver->functions = malloc(sizeof(dbi_functions_t));
 
 		if ( /* nasty looking if block... is there a better way to do it? */
 			((driver->functions->register_driver = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_register_driver")) == NULL) ||
@@ -1031,7 +1031,7 @@ static dbi_driver_t *_get_driver(const char *filename) {
 		driver->functions->register_driver(&driver->info, &custom_functions_list, &driver->reserved_words);
 		driver->custom_functions = NULL; /* in case no custom functions are available */
 		while (custom_functions_list && custom_functions_list[idx] != NULL) {
-			custom = (dbi_custom_function_t *) malloc(sizeof(dbi_custom_function_t));
+			custom = malloc(sizeof(dbi_custom_function_t));
 			if (!custom) {
 				_free_custom_functions(driver);
 				free(driver->functions);
@@ -1142,7 +1142,7 @@ static dbi_option_t *_find_or_create_option_node(dbi_conn Conn, const char *key)
 
 	if (option == NULL) {
 		/* allocate a new option node */
-		option = (dbi_option_t *) malloc(sizeof(dbi_option_t));
+		option = malloc(sizeof(dbi_option_t));
 		if (!option) return NULL;
 		option->next = NULL;
 		option->key = strdup(key);

@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.38 2005/07/25 23:24:49 mhoenicka Exp $
+ * $Id: dbi_result.c,v 1.39 2005/07/28 19:13:02 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -1462,7 +1462,7 @@ static _field_binding_t *_find_or_create_binding_node(dbi_result_t *result, cons
   }
   if (!binding) {
     /* allocate a new option node */
-    binding = (_field_binding_t *) malloc(sizeof(_field_binding_t));
+    binding = malloc(sizeof(_field_binding_t));
     if (!binding) {
       return NULL;
     }
