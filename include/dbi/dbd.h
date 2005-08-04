@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd.h,v 1.26 2005/07/17 00:40:55 mhoenicka Exp $
+ * $Id: dbd.h,v 1.27 2005/08/04 21:31:49 mhoenicka Exp $
  */
 
 
@@ -54,6 +54,7 @@ int dbd_ping(dbi_conn_t *conn);
 const char *dbd_get_encoding(dbi_conn_t *conn);
 size_t dbd_conn_quote_string(dbi_conn_t *conn, const char *orig, char *dest);
 size_t dbd_quote_binary(dbi_conn_t *conn, const char *orig, size_t from_length, char **ptr_dest);
+char *dbd_get_engine_version(dbi_conn_t *conn, char *versionstring);
 
 /* _DBD_* DRIVER AUTHORS HELPER FUNCTIONS */
 dbi_result_t *_dbd_result_create(dbi_conn_t *conn, void *handle, unsigned long long numrows_matched, unsigned long long numrows_affected);

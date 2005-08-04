@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.36 2005/07/17 00:41:59 mhoenicka Exp $
+ * $Id: dbi-dev.h,v 1.37 2005/08/04 21:31:49 mhoenicka Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -125,6 +125,7 @@ typedef struct dbi_functions_s {
 	size_t (*quote_binary)(dbi_conn_t_pointer, const char *, size_t, char **);
         const char *(*encoding_to_iana)(const char *);
         const char *(*encoding_from_iana)(const char *);
+        char *(*get_engine_version)(dbi_conn_t_pointer,char *);
 	const char *(*select_db)(dbi_conn_t_pointer, const char *);
 	int (*geterror)(dbi_conn_t_pointer, int *, char **);
 	unsigned long long (*get_seq_last)(dbi_conn_t_pointer, const char *);
@@ -171,6 +172,9 @@ void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag);
 int _disjoin_from_conn(dbi_result_t *result);
 void _set_field_flag(dbi_row_t *row, unsigned int fieldidx, unsigned char flag, unsigned char value);
 int _get_field_flag(dbi_row_t *row, unsigned int fieldidx, unsigned char flag);
+
+  /* internally used constants */
+#define VERSIONSTRING_LENGTH 32
 
 #ifdef __cplusplus
 }
