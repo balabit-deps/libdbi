@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h,v 1.58 2005/08/04 21:28:22 mhoenicka Exp $
+ * $Id: dbi.h,v 1.59 2005/08/07 23:32:44 mhoenicka Exp $
  */
 
 #ifndef __DBI_H__
@@ -185,7 +185,7 @@ unsigned long long dbi_conn_sequence_next(dbi_conn Conn, const char *name);
 int dbi_conn_ping(dbi_conn Conn);
 size_t dbi_conn_quote_string_copy(dbi_conn Conn, const char *orig, char **newstr);
 size_t dbi_conn_quote_string(dbi_conn Conn, char **orig);
-size_t dbi_conn_quote_binary_copy(dbi_conn Conn, const char *orig, size_t from_length, char **newstr);
+size_t dbi_conn_quote_binary_copy(dbi_conn Conn, const unsigned char *orig, size_t from_length, unsigned char **newstr);
 
 dbi_conn dbi_result_get_conn(dbi_result Result);
 int dbi_result_free(dbi_result Result);

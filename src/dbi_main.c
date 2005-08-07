@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.66 2005/08/04 21:28:22 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.67 2005/08/07 23:32:44 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -612,8 +612,8 @@ size_t dbi_conn_quote_string(dbi_conn Conn, char **orig) {
 	return newlen;
 }
 
-size_t dbi_conn_quote_binary_copy(dbi_conn Conn, const char *orig, size_t from_length, char **ptr_dest) {
-  char *temp = NULL;
+size_t dbi_conn_quote_binary_copy(dbi_conn Conn, const unsigned char *orig, size_t from_length, unsigned char **ptr_dest) {
+  unsigned char *temp = NULL;
   size_t newlen;
   dbi_conn_t *conn = Conn;
 
