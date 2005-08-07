@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.37 2005/08/04 21:31:49 mhoenicka Exp $
+ * $Id: dbi-dev.h,v 1.38 2005/08/07 23:29:29 mhoenicka Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -122,7 +122,7 @@ typedef struct dbi_functions_s {
 	dbi_result_t *(*query_null)(dbi_conn_t_pointer, const unsigned char *, size_t);
 	size_t (*quote_string)(dbi_driver_t_pointer, const char *, char *);
 	size_t (*conn_quote_string)(dbi_conn_t_pointer, const char *, char *);
-	size_t (*quote_binary)(dbi_conn_t_pointer, const char *, size_t, char **);
+	size_t (*quote_binary)(dbi_conn_t_pointer, const unsigned char *, size_t, unsigned char **);
         const char *(*encoding_to_iana)(const char *);
         const char *(*encoding_from_iana)(const char *);
         char *(*get_engine_version)(dbi_conn_t_pointer,char *);
