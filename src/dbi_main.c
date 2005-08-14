@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.67 2005/08/07 23:32:44 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.68 2005/08/14 21:02:44 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -846,6 +846,14 @@ unsigned int dbi_conn_get_engine_version(dbi_conn Conn){
 	conn->driver->functions->get_engine_version(conn, versionstring);
 
 	return _parse_versioninfo(versionstring);
+}
+
+char* dbi_conn_get_engine_version_string(dbi_conn Conn, char *versionstring) {
+	dbi_conn_t *conn = Conn;
+
+	if (!conn) return 0;
+
+	return conn->driver->functions->get_engine_version(conn, versionstring);
 }
 
 dbi_result dbi_conn_get_db_list(dbi_conn Conn, const char *pattern) {
