@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.38 2005/08/07 23:29:29 mhoenicka Exp $
+ * $Id: dbi-dev.h,v 1.39 2005/08/14 21:02:05 mhoenicka Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -173,8 +173,6 @@ int _disjoin_from_conn(dbi_result_t *result);
 void _set_field_flag(dbi_row_t *row, unsigned int fieldidx, unsigned char flag, unsigned char value);
 int _get_field_flag(dbi_row_t *row, unsigned int fieldidx, unsigned char flag);
 
-  /* internally used constants */
-#define VERSIONSTRING_LENGTH 32
 
 #ifdef __cplusplus
 }
