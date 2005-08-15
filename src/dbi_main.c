@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.68 2005/08/14 21:02:44 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.69 2005/08/15 19:19:17 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -1005,6 +1005,7 @@ static dbi_driver_t *_get_driver(const char *filename) {
 	dlhandle = my_dlopen(filename, DLOPEN_FLAG); /* DLOPEN_FLAG defined by autoconf */
 
 	if (dlhandle == NULL) {
+	  fprintf(stderr, "%s\n", my_dlerror());
 		return NULL;
 	}
 	else {
