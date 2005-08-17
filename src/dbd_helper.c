@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.34 2005/07/28 19:13:02 mhoenicka Exp $
+ * $Id: dbd_helper.c,v 1.35 2005/08/17 19:25:15 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -114,27 +114,33 @@ size_t _dbd_escape_chars(char *dest, const char *orig, size_t orig_size, const c
 	char *curdest = dest;
 	const char *curorig = orig;
 	const char *curescaped;
+	size_t len = 0;
 	
-/* 	strcpy(dest, quotes);  */// check, also use destidx < destsize, and null treminate
-	
-	strncpy(dest, orig, orig_size);
-
-	while (curorig) {
+	while (curorig && curorig < orig+orig_size) {
 		curescaped = toescape;
-		while (curescaped) {
+		while (curescaped && *curescaped) {
 			if (*curorig == *curescaped) {
 				*curdest = '\\';
 				curdest++;
-				*curdest = *curorig;
-				continue;
+				len++;
+				break;
 			}
 			curescaped++;
 		}
+		/* Copy char to destination */
+		*curdest = *curorig;
+		
 		curorig++;
 		curdest++;
+		len++;
 	}
 
-	return strlen(dest);
+	/* append a NULL byte. This is required if orig was a
+	   zero-terminated string. It does not hurt if orig was a
+	   binary string as the calling function is not supposed to
+	   read past len bytes */
+	*curdest = '\0';
+	return len;
 }
 
 void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int errno) {
