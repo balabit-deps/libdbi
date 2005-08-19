@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.40 2005/08/07 23:35:43 mhoenicka Exp $
+ * $Id: dbi_result.c,v 1.41 2005/08/19 20:37:47 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -36,6 +36,10 @@
 
 #include <dbi/dbi.h>
 #include <dbi/dbi-dev.h>
+
+#ifdef __MINGW32__
+#define strtok_r(s1,s2,s3) strtok(s1,s2)
+#endif
 
 extern void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag);
 
