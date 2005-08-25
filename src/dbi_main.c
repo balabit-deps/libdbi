@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.71 2005/08/22 18:39:43 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.72 2005/08/25 20:26:25 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -87,12 +87,16 @@ char *win_dlerror();
 #include <dbi/dbi.h>
 #include <dbi/dbi-dev.h>
 
-#ifndef DBI_DRIVER_DIR
-#  ifdef __MINGW32__
-#    define DBI_DRIVER_DIR "c:\\libdbi\\lib\\dbd" /* use this as the default */
-#  else
-#    define DBI_DRIVER_DIR "/usr/local/lib/dbd" /* use this as the default */
+#ifdef __MINGW32__
+#  define DBI_PATH_SEPARATOR "\\"
+#  ifndef DBI_DRIVER_DIR
+#	define DBI_DRIVER_DIR "c:\\libdbi\\lib\\dbd" /* use this as the default */
 #  endif
+#  else
+#    define DBI_PATH_SEPARATOR "/"
+#    ifndef DBI_DRIVER_DIR
+#    	define DBI_DRIVER_DIR "/usr/local/lib/dbd" /* use this as the default */
+#    endif
 #endif
 
 #ifndef DLSYM_PREFIX
@@ -155,7 +159,7 @@ int dbi_initialize(const char *driverdir) {
 	else {
 		while ((driver_dirent = readdir(dir)) != NULL) {
 			driver = NULL;
-			snprintf(fullpath, FILENAME_MAX, "%s/%s", effective_driverdir, driver_dirent->d_name);
+			snprintf(fullpath, FILENAME_MAX, "%s%s%s", effective_driverdir, DBI_PATH_SEPARATOR, driver_dirent->d_name);
 			if ((stat(fullpath, &statbuf) == 0) && S_ISREG(statbuf.st_mode) && strrchr(driver_dirent->d_name, '.') && (!strcmp(strrchr(driver_dirent->d_name, '.'), DRIVER_EXT))) {
 				/* file is a stat'able regular file that ends in .so (or appropriate dynamic library extension) */
 				driver = _get_driver(fullpath);
