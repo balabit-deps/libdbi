@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.72 2005/08/25 20:26:25 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.73 2005/08/27 23:29:03 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -1333,7 +1333,7 @@ static void * dyld_dlopen(const char * file)
 }
 static void * dyld_dlsym(void * hand, const char * name)
 {
-        NSSymbol * sym=NSLookupSymbolInModule((NSModule)hand, name);
+        NSSymbol sym=NSLookupSymbolInModule((NSModule)hand, name);
 	void * addr = NULL;
 	dyld_error_set=0;
 	if (sym) addr=(void*)NSAddressOfSymbol(sym);
