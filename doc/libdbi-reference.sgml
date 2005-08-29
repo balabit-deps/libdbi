@@ -1,6 +1,6 @@
 <!--
 vim:ft=sgml
-$Id: libdbi-reference.sgml,v 1.13 2005/08/15 19:16:30 mhoenicka Exp $
+$Id: libdbi-reference.sgml,v 1.14 2005/08/29 19:20:01 mhoenicka Exp $
 Copyright (C) 2001-2005, David Parker, Neon Goat Productions.
 This document is licensed under the GNU Free Documentation License, version 1.1 or later, as
 published by the Free Software Foundation.
@@ -827,7 +827,7 @@ published by the Free Software Foundation.
 	  </VarListEntry>
 	  <VarListEntry>
 	    <term>Returns</term>
-	    <ListItem><Para>-1 on failure, zero on success.</Para></ListItem>
+	    <ListItem><Para>0 (zero) on success, less than zero on failure.</Para></ListItem>
 	  </VarListEntry>
 	</VariableList>
       </Section>
