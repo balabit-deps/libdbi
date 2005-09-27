@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.41 2005/08/19 20:37:47 mhoenicka Exp $
+ * $Id: dbi_result.c,v 1.42 2005/09/27 21:48:55 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -168,7 +168,7 @@ int dbi_result_next_row(dbi_result Result) {
   }	
 
   if (!dbi_result_has_next_row(Result)) {
-    _error_handler(result->conn, DBI_ERROR_BADIDX);
+/*     _error_handler(result->conn, DBI_ERROR_BADIDX); */
     return 0;
   }
   return dbi_result_seek_row(Result, result->currowidx+1);
@@ -1185,7 +1185,12 @@ const char *dbi_result_get_string_idx(dbi_result Result, unsigned int fieldidx) 
     _error_handler(result->conn, DBI_ERROR_BADTYPE);
     return ERROR;
   }
-  if (result->rows[result->currowidx]->field_sizes[fieldidx] == 0) return NULL;
+  if (result->rows[result->currowidx]->field_sizes[fieldidx] == 0
+      && _get_field_flag(result->rows[result->currowidx], fieldidx, DBI_VALUE_NULL)) {
+    /* string does not exist */
+    return NULL;
+  }
+  /* else: empty string */
 	
   return (const char *)(result->rows[result->currowidx]->field_values[fieldidx].d_string);
 }
