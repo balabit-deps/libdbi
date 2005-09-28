@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.42 2005/09/27 21:48:55 mhoenicka Exp $
+ * $Id: dbi_result.c,v 1.43 2005/09/28 07:14:47 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -1190,7 +1190,7 @@ const char *dbi_result_get_string_idx(dbi_result Result, unsigned int fieldidx) 
     /* string does not exist */
     return NULL;
   }
-  /* else: empty string */
+  /* else if field size == 0: empty string */
 	
   return (const char *)(result->rows[result->currowidx]->field_values[fieldidx].d_string);
 }
