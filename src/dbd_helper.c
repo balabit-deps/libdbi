@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.35 2005/08/17 19:25:15 mhoenicka Exp $
+ * $Id: dbd_helper.c,v 1.36 2005/12/08 18:51:41 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -85,9 +85,11 @@ dbi_result_t *_dbd_result_create(dbi_conn_t *conn, void *handle, unsigned long l
 
 void _dbd_result_set_numfields(dbi_result_t *result, unsigned int numfields) {
 	result->numfields = numfields;
-	result->field_names = calloc(numfields, sizeof(char *));
-	result->field_types = calloc(numfields, sizeof(unsigned short));
-	result->field_attribs = calloc(numfields, sizeof(unsigned int *));
+	if (numfields > 0) {
+	  result->field_names = calloc(numfields, sizeof(char *));
+	  result->field_types = calloc(numfields, sizeof(unsigned short));
+	  result->field_attribs = calloc(numfields, sizeof(unsigned int *));
+	}
 }
 
 void _dbd_result_add_field(dbi_result_t *result, unsigned int idx, char *name, unsigned short type, unsigned int attribs) {
