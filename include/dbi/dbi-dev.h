@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.39 2005/08/14 21:02:05 mhoenicka Exp $
+ * $Id: dbi-dev.h,v 1.40 2006/05/15 15:11:53 qu1j0t3 Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -169,6 +169,9 @@ typedef struct dbi_conn_s {
 
 unsigned int _isolate_attrib(unsigned int attribs, unsigned int rangemin, unsigned int rangemax);
 void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag);
+void _verbose_handler(dbi_conn_t *conn, const char* fmt, ...);
+void _logquery(dbi_conn_t *conn, const char* fmt, ...);
+void _logquery_null(dbi_conn_t *conn, const char* statement, size_t st_length);
 int _disjoin_from_conn(dbi_result_t *result);
 void _set_field_flag(dbi_row_t *row, unsigned int fieldidx, unsigned char flag, unsigned char value);
 int _get_field_flag(dbi_row_t *row, unsigned int fieldidx, unsigned char flag);
