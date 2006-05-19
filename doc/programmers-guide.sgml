@@ -29,10 +29,10 @@
 	<address format="linespecific"><email>markus@mhoenicka.de</email></address>
       </affiliation>
     </author>
-    <Edition>Document revision: $Id: programmers-guide.sgml,v 1.11 2005/07/03 00:53:58 mhoenicka Exp $</Edition>
-    <PubDate>$Date: 2005/07/03 00:53:58 $</PubDate>
+    <Edition>Document revision: $Id: programmers-guide.sgml,v 1.12 2006/05/19 21:44:46 mhoenicka Exp $</Edition>
+    <PubDate>$Date: 2006/05/19 21:44:46 $</PubDate>
     <Copyright>
-      <Year>2001-2005</Year>
+      <Year>2001-2006</Year>
       <Holder>David Parker, Neon Goat Productions</Holder>
     </Copyright>
     <LegalNotice>
