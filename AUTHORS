@@ -41,10 +41,13 @@ These people have also contributed to the project:
 
 * Martin Kutschker <Martin.T.Kutschker at blackbox.net>
   - assistance with bugfixes
+  
+* Toby Thain <qu1j0t3 at sourceforge.net>
+  - improve error handling, code cleanups
 
 Thanks:
 * Vorbis and Icecast contributors. Monty, Jack, and all the rest are coding machines.
 * The authors of libao, which clued me in to dynamic libraries.
 * Randy Jay Yarger, George Reese, and Tim King (authors of MySQL & mSQL by O'Reilly)
 
-$Id: AUTHORS,v 1.14 2005/08/25 20:19:51 mhoenicka Exp $
+$Id: AUTHORS,v 1.15 2006/05/28 18:45:31 qu1j0t3 Exp $
