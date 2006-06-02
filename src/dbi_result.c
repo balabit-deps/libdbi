@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.44 2006/05/15 15:11:54 qu1j0t3 Exp $
+ * $Id: dbi_result.c,v 1.45 2006/06/02 17:17:56 qu1j0t3 Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -1447,7 +1447,7 @@ static unsigned int _find_field(dbi_result_t *result, const char *fieldname, dbi
     }
     i++;
   }
-  _verbose_handler(result->conn, "there is no field named `%s`\n", fieldname);
+  _verbose_handler(result->conn, "result row has no field `%s`\n", fieldname);
   *errflag = DBI_ERROR_BADNAME;
   return 0;
 }
