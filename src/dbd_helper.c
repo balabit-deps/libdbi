@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.38 2006/05/16 22:05:36 mhoenicka Exp $
+ * $Id: dbd_helper.c,v 1.39 2007/02/15 00:42:49 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -287,13 +287,15 @@ time_t _dbd_parse_datetime(const char *raw, unsigned int attribs) {
 	if (raw && (unparsed = strdup(raw)) != NULL) {
 	  cur = unparsed;
 
-	  fprintf(stderr, "cur went to:%s\n", cur);
+/* 	  fprintf(stderr, "cur went to:%s\n", cur); */
 
 	  /* this code assumes the following input in cur: */
 	  /* DATE: YYYY-MM-DD (the dashes may be any other separator) */
 	  /* TIME: HH:MM:SS (the colons may be any other separator) */
 	  /* DATETIME: YYYY-MM-DD HH:MM:SS (the dashes and colons may 
 	     be any other separator) */
+	  /* both TIME and DATETIME can have an optional timezone
+	     suffix using the +HH:MM notation */
 	  if (strlen(cur) > 9 && attribs & DBI_DATETIME_DATE) {
 	    if (strlen(cur) < 11) {
 	      check_time = 0;
