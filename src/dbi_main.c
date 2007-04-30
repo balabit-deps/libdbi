@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.75 2006/06/02 17:18:16 qu1j0t3 Exp $
+ * $Id: dbi_main.c,v 1.76 2007/04/30 12:40:05 qu1j0t3 Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -1273,7 +1273,7 @@ void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag) {
 void _verbose_handler(dbi_conn_t *conn, const char* fmt, ...) {
 	va_list ap;
 
-	//if(conn && dbi_conn_get_option_numeric(conn, "Verbosity"))
+	if(conn && dbi_conn_get_option_numeric(conn, "Verbosity"))
 	{
 	  fputs("libdbi: ",stderr);
 	  va_start(ap, fmt);
