@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.41 2006/06/02 17:18:38 qu1j0t3 Exp $
+ * $Id: dbi-dev.h,v 1.42 2008/01/15 00:21:25 mhoenicka Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -171,6 +171,7 @@ extern int dbi_verbosity;
 
 unsigned int _isolate_attrib(unsigned int attribs, unsigned int rangemin, unsigned int rangemax);
 void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag);
+void _reset_conn_error(dbi_conn_t *conn);
 void _verbose_handler(dbi_conn_t *conn, const char* fmt, ...);
 void _logquery(dbi_conn_t *conn, const char* fmt, ...);
 void _logquery_null(dbi_conn_t *conn, const char* statement, size_t st_length);
