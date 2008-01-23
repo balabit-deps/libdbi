@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.46 2008/01/15 00:21:25 mhoenicka Exp $
+ * $Id: dbi_result.c,v 1.47 2008/01/23 16:37:36 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -1307,7 +1307,8 @@ unsigned char *dbi_result_get_binary_copy_idx(dbi_result Result, unsigned int fi
   }
   if (RESULT->rows[RESULT->currowidx]->field_sizes[fieldidx] == 0) return NULL;
 
-  size = dbi_result_get_field_length_idx(Result, fieldidx);
+  /* API function must use 1-based index */
+  size = dbi_result_get_field_length_idx(Result, fieldidx+1);
   newblob = malloc(size);
   if (!newblob) {
     _error_handler(RESULT->conn, DBI_ERROR_NOMEM);
