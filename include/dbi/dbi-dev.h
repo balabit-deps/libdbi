@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.42 2008/01/15 00:21:25 mhoenicka Exp $
+ * $Id: dbi-dev.h,v 1.43 2008/02/17 16:28:26 mhoenicka Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -35,6 +35,7 @@ extern "C" {
 
 /* to fool the compiler into letting us use the following structs before they're actually defined: */
 typedef struct dbi_driver_s *dbi_driver_t_pointer;
+typedef struct dbi_inst_s *dbi_inst_t_pointer;
 typedef struct dbi_conn_s *dbi_conn_t_pointer;
 typedef struct _field_binding_s *_field_binding_t_pointer;
 
@@ -147,6 +148,7 @@ typedef struct dbi_driver_s {
 	dbi_custom_function_t *custom_functions;
 	const char **reserved_words;
 	_capability_t *caps;
+	dbi_inst_t_pointer dbi_inst; /* engine instance we are called from */
 	struct dbi_driver_s *next;
 } dbi_driver_t;
 	
@@ -178,6 +180,16 @@ void _logquery_null(dbi_conn_t *conn, const char* statement, size_t st_length);
 int _disjoin_from_conn(dbi_result_t *result);
 void _set_field_flag(dbi_row_t *row, unsigned int fieldidx, unsigned char flag, unsigned char value);
 int _get_field_flag(dbi_row_t *row, unsigned int fieldidx, unsigned char flag);
+
+
+/******************************
+ * DBI INSTANCE RELATED TYPES *
+ ******************************/
+typedef struct dbi_inst_s {
+	dbi_driver_t *rootdriver;
+	dbi_conn_t *rootconn;
+	int dbi_verbosity;
+} dbi_inst_t;
 
 
 #ifdef __cplusplus
