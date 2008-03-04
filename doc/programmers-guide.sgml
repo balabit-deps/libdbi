@@ -3,6 +3,7 @@
 <!ENTITY libdbi-reference SYSTEM "libdbi-reference.sgml">
 <!ENTITY libdbi-quickstart SYSTEM "libdbi-quickstart.sgml">
 <!ENTITY libdbi-errorhandling SYSTEM "libdbi-errorhandling.sgml">
+<!ENTITY libdbi-versioning SYSTEM "libdbi-versioning.sgml">
 <!ENTITY example-program SYSTEM "example-program.sgml">
 <!ENTITY freedoc-license SYSTEM "include/copying-fdl.sgml">
 <!ENTITY www '<ULink url="http://libdbi.sourceforge.net">http://libdbi.sourceforge.net</ULink>'>
@@ -30,8 +31,8 @@
 	<address format="linespecific"><email>markus@mhoenicka.de</email></address>
       </affiliation>
     </author>
-    <Edition>Document revision: $Id: programmers-guide.sgml,v 1.14 2008/02/18 21:40:16 mhoenicka Exp $</Edition>
-    <PubDate>$Date: 2008/02/18 21:40:16 $</PubDate>
+    <Edition>Document revision: $Id: programmers-guide.sgml,v 1.15 2008/03/04 09:00:35 mhoenicka Exp $</Edition>
+    <PubDate>$Date: 2008/03/04 09:00:35 $</PubDate>
     <Copyright>
       <Year>2001-2006</Year>
       <Holder>David Parker, Neon Goat Productions</Holder>
@@ -119,6 +120,10 @@
 
   <chapter id="errorhandling"><title>Error Handling</Title>
     &libdbi-errorhandling;
+  </Chapter>
+
+  <chapter id="versioning"><title>Library and Interface Versions</Title>
+    &libdbi-versioning;
   </Chapter>
 
   &libdbi-reference;
