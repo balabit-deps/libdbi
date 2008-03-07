@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.81 2008/02/18 21:40:16 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.82 2008/03/07 20:46:53 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -1274,15 +1274,19 @@ static dbi_driver_t *_get_driver(const char *filename, dbi_inst_t *inst) {
 			}
 			custom->next = NULL;
 			custom->name = custom_functions_list[idx];
-			snprintf(function_name, 256, DLSYM_PREFIX "dbd_%s", custom->name);
-			custom->function_pointer = my_dlsym(dlhandle, function_name);
+/* 			snprintf(function_name, 256, DLSYM_PREFIX "dbd_%s", custom->name); */
+/* 			printf("loading %s<<\n", custom->name); */
+
+			custom->function_pointer = my_dlsym(RTLD_NEXT, custom->name);
 			if (!custom->function_pointer) {
-				_free_custom_functions(driver);
-				free(custom); /* not linked into the list yet */
-				free(driver->functions);
-				free(driver->filename);
-				free(driver);
-				return NULL;
+/* 			  printf(my_dlerror()); */
+			  /* this usually fails because a function was
+			     renamed, is no longer available, or not
+			     yet available. Simply skip this
+			     function */
+			  free(custom); /* not linked into the list yet */
+			  idx++;
+			  continue;
 			}
 			if (driver->custom_functions == NULL) {
 				driver->custom_functions = custom;
