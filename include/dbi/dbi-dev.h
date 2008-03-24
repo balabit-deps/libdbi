@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.43 2008/02/17 16:28:26 mhoenicka Exp $
+ * $Id: dbi-dev.h,v 1.44 2008/03/24 01:41:56 qu1j0t3 Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -168,8 +168,6 @@ typedef struct dbi_conn_s {
 	int results_size;
 	struct dbi_conn_s *next; /* so libdbi can unload all conns at exit */
 } dbi_conn_t;
-
-extern int dbi_verbosity;
 
 unsigned int _isolate_attrib(unsigned int attribs, unsigned int rangemin, unsigned int rangemax);
 void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag);
