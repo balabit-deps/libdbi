@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.83 2008/03/27 19:36:25 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.84 2008/04/19 16:06:38 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -1312,7 +1312,6 @@ static dbi_driver_t *_get_driver(const char *filename, dbi_inst_t *inst) {
 			prevcustom = custom;
 			idx++;
 		}
-		printf("custom_functions went to %p\n", driver->custom_functions);
 	}
 	return driver;
 }
