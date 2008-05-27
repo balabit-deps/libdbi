@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.84 2008/04/19 16:06:38 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.85 2008/05/27 10:52:12 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -101,6 +101,10 @@ char *win_dlerror();
 
 #ifndef DLSYM_PREFIX
 #define DLSYM_PREFIX ""
+#endif
+
+#ifndef RTLD_NEXT
+#define RTLD_NEXT ((void *) -1) /* taken from FreeBSD */
 #endif
 
 /* declarations of optional external functions */
