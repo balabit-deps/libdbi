@@ -30,6 +30,7 @@ AC_PROG_LD
 AC_PROG_INSTALL
 AC_PROG_LIBTOOL
 AC_SUBST(LIBTOOL)
+
 dnl ====================================
 dnl Set some general compile options
 dnl ====================================
@@ -73,6 +74,18 @@ fi
 AC_SUBST(DEBUG)
 AC_SUBST(PROFILE)
 
+dnl ====================================
+dnl Set some host-specific options
+dnl dlsym_handle: if 1, use the handle returned by dlopen() to query
+dnl               the symbols contained in a shared library which the
+dnl               dlopen()ed object is linked against. if 0, use
+dnl               the special handle "RTLD_NEXT" instead
+dnl               note to self: is this hack a consequence of
+dnl               using RTLD_LAZY in the first place??
+dnl dlopen_flag:  flag to use with dlopen(). RTLD_LAZY is preferred
+dnl               for performance reasons if it works ok on a
+dnl               particular platform
+dnl ====================================
 case $host in
 	*-*-*bsd*)
 		dlsym_handle=0
