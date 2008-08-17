@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd.h,v 1.29 2005/08/15 19:18:18 mhoenicka Exp $
+ * $Id: dbd.h,v 1.30 2008/08/17 21:32:53 mhoenicka Exp $
  */
 
 
@@ -52,7 +52,7 @@ size_t dbd_quote_string(dbi_driver_t *driver, const char *orig, char *dest);
 size_t dbd_quote_binary(dbi_conn_t *conn, const unsigned char *orig, size_t from_length, unsigned char **ptr_dest);
 size_t dbd_conn_quote_string(dbi_conn_t *conn, const char *orig, char *dest);
 const char *dbd_select_db(dbi_conn_t *conn, const char *db);
-int dbd_geterror(dbi_conn_t *conn, int *errno, char **errstr);
+int dbd_geterror(dbi_conn_t *conn, int *err_no, char **errstr);
 unsigned long long dbd_get_seq_last(dbi_conn_t *conn, const char *sequence);
 unsigned long long dbd_get_seq_next(dbi_conn_t *conn, const char *sequence);
 int dbd_ping(dbi_conn_t *conn);
@@ -63,7 +63,7 @@ void _dbd_result_set_numfields(dbi_result_t *result, unsigned int numfields);
 void _dbd_result_add_field(dbi_result_t *result, unsigned int fieldidx, char *name, unsigned short type, unsigned int attribs);
 dbi_row_t *_dbd_row_allocate(unsigned int numfields);
 void _dbd_row_finalize(dbi_result_t *result, dbi_row_t *row, unsigned long long rowidx);
-void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int errno);
+void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int err_no);
 dbi_result_t *_dbd_result_create_from_stringarray(dbi_conn_t *conn, unsigned long long numrows_matched, const char **stringarray);
 void _dbd_register_driver_cap(dbi_driver_t *driver, const char *capname, int value);
 void _dbd_register_conn_cap(dbi_conn_t *conn, const char *capname, int value);

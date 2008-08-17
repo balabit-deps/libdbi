@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.40 2008/01/15 00:21:25 mhoenicka Exp $
+ * $Id: dbd_helper.c,v 1.41 2008/08/17 21:32:53 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -145,7 +145,7 @@ size_t _dbd_escape_chars(char *dest, const char *orig, size_t orig_size, const c
 	return len;
 }
 
-void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int errno) {
+void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int err_no) {
   int my_errno = DBI_ERROR_NONE;
   int errstatus;
   char *my_errmsg = NULL;
@@ -154,7 +154,7 @@ void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int
     free(conn->error_message);
   }
 	
-  if (errno == DBI_ERROR_DBD) {
+  if (err_no == DBI_ERROR_DBD) {
     /* translate into a client-library specific error number */
     errstatus = conn->driver->functions->geterror(conn, &my_errno, &my_errmsg);
 
@@ -171,8 +171,8 @@ void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int
     }
   }
   else if (errmsg) {
-    conn->error_flag = errno; /* legacy code may rely on this */
-    conn->error_number = errno;
+    conn->error_flag = err_no; /* legacy code may rely on this */
+    conn->error_number = err_no;
     conn->error_message = strdup(errmsg);
     
     if (conn->error_handler != NULL) {
@@ -181,7 +181,7 @@ void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int
   }
   else {
     /* pass internal errors to the internal libdbi handler */
-    _error_handler(conn, errno);
+    _error_handler(conn, err_no);
   }
 
 }
