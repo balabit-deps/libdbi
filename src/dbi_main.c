@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.86 2008/10/22 22:46:15 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.87 2008/11/11 23:51:42 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -221,6 +221,7 @@ void dbi_shutdown_r(dbi_inst Inst) {
 	
 	while (curdriver) {
 		nextdriver = curdriver->next;
+		curdriver->functions->finalize(curdriver);		
  		_safe_dlclose(curdriver);
 		free(curdriver->functions);
 		_free_custom_functions(curdriver);
@@ -1236,6 +1237,7 @@ static dbi_driver_t *_get_driver(const char *filename, dbi_inst_t *inst) {
 		if ( /* nasty looking if block... is there a better way to do it? */
 			((driver->functions->register_driver = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_register_driver")) == NULL) ||
 			((driver->functions->initialize = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_initialize")) == NULL) ||
+			((driver->functions->finalize = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_finalize")) == NULL) ||
 			((driver->functions->connect = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_connect")) == NULL) ||
 			((driver->functions->disconnect = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_disconnect")) == NULL) ||
 			((driver->functions->fetch_row = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_fetch_row")) == NULL) ||

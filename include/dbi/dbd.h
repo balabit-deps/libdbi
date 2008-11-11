@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd.h,v 1.30 2008/08/17 21:32:53 mhoenicka Exp $
+ * $Id: dbd.h,v 1.31 2008/11/11 23:51:42 mhoenicka Exp $
  */
 
 
@@ -34,6 +34,7 @@ extern "C" {
 /* FUNCTIONS EXPORTED BY EACH DRIVER */
 void dbd_register_driver(const dbi_info_t **_driver_info, const char ***_custom_functions, const char ***_reserved_words);
 int dbd_initialize(dbi_driver_t *driver);
+int dbd_finalize(dbi_driver_t *driver);
 int dbd_connect(dbi_conn_t *conn);
 int dbd_disconnect(dbi_conn_t *conn);
 int dbd_fetch_row(dbi_result_t *result, unsigned long long rowidx);

@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.44 2008/03/24 01:41:56 qu1j0t3 Exp $
+ * $Id: dbi-dev.h,v 1.45 2008/11/11 23:51:42 mhoenicka Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -110,6 +110,7 @@ typedef struct dbi_option_s {
 typedef struct dbi_functions_s {
 	void (*register_driver)(const dbi_info_t **, const char ***, const char ***);
 	int (*initialize)(dbi_driver_t_pointer);
+	int (*finalize)(dbi_driver_t_pointer);
 	int (*connect)(dbi_conn_t_pointer);
 	int (*disconnect)(dbi_conn_t_pointer);
 	int (*fetch_row)(dbi_result_t *, unsigned long long);
