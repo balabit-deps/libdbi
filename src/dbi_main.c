@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.87 2008/11/11 23:51:42 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.88 2008/11/26 23:55:56 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -30,6 +30,8 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include <sys/types.h>
+#include <stddef.h>
 
 /* Dlopen stuff */
 #if HAVE_LTDL_H
@@ -131,10 +133,12 @@ extern int _disjoin_from_conn(dbi_result_t *result);
 
 dbi_result dbi_conn_queryf(dbi_conn Conn, const char *formatstr, ...) __attribute__ ((format (printf, 2, 3)));
 int dbi_conn_set_error(dbi_conn Conn, int errnum, const char *formatstr, ...) __attribute__ ((format (printf, 3, 4)));
+size_t _dirent_buf_size(DIR * dirp);
 
 /* must not be called "ERROR" due to a name clash on Windoze */
 static const char *my_ERROR = "ERROR";
 static dbi_inst dbi_inst_legacy;
+
 
 /* XXX DBI CORE FUNCTIONS XXX */
 
@@ -161,7 +165,7 @@ int dbi_initialize_r(const char *driverdir, dbi_inst *pInst) {
 	*pInst = (void*) inst;
 	inst->rootdriver = NULL;
 	inst->rootconn = NULL;
-	inst->dbi_verbosity = 1; /* TODO: is this really the right default? */
+	inst->dbi_verbosity = 1; /* TODO: is this really the correct default? */
 	/* end instance init */
 	effective_driverdir = (driverdir ? (char *)driverdir : DBI_DRIVER_DIR);
 	dir = opendir(effective_driverdir);
@@ -170,7 +174,31 @@ int dbi_initialize_r(const char *driverdir, dbi_inst *pInst) {
 		return -1;
 	}
 	else {
-		while ((driver_dirent = readdir(dir)) != NULL) {
+		struct dirent *buffer;
+		size_t buffer_size;
+		int status;
+
+		/* allocate memory for readdir_r(3) */
+		buffer_size = _dirent_buf_size(dir);
+		if (buffer_size == -1) {
+		  return -1;
+		}
+
+		buffer = (struct dirent *) malloc (buffer_size);
+		if (buffer == NULL) {
+		  return -1;
+		}
+
+		memset (buffer, 0, buffer_size);
+
+		status = 0;
+		while (42) { /* yes, we all admire Douglas Adams */
+			driver_dirent = NULL;
+			status = readdir_r (dir, buffer, &driver_dirent);
+			if (status != 0 || driver_dirent == NULL) {
+			  break;
+			}
+
 			driver = NULL;
 			snprintf(fullpath, FILENAME_MAX, "%s%s%s", effective_driverdir, DBI_PATH_SEPARATOR, driver_dirent->d_name);
 			if ((stat(fullpath, &statbuf) == 0) && S_ISREG(statbuf.st_mode) && strrchr(driver_dirent->d_name, '.') && (!strcmp(strrchr(driver_dirent->d_name, '.'), DRIVER_EXT))) {
@@ -194,8 +222,9 @@ int dbi_initialize_r(const char *driverdir, dbi_inst *pInst) {
 					if (inst->dbi_verbosity) fprintf(stderr, "libdbi: Failed to load driver: %s\n", fullpath);
 				}
 			}
-		}
+		} /* while (42) */
 		closedir(dir);
+		free(buffer);
 	}
 	
 	return num_loaded;
@@ -1216,6 +1245,7 @@ static dbi_driver_t *_get_driver(const char *filename, dbi_inst_t *inst) {
 	dbi_custom_function_t *prevcustom = NULL;
 	dbi_custom_function_t *custom = NULL;
 	char function_name[256];
+	const char* error;
 
 	dlhandle = my_dlopen(filename, DLOPEN_FLAG); /* DLOPEN_FLAG defined by autoconf */
 
@@ -1279,7 +1309,8 @@ static dbi_driver_t *_get_driver(const char *filename, dbi_inst_t *inst) {
 		  symhandle = dlhandle;
 		}
 		else { /* the BSDs */
-		  symhandle = RTLD_NEXT;
+/* 		  symhandle = RTLD_NEXT; */
+		  symhandle = RTLD_DEFAULT;
 		}
 
 		while (custom_functions_list && custom_functions_list[idx] != NULL) {
@@ -1295,10 +1326,11 @@ static dbi_driver_t *_get_driver(const char *filename, dbi_inst_t *inst) {
 			custom->name = custom_functions_list[idx];
 /* 			snprintf(function_name, 256, DLSYM_PREFIX "dbd_%s", custom->name); */
 /* 			printf("loading %s<<\n", custom->name); */
-
+			my_dlerror(); /* clear any previous errors */
 			custom->function_pointer = my_dlsym(symhandle, custom->name);
-			if (!custom->function_pointer) {
-/* 			  printf(my_dlerror()); */
+/* 			if (!custom->function_pointer) { */
+			if ((error = my_dlerror()) != NULL) {
+/*  			  fprintf(STDERR, error); */
 
 			  /* this usually fails because a function was
 			     renamed, is no longer available, or not
@@ -1600,6 +1632,38 @@ static int _safe_dlclose(dbi_driver_t *driver) {
   }
   return 1;
 }
+
+/* Calculate the required buffer size (in bytes) for directory       *
+ * entries read from the given directory handle.  Return -1 if this  *
+ * this cannot be done.                                              *
+ * http://womble.decadentplace.org.uk/readdir_r-advisory.html        */
+
+size_t _dirent_buf_size(DIR * dirp)
+{
+    long name_max;
+    size_t name_end;
+#   if defined(HAVE_FPATHCONF) && defined(HAVE_DIRFD) \
+       && defined(_PC_NAME_MAX)
+        name_max = fpathconf(dirfd(dirp), _PC_NAME_MAX);
+        if (name_max == -1)
+#           if defined(NAME_MAX)
+                name_max = (NAME_MAX > 255) ? NAME_MAX : 255;
+#           else
+                return (size_t)(-1);
+#           endif
+#   else
+#       if defined(NAME_MAX)
+            name_max = (NAME_MAX > 255) ? NAME_MAX : 255;
+#       else
+#           error "buffer size for readdir_r cannot be determined"
+#       endif
+#   endif
+    name_end = (size_t)offsetof(struct dirent, d_name) + name_max + 1;
+    return (name_end > sizeof(struct dirent)
+            ? name_end : sizeof(struct dirent));
+}
+
+
 
 #if HAVE_MACH_O_DYLD_H
 static int dyld_error_set=0;

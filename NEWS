@@ -1,7 +1,44 @@
 libdbi NEWS file
 ================
 
-$Id: NEWS,v 1.7 2008/02/06 19:36:14 mhoenicka Exp $
+$Id: NEWS,v 1.8 2008/11/26 23:55:56 mhoenicka Exp $
+
+______________________________________
+libdbi 1.0 (the "Autumn Shade" release)
+
+Bugfixes
+
+- libdbi now supports using custom driver functions correctly (none of
+  the drivers had implemented this feature before libdbi-drivers 1.0, so
+  this was not really a problem).
+
+Improvements
+
+- libdbi now supports several independent "instances" per
+  process. This makes the library safe to use in programs that
+  dlopen() plugins at runtime which in turn are linked against
+  libdbi. The new function dbi_initialize_r() creates a handle which
+  the functions dbi_shutdown_r(), dbi_set_verbosity_r(),
+  dbi_driver_list_r(), dbi_driver_open_r(), and dbi_conn_new_r() use
+  to operate on a particular instance. A new function
+  dbi_driver_get_instance() helps to determine the instance at runtime.
+  The old interface (with just one instance per process which is
+  managed internally) is still around but deprecated. See the file
+  UPGRADING for detailed instructions.
+
+- the libtool library versioning numbers were now set appropriately
+  (they had fallen out of maintenance somehow in the past), and starting
+  with this release the release number will match the libtool numbering
+  scheme. libtool manages shared objects in a way to allow the loader
+  to detect whether an application was linked against a compatible
+  version of a library. This will avoid runtime errors in future
+  releases if backwards-incompatible changes are necessary.
+
+- pgk-config (http://pkg-config.freedesktop.org/wiki/) is now supported
+
+- if CFLAGS is set in the environment, it is now used appropriately in
+  ./configure
+
 
 ______________________________________
 libdbi 0.8.3 (the "Steeltown" release)

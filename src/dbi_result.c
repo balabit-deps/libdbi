@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.48 2008/04/19 16:09:00 mhoenicka Exp $
+ * $Id: dbi_result.c,v 1.49 2008/11/26 23:55:56 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -39,6 +39,7 @@
 #include <dbi/dbi-dev.h>
 
 #ifdef __MINGW32__
+#warning "Using the thread-unsafe strtok function!"
 #define strtok_r(s1,s2,s3) strtok(s1,s2)
 #endif
 
@@ -1442,7 +1443,7 @@ char *dbi_result_get_as_string_copy_idx(dbi_result Result, unsigned int fieldidx
   char *ERROR = "ERROR";
   char *newstring = NULL;
   char *oldstring = NULL;
-  struct tm *utctime;
+  struct tm utctime;
 
   fieldidx--;
 
@@ -1530,8 +1531,8 @@ char *dbi_result_get_as_string_copy_idx(dbi_result Result, unsigned int fieldidx
   case DBI_TYPE_BINARY:
     break; /* return empty string, do not raise an error */
   case DBI_TYPE_DATETIME:
-    utctime = gmtime(&(RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_datetime));
-    snprintf(newstring, 32, "%04d-%02d-%02d %02d:%02d:%02d", utctime->tm_year+1900, utctime->tm_mon+1, utctime->tm_mday, utctime->tm_hour, utctime->tm_min, utctime->tm_sec);
+    gmtime_r(&(RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_datetime), &utctime);
+    snprintf(newstring, 32, "%04d-%02d-%02d %02d:%02d:%02d", utctime.tm_year+1900, utctime.tm_mon+1, utctime.tm_mday, utctime.tm_hour, utctime.tm_min, utctime.tm_sec);
     break;
   default:
     _error_handler(RESULT->conn, DBI_ERROR_BADTYPE);

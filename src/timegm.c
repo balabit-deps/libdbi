@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: timegm.c,v 1.1 2004/01/13 21:02:10 mhoenicka Exp $
+ * $Id: timegm.c,v 1.2 2008/11/26 23:55:56 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -30,7 +30,7 @@
 
 time_t timegm(struct tm *tm) {
   time_t temp_ltime;
-  struct tm *temp_gm;
+  struct tm temp_gm;
 
   if (!tm) {
     temp_ltime = 0;
@@ -39,9 +39,9 @@ time_t timegm(struct tm *tm) {
     temp_ltime = mktime(tm);
   }
 
-  temp_gm = gmtime(&temp_ltime);
+  gmtime_r(&temp_ltime, &temp_gm);
 
-  return (time_t)(temp_ltime + (temp_ltime - mktime(temp_gm)));
+  return (time_t)(temp_ltime + (temp_ltime - mktime(&temp_gm)));
 }
 
 #endif /* HAVE_TIMEGM */
