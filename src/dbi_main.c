@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.88 2008/11/26 23:55:56 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.89 2008/11/27 21:55:57 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -180,7 +180,7 @@ int dbi_initialize_r(const char *driverdir, dbi_inst *pInst) {
 
 		/* allocate memory for readdir_r(3) */
 		buffer_size = _dirent_buf_size(dir);
-		if (buffer_size == -1) {
+		if (buffer_size == 0) {
 		  return -1;
 		}
 
@@ -1634,7 +1634,7 @@ static int _safe_dlclose(dbi_driver_t *driver) {
 }
 
 /* Calculate the required buffer size (in bytes) for directory       *
- * entries read from the given directory handle.  Return -1 if this  *
+ * entries read from the given directory handle.  Return 0 if this  *
  * this cannot be done.                                              *
  * http://womble.decadentplace.org.uk/readdir_r-advisory.html        */
 
@@ -1649,7 +1649,7 @@ size_t _dirent_buf_size(DIR * dirp)
 #           if defined(NAME_MAX)
                 name_max = (NAME_MAX > 255) ? NAME_MAX : 255;
 #           else
-                return (size_t)(-1);
+                return (size_t)(0);
 #           endif
 #   else
 #       if defined(NAME_MAX)
