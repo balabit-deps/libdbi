@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.91 2008/11/28 22:09:01 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.92 2008/11/28 22:17:10 mhoenicka Exp $
  */
 
 /* silence the deprecated warnings as this lib must implement and call
@@ -1309,12 +1309,14 @@ static dbi_driver_t *_get_driver(const char *filename, dbi_inst_t *inst) {
 		   fails on FreeBSD except that dlsym may expect a
 		   leading underscore in front of the function
 		   names. But then, why does RTLD_NEXT work? */
+		/* update 2008-11-28: this is most likely a FreeBSD
+		   bug which was fixed in 6.3. TODO: follow up on this
+		   once I have a 6.3 or later box */
 		if (DLSYM_HANDLE) { /* most OSes */
 		  symhandle = dlhandle;
 		}
 		else { /* the BSDs */
-/* 		  symhandle = RTLD_NEXT; */
-		  symhandle = RTLD_DEFAULT;
+ 		  symhandle = RTLD_NEXT;
 		}
 
 		while (custom_functions_list && custom_functions_list[idx] != NULL) {
