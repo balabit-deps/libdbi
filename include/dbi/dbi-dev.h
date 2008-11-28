@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.45 2008/11/11 23:51:42 mhoenicka Exp $
+ * $Id: dbi-dev.h,v 1.46 2008/11/28 00:00:41 mhoenicka Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -27,6 +27,7 @@
 extern "C" {
 #endif
 
+#include "dirent.h" /* DIR definition */
 #include <dbi/dbi.h> /* for dbi_conn_error_handler_func */
 
 /*********************
@@ -179,6 +180,7 @@ void _logquery_null(dbi_conn_t *conn, const char* statement, size_t st_length);
 int _disjoin_from_conn(dbi_result_t *result);
 void _set_field_flag(dbi_row_t *row, unsigned int fieldidx, unsigned char flag, unsigned char value);
 int _get_field_flag(dbi_row_t *row, unsigned int fieldidx, unsigned char flag);
+size_t _dirent_buf_size(DIR * dirp);
 
 
 /******************************
