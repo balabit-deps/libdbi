@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.92 2008/11/28 22:17:10 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.93 2008/11/28 22:21:37 mhoenicka Exp $
  */
 
 /* silence the deprecated warnings as this lib must implement and call
@@ -235,7 +235,7 @@ int dbi_initialize_r(const char *driverdir, dbi_inst *pInst) {
 }
 
 int dbi_initialize(const char *driverdir) {
-	dbi_initialize_r(driverdir, &dbi_inst_legacy);
+  return (dbi_initialize_r(driverdir, &dbi_inst_legacy));
 }
 
 void dbi_shutdown_r(dbi_inst Inst) {
@@ -530,7 +530,7 @@ dbi_conn dbi_conn_new_r(const char *name, dbi_inst Inst) {
 	return conn;
 }
 dbi_conn dbi_conn_new(const char *name) {
-	dbi_conn_new_r(name, dbi_inst_legacy);
+  return (dbi_conn_new_r(name, dbi_inst_legacy));
 }
 
 dbi_conn dbi_conn_open(dbi_driver Driver) {
