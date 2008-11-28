@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.49 2008/11/26 23:55:56 mhoenicka Exp $
+ * $Id: dbi_result.c,v 1.50 2008/11/28 22:12:21 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -214,7 +214,7 @@ unsigned long long dbi_result_get_numrows_affected(dbi_result Result) {
 /* returns the length of the string or binary, excluding a trailing \0 */
 size_t dbi_result_get_field_length(dbi_result Result, const char *fieldname) {
   unsigned int fieldidx = 0;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
@@ -273,7 +273,7 @@ size_t dbi_result_get_field_size_idx(dbi_result Result, unsigned int fieldidx) {
 
 unsigned int dbi_result_get_field_idx(dbi_result Result, const char *fieldname) {
   unsigned int fieldidx = 0;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
@@ -323,7 +323,7 @@ unsigned int dbi_result_get_numfields(dbi_result Result) {
 
 unsigned short dbi_result_get_field_type(dbi_result Result, const char *fieldname) {
   unsigned int fieldidx = 0;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 	
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
@@ -365,7 +365,7 @@ unsigned short dbi_result_get_field_type_idx(dbi_result Result, unsigned int fie
 
 unsigned int dbi_result_get_field_attrib(dbi_result Result, const char *fieldname, unsigned int attribmin, unsigned int attribmax) {
   unsigned int fieldidx = 0;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 	
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
@@ -408,7 +408,7 @@ unsigned int dbi_result_get_field_attrib_idx(dbi_result Result,
 
 unsigned int dbi_result_get_field_attribs(dbi_result Result, const char *fieldname) {
   unsigned int fieldidx = 0;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 	
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
@@ -462,7 +462,7 @@ int _get_field_flag(dbi_row_t *row, unsigned int fieldidx, unsigned char flag) {
 
 int dbi_result_field_is_null(dbi_result Result, const char *fieldname) {
   unsigned int fieldidx = 0;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
@@ -812,7 +812,7 @@ unsigned int dbi_result_bind_fields(dbi_result Result, const char *format, ...) 
 signed char dbi_result_get_char(dbi_result Result, const char *fieldname) {
   signed char ERROR = 0;
   unsigned int fieldidx;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   _reset_conn_error(RESULT->conn);
 
@@ -861,7 +861,7 @@ signed char dbi_result_get_char_idx(dbi_result Result, unsigned int fieldidx) {
 short dbi_result_get_short(dbi_result Result, const char *fieldname) {
   short ERROR = 0;
   unsigned int fieldidx;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   _reset_conn_error(RESULT->conn);
 
@@ -913,7 +913,7 @@ int dbi_result_get_long(dbi_result Result, const char *fieldname) {
 int dbi_result_get_int(dbi_result Result, const char *fieldname) {
   long ERROR = 0;
   unsigned int fieldidx;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   _reset_conn_error(RESULT->conn);
 
@@ -965,7 +965,7 @@ int dbi_result_get_int_idx(dbi_result Result, unsigned int fieldidx) {
 long long dbi_result_get_longlong(dbi_result Result, const char *fieldname) {
   long long ERROR = 0;
   unsigned int fieldidx;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
     
   _reset_conn_error(RESULT->conn);
 
@@ -1050,7 +1050,7 @@ unsigned long long dbi_result_get_ulonglong_idx(dbi_result Result, unsigned int 
 
 float dbi_result_get_float(dbi_result Result, const char *fieldname) {
   float ERROR = 0.0;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
   unsigned int fieldidx;
 
   _reset_conn_error(RESULT->conn);
@@ -1097,7 +1097,7 @@ float dbi_result_get_float_idx(dbi_result Result, unsigned int fieldidx) {
 double dbi_result_get_double(dbi_result Result, const char *fieldname) {
   double ERROR = 0.0;
   unsigned int fieldidx;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   _reset_conn_error(RESULT->conn);
 
@@ -1140,7 +1140,7 @@ double dbi_result_get_double_idx(dbi_result Result, unsigned int fieldidx) {
 const char *dbi_result_get_string(dbi_result Result, const char *fieldname) {
   const char *ERROR = "ERROR";
   unsigned int fieldidx;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   _reset_conn_error(RESULT->conn);
 
@@ -1185,7 +1185,7 @@ const char *dbi_result_get_string_idx(dbi_result Result, unsigned int fieldidx) 
 const unsigned char *dbi_result_get_binary(dbi_result Result, const char *fieldname) {
   const char *ERROR = "ERROR";
   unsigned int fieldidx;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   _reset_conn_error(RESULT->conn);
 
@@ -1223,7 +1223,7 @@ const unsigned char *dbi_result_get_binary_idx(dbi_result Result, unsigned int f
 char *dbi_result_get_string_copy(dbi_result Result, const char *fieldname) {
   char *ERROR = "ERROR";
   unsigned int fieldidx;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   _reset_conn_error(RESULT->conn);
 
@@ -1275,7 +1275,7 @@ char *dbi_result_get_string_copy_idx(dbi_result Result, unsigned int fieldidx) {
 unsigned char *dbi_result_get_binary_copy(dbi_result Result, const char *fieldname) {
   char *ERROR = "ERROR";
   unsigned int fieldidx;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   _reset_conn_error(RESULT->conn);
 
@@ -1323,7 +1323,7 @@ unsigned char *dbi_result_get_binary_copy_idx(dbi_result Result, unsigned int fi
 time_t dbi_result_get_datetime(dbi_result Result, const char *fieldname) {
   time_t ERROR = 0;
   unsigned int fieldidx;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   _reset_conn_error(RESULT->conn);
 
@@ -1361,7 +1361,7 @@ time_t dbi_result_get_datetime_idx(dbi_result Result, unsigned int fieldidx) {
 long long dbi_result_get_as_longlong(dbi_result Result, const char *fieldname) {
   long long ERROR = 0;
   unsigned int fieldidx;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
     
   _reset_conn_error(RESULT->conn);
 
@@ -1426,7 +1426,7 @@ long long dbi_result_get_as_longlong_idx(dbi_result Result, unsigned int fieldid
 char *dbi_result_get_as_string_copy(dbi_result Result, const char *fieldname) {
   char *ERROR = "ERROR";
   unsigned int fieldidx;
-  dbi_error_flag errflag;
+  dbi_error_flag errflag = DBI_ERROR_NONE;
 
   _reset_conn_error(RESULT->conn);
 
