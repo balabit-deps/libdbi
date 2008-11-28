@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.90 2008/11/28 22:06:34 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.91 2008/11/28 22:09:01 mhoenicka Exp $
  */
 
 /* silence the deprecated warnings as this lib must implement and call
@@ -1164,7 +1164,7 @@ dbi_result dbi_conn_query_null(dbi_conn Conn, const unsigned char *statement, si
 
 	_reset_conn_error(conn);
 
-	_logquery_null(conn, statement, st_length);
+	_logquery_null(conn, (const char *)statement, st_length);
 	result = conn->driver->functions->query_null(conn, statement, st_length);
 
 	if (result == NULL) {
