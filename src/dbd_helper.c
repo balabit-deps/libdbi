@@ -17,13 +17,16 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.41 2008/08/17 21:32:53 mhoenicka Exp $
+ * $Id: dbd_helper.c,v 1.42 2008/11/28 22:18:05 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
+#include <sys/types.h>
+#include <dirent.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -303,7 +306,6 @@ time_t _dbd_parse_datetime(const char *raw, unsigned int attribs) {
 	int _tz_dir = 0;
 	int _tz_hours = 0;
 	int _tz_mins = 0;
-	int _hour_len = 2;
 
 	int check_time = 1;
 
@@ -403,6 +405,37 @@ time_t _dbd_parse_datetime(const char *raw, unsigned int attribs) {
 	/* output is UTC, not local time */
 	return (time_t)(_gm_offset + timegm(&unixtime));
 }
+
+/* Calculate the required buffer size (in bytes) for directory       *
+ * entries read from the given directory handle.  Return 0 if this  *
+ * this cannot be done.                                              *
+ * http://womble.decadentplace.org.uk/readdir_r-advisory.html        */
+
+size_t _dirent_buf_size(DIR * dirp)
+{
+    long name_max;
+    size_t name_end;
+#   if defined(HAVE_FPATHCONF) && defined(HAVE_DIRFD) \
+       && defined(_PC_NAME_MAX)
+        name_max = fpathconf(dirfd(dirp), _PC_NAME_MAX);
+        if (name_max == -1)
+#           if defined(NAME_MAX)
+                name_max = (NAME_MAX > 255) ? NAME_MAX : 255;
+#           else
+                return (size_t)(0);
+#           endif
+#   else
+#       if defined(NAME_MAX)
+            name_max = (NAME_MAX > 255) ? NAME_MAX : 255;
+#       else
+#           error "buffer size for readdir_r cannot be determined"
+#       endif
+#   endif
+    name_end = (size_t)offsetof(struct dirent, d_name) + name_max + 1;
+    return (name_end > sizeof(struct dirent)
+            ? name_end : sizeof(struct dirent));
+}
+
 
 /* encoding/decoding of binary strings. The code, including the
    introductory comments, was literally stolen from the SQLite 2.8.16
