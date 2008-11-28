@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.93 2008/11/28 22:21:37 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.94 2008/11/28 22:27:14 mhoenicka Exp $
  */
 
 /* silence the deprecated warnings as this lib must implement and call
@@ -115,10 +115,10 @@ char *win_dlerror();
 #endif
 
 /* declarations of optional external functions */
-#ifndef HAVE_VASPRINTF
+#if !HAVE_DECL_VASPRINTF
 int vasprintf(char **result, const char *format, va_list args);
 #endif
-#ifndef HAVE_ASPRINTF
+#if !HAVE_DECL_ASPRINTF
 int asprintf(char **result, const char *format, ...);
 #endif
 

@@ -151,8 +151,9 @@ AC_DEFINE_UNQUOTED(DRIVER_EXT, "$shlib_ext", [ Specifies the filename extension 
 AC_DEFINE_UNQUOTED(DLSYM_PREFIX, "$dlsym_prefix", [ Specifies a required prefix for symbol names of dynamically loaded modules ])
 
 
-AC_CHECK_FUNCS(strtoll readdir_r gmtime_r fpathconf dirfd)
-AC_REPLACE_FUNCS(atoll timegm)
+AC_CHECK_DECLS([readdir_r, gmtime_r, vasprintf, asprintf])
+AC_CHECK_FUNCS(strtoll readdir_r gmtime_r fpathconf dirfd vasprintf)
+AC_REPLACE_FUNCS(atoll timegm asprintf)
 AC_CHECK_FUNCS(vasprintf)
 AC_REPLACE_FUNCS(asprintf)
 
