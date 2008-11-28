@@ -17,8 +17,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.89 2008/11/27 21:55:57 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.90 2008/11/28 22:06:34 mhoenicka Exp $
  */
+
+/* silence the deprecated warnings as this lib must implement and call
+   the deprecated functions for the time being */
+#define LIBDBI_API_DEPRECATED /**/
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -30,6 +34,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include <strings.h> /* for strcasecmp */
 #include <sys/types.h>
 #include <stddef.h>
 
@@ -106,7 +111,7 @@ char *win_dlerror();
 #endif
 
 #ifndef RTLD_NEXT
-#define RTLD_NEXT ((void *) -1) /* taken from FreeBSD */
+#define RTLD_NEXT ((void *) -1) /* taken from FreeBSD, just a compile helper */
 #endif
 
 /* declarations of optional external functions */
@@ -133,7 +138,6 @@ extern int _disjoin_from_conn(dbi_result_t *result);
 
 dbi_result dbi_conn_queryf(dbi_conn Conn, const char *formatstr, ...) __attribute__ ((format (printf, 2, 3)));
 int dbi_conn_set_error(dbi_conn Conn, int errnum, const char *formatstr, ...) __attribute__ ((format (printf, 3, 4)));
-size_t _dirent_buf_size(DIR * dirp);
 
 /* must not be called "ERROR" due to a name clash on Windoze */
 static const char *my_ERROR = "ERROR";
@@ -1632,37 +1636,6 @@ static int _safe_dlclose(dbi_driver_t *driver) {
   }
   return 1;
 }
-
-/* Calculate the required buffer size (in bytes) for directory       *
- * entries read from the given directory handle.  Return 0 if this  *
- * this cannot be done.                                              *
- * http://womble.decadentplace.org.uk/readdir_r-advisory.html        */
-
-size_t _dirent_buf_size(DIR * dirp)
-{
-    long name_max;
-    size_t name_end;
-#   if defined(HAVE_FPATHCONF) && defined(HAVE_DIRFD) \
-       && defined(_PC_NAME_MAX)
-        name_max = fpathconf(dirfd(dirp), _PC_NAME_MAX);
-        if (name_max == -1)
-#           if defined(NAME_MAX)
-                name_max = (NAME_MAX > 255) ? NAME_MAX : 255;
-#           else
-                return (size_t)(0);
-#           endif
-#   else
-#       if defined(NAME_MAX)
-            name_max = (NAME_MAX > 255) ? NAME_MAX : 255;
-#       else
-#           error "buffer size for readdir_r cannot be determined"
-#       endif
-#   endif
-    name_end = (size_t)offsetof(struct dirent, d_name) + name_max + 1;
-    return (name_end > sizeof(struct dirent)
-            ? name_end : sizeof(struct dirent));
-}
-
 
 
 #if HAVE_MACH_O_DYLD_H
