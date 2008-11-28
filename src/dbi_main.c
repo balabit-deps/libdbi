@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.94 2008/11/28 22:27:14 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.95 2008/11/28 22:28:51 mhoenicka Exp $
  */
 
 /* silence the deprecated warnings as this lib must implement and call
@@ -781,7 +781,6 @@ size_t dbi_conn_quote_binary_copy(dbi_conn Conn, const unsigned char *orig, size
    do */
 
 size_t dbi_conn_escape_string_copy(dbi_conn Conn, const char *orig, char **newquoted) {
-	char *newstr;
 	size_t newlen;
 	
 	if (!Conn) {
@@ -1248,7 +1247,6 @@ static dbi_driver_t *_get_driver(const char *filename, dbi_inst_t *inst) {
 	unsigned int idx = 0;
 	dbi_custom_function_t *prevcustom = NULL;
 	dbi_custom_function_t *custom = NULL;
-	char function_name[256];
 	const char* error;
 
 	dlhandle = my_dlopen(filename, DLOPEN_FLAG); /* DLOPEN_FLAG defined by autoconf */
