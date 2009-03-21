@@ -2,18 +2,29 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT(src/dbi_main.c)
 AM_MAINTAINER_MODE
 
-dnl set up library versioning
+dnl set up libtool library versioning
 LIB_CURRENT=1
 LIB_REVISION=0
 LIB_AGE=1
 
-AM_INIT_AUTOMAKE(libdbi, $LIB_CURRENT.$LIB_REVISION-pre2)
+dnl set up libdbi versioning from the above interface version numbers
+dnl the math contains an ugly hack to massage the minor version number
+dnl into the scheme used up to 0.8.3. minor should be used without
+dnl that correction as soon as major is larger than 0
+LIBDBI_MAJOR=`expr $LIB_CURRENT - $LIB_AGE`
+LIBDBI_MINOR=`expr $LIB_AGE + 8`
+LIBDBI_PATCH=$LIB_REVISION
+
+AM_INIT_AUTOMAKE(libdbi, $LIBDBI_MAJOR.$LIBDBI_MINOR.$LIBDBI_PATCH-pre1)
 AM_CONFIG_HEADER(config.h)
 
 dnl promote library versioning to Makefiles
 AC_SUBST(LIB_CURRENT)
 AC_SUBST(LIB_REVISION)
 AC_SUBST(LIB_AGE)
+AC_SUBST(LIBDBI_MAJOR)
+AC_SUBST(LIBDBI_MINOR)
+AC_SUBST(LIBDBI_PATCH)
 
 AC_CANONICAL_HOST
 

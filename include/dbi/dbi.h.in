@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h.in,v 1.7 2008/11/28 22:06:34 mhoenicka Exp $
+ * $Id: dbi.h.in,v 1.8 2009/03/21 22:53:48 mhoenicka Exp $
  */
 
 #ifndef __DBI_H__
@@ -99,10 +99,13 @@ typedef struct {
 /* function callback definitions */
 typedef void (*dbi_conn_error_handler_func)(dbi_conn, void *);
 
-/* definitions of the library interface versions */
+/* definitions of the libtool library interface versions */
 #define LIBDBI_LIB_CURRENT @LIB_CURRENT@
 #define LIBDBI_LIB_REVISION @LIB_REVISION@
 #define LIBDBI_LIB_AGE @LIB_AGE@
+
+/* definition of the libdbi version */
+#define LIBDBI_VERSION ((@LIBDBI_MAJOR@ * 10000) + (@LIBDBI_MINOR@ * 100) + (@LIBDBI_PATCH@))
 
 /* values for the int in field_types[] */
 #define DBI_TYPE_INTEGER 1
