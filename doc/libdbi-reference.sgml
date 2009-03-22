@@ -1,6 +1,6 @@
 <!--
 vim:ft=sgml
-$Id: libdbi-reference.sgml,v 1.18 2008/02/18 21:40:16 mhoenicka Exp $
+$Id: libdbi-reference.sgml,v 1.19 2009/03/22 17:02:01 mhoenicka Exp $
 Copyright (C) 2001-2005, David Parker, Neon Goat Productions.
 This document is licensed under the GNU Free Documentation License, version 1.1 or later, as
 published by the Free Software Foundation.
@@ -29,6 +29,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>The number of drivers successfully loaded, or -1 if there was an error. The latter may be due to an incorrect driver directory or to a lack of permissions.</Para></ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.9.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-initialize" XRefLabel="dbi_initialize"><Title>dbi_initialize</Title>
@@ -70,6 +76,12 @@ published by the Free Software Foundation.
 	      <Para><Literal>Inst</Literal>: The instance handle.</Para>
 	    </ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.9.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-shutdown" XRefLabel="dbi_shutdown"><Title>dbi_shutdown</Title>
@@ -105,6 +117,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>The previous setting of <parameter>verbosity</parameter>.</Para></ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.9.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-set-verbosity" XRefLabel="dbi_set_verbosity"><Title>dbi_set_verbosity</Title>
@@ -146,6 +164,27 @@ published by the Free Software Foundation.
 	  </VarListEntry>
 	</VariableList>
       </Section>
+      <Section id="dbi-version-numeric" XRefLabel="dbi_version_numeric"><Title>dbi_version_numeric</Title>
+	<funcsynopsis>
+	  <funcprototype>
+	    <funcdef>unsigned int <function>dbi_version_numeric</function></funcdef>
+	    <void>
+	  </funcprototype>
+	</funcsynopsis>
+	<Para>Requests the version of libdbi as an integer.</Para>
+	<VariableList>
+	  <VarListEntry>
+	    <term>Returns</term>
+	    <ListItem><Para>The version, computed as ((major * 10000) + (minor * 100) + patch).</Para></ListItem>
+	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.9.0</para>
+	    </listitem>
+	  </varlistentry>
+	</VariableList>
+      </Section>
     </Section>
     <Section id="reference-driver"><Title>Driver Infrastructure</Title>
       <Section id="dbi-driver-list-r" XRefLabel="dbi_driver_list_r"><Title>dbi_driver_list_r</Title>
@@ -169,6 +208,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>The next available driver, or NULL if there is an error or no more are available.</Para></ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.9.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-driver-list" XRefLabel="dbi_driver_list"><Title>dbi_driver_list</Title>
@@ -216,6 +261,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>The requested driver, or NULL if there is no such driver.</Para></ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.9.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-driver-open" XRefLabel="dbi_driver_open"><Title>dbi_driver_open</Title>
@@ -261,6 +312,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>The instance handle, or NULL in case of an error.</Para></ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.9.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-driver-is-reserved-word" XRefLabel="dbi_driver_is_reserved_word"><Title>dbi_driver_is_reserved_word</Title>
@@ -307,6 +364,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>If the custom function is found, a pointer to that function. If not, returns NULL.</Para></ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.9.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-driver-quote-string" XRefLabel="dbi_driver_quote_string"><Title>dbi_driver_quote_string</Title>
@@ -387,6 +450,12 @@ published by the Free Software Foundation.
 	      <para>A string containing the database engine specific encoding name. If the encoding name cannot be translated, the IANA name is returned without translation.</para>
 	    </listitem>
 	  </varlistentry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
+	    </listitem>
+	  </varlistentry>
 	</variablelist>
       </section>
       <section id="dbi-driver-encoding-to-iana" xreflabel="dbi_driver_encoding_to_iana">
@@ -411,6 +480,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <listitem>
 	      <para>A string containing the IANA encoding name. If the encoding name cannot be translated, the database engine specific name is returned without translation.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
 	    </listitem>
 	  </varlistentry>
 	</variablelist>
@@ -941,6 +1016,12 @@ published by the Free Software Foundation.
 	      </note>
 	    </listitem>
 	  </varlistentry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
+	    </listitem>
+	  </varlistentry>
 	</variablelist>
       </section>
       <section id="dbi-conn-get-engine-version" xreflabel="dbi_conn_get_engine_version">
@@ -963,6 +1044,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <listitem>
 	      <para>A numeric representation of the version. String representations of the version (e.g. "4.1.10") do not lend themselves to an easy comparison in order to find out whether a particular engine feature is already implemented. For example, a string comparison would claim that "4.1.9" is a later version than "4.1.10". Therefore libdbi computes a numeric representation of the version number [[[[A.]B.]C.]D.]E[.] according to the formula E + D*100 + C*10000 + B*1000000 + A*100000000. The resulting integers (40109 and 40110 in the example above) will be sorted correctly. Returns 0 if the version number cannot be retrieved.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
 	    </listitem>
 	  </varlistentry>
 	</variablelist>
@@ -1363,6 +1450,12 @@ published by the Free Software Foundation.
 	      <para>The new string's length in bytes, excluding the terminating zero byte, or 0 in case of an error. The length of a quoted empty string is 2 bytes. In case of an error the <link linkend="errornumbers">error number</link> is DBI_ERROR_BADPTR or DBI_ERROR_NOMEM.</para>
 	    </listitem>
 	  </varlistentry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
+	    </listitem>
+	  </varlistentry>
 	</variablelist>
       </section>
       <section id="dbi-conn-quote-string-copy" xreflabel="dbi_conn_quote_string_copy">
@@ -1389,6 +1482,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <listitem>
 	      <para>The new string's length in bytes, excluding the terminating zero byte, or 0 in case of an error. Possible <link linkend="errornumbers">error numbers</link> are DBI_ERROR_BADPTR and DBI_ERROR_NOMEM.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
 	    </listitem>
 	  </varlistentry>
 	</variablelist>
@@ -1421,6 +1520,12 @@ published by the Free Software Foundation.
 	      <para>The new string's length in bytes, excluding the terminating zero byte, or 0 in case of an error. Possible <link linkend="errornumbers">error numbers</link> are DBI_ERROR_BADPTR and DBI_ERROR_NOMEM.</para>
 	    </listitem>
 	  </varlistentry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
+	    </listitem>
+	  </varlistentry>
 	</variablelist>
       </section>
       <section id="dbi-conn-escape-string" xreflabel="dbi_conn_escape_string">
@@ -1445,6 +1550,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <listitem>
 	      <para>The new string's length in bytes, excluding the terminating zero byte, or 0 in case of an error. The length of a quoted empty string is 2 bytes. In case of an error the <link linkend="errornumbers">error number</link> is DBI_ERROR_BADPTR or DBI_ERROR_NOMEM.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.3</para>
 	    </listitem>
 	  </varlistentry>
 	</variablelist>
@@ -1475,6 +1586,12 @@ published by the Free Software Foundation.
 	      <para>The new string's length in bytes, excluding the terminating zero byte, or 0 in case of an error. Possible <link linkend="errornumbers">error numbers</link> are DBI_ERROR_BADPTR and DBI_ERROR_NOMEM.</para>
 	    </listitem>
 	  </varlistentry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.3</para>
+	    </listitem>
+	  </varlistentry>
 	</variablelist>
       </section>
       <section id="dbi-conn-escape-binary-copy" xreflabel="dbi_conn_escape_binary_copy">
@@ -1503,6 +1620,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <listitem>
 	      <para>The new string's length in bytes, excluding the terminating zero byte, or 0 in case of an error. Possible <link linkend="errornumbers">error numbers</link> are DBI_ERROR_BADPTR and DBI_ERROR_NOMEM.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.3</para>
 	    </listitem>
 	  </varlistentry>
 	</variablelist>
@@ -2242,6 +2365,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>The data stored in the specified field, or 0 (zero) if an error occurs. In the latter case the <link linkend="errornumbers">error number</link> is DBI_ERROR_BADTYPE, DBI_ERROR_BADIDX, or DBI_ERROR_BADNAME..</Para></ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-result-get-uint" XRefLabel="dbi_result_get_uint"><Title>dbi_result_get_uint</Title>
@@ -2265,6 +2394,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>The data stored in the specified field, or 0 (zero) if an error occurs. In the latter case the <link linkend="errornumbers">error number</link> is DBI_ERROR_BADTYPE, DBI_ERROR_BADIDX, or DBI_ERROR_BADNAME..</Para></ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-result-get-long" XRefLabel="dbi_result_get_long"><Title>dbi_result_get_long</Title>
@@ -2496,6 +2631,64 @@ published by the Free Software Foundation.
 	  </VarListEntry>
 	</VariableList>
       </Section>
+      <Section id="dbi-result-get-as-longlong" XRefLabel="dbi_result_get_as_longlong"><Title>dbi_result_get_as_longlong</Title>
+	<funcsynopsis>
+	  <funcprototype>
+	    <funcdef>long long <function>dbi_result_get_as_longlong</function></funcdef>
+	    <paramdef>dbi_result <parameter moreinfo="none">Result</parameter></paramdef>
+	    <paramdef>const char *<parameter moreinfo="none">fieldname</parameter></paramdef>
+	  </funcprototype>
+	</funcsynopsis>
+	<Para>Fetch the data stored in the specified field. Return the contents as a long long integer value, using appropriate casts or conversions if applicable.</Para>
+	<VariableList>
+	  <VarListEntry>
+	    <term>Arguments</term>
+	    <ListItem>
+	      <Para><Literal>Result</Literal>: The target query result.</Para>
+	      <Para><Literal>fieldname</Literal>: The name of the field to fetch.</Para>
+	    </ListItem>
+	  </VarListEntry>
+	  <VarListEntry>
+	    <term>Returns</term>
+	    <ListItem><Para>The data stored in the specified field as a long long integer. Integer and floating point data as well as datetime data are cast to long long. Strings are converted using strtoll(). Empty strings, strings that do not translate into an integer, and binary strings are returned as 0 (zero) without raising an error. In case of an error this function returns 0 (zero) and the <link linkend="errornumbers">error number</link> is DBI_ERROR_BADTYPE, DBI_ERROR_BADIDX, or DBI_ERROR_BADNAME.</Para></ListItem>
+	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.9.0</para>
+	    </listitem>
+	  </varlistentry>
+	</VariableList>
+      </Section>
+      <Section id="dbi-result-get-as-string-copy" XRefLabel="dbi_result_get_as_string_copy"><Title>dbi_result_get_as_string_copy</Title>
+	<funcsynopsis>
+	  <funcprototype>
+	    <funcdef>char *<function>dbi_result_get_as_string_copy</function></funcdef>
+	    <paramdef>dbi_result <parameter moreinfo="none">Result</parameter></paramdef>
+	    <paramdef>const char *<parameter moreinfo="none">fieldname</parameter></paramdef>
+	  </funcprototype>
+	</funcsynopsis>
+	<Para>Fetch the data stored in the specified field. Return the contents as an allocated string, using appropriate conversions if applicable. The caller is responsible for freeing the returned buffer when done.</Para>
+	<VariableList>
+	  <VarListEntry>
+	    <term>Arguments</term>
+	    <ListItem>
+	      <Para><Literal>Result</Literal>: The target query result.</Para>
+	      <Para><Literal>fieldname</Literal>: The name of the field to fetch.</Para>
+	    </ListItem>
+	  </VarListEntry>
+	  <VarListEntry>
+	    <term>Returns</term>
+	    <ListItem><Para>A string representation of the data stored in the specified field. Integer, floating point and datetime data are pretty-printed using snprintf(). Strings are returned as such. Empty strings and binary strings are returned as empty strings without raising an error. In case of an error this function returns the string "ERROR" and the <link linkend="errornumbers">error number</link> is DBI_ERROR_NOMEM, DBI_ERROR_BADTYPE, DBI_ERROR_BADIDX, or DBI_ERROR_BADNAME.</Para></ListItem>
+	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.9.0</para>
+	    </listitem>
+	  </varlistentry>
+	</VariableList>
+      </Section>
       <Section id="dbi-result-bind-char" XRefLabel="dbi_result_bind_char"><Title>dbi_result_bind_char</Title>
 	<funcsynopsis>
 	  <funcprototype>
@@ -2619,6 +2812,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>0 upon success, DBI_BIND_ERROR if there was an error. Possible <link linkend="errornumbers">error numbers</link> are DBI_ERROR_BADPTR, DBI_ERROR_NOMEM, and DBI_ERROR_BADNAME.</Para></ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-result-bind-uint" XRefLabel="dbi_result_bind_uint"><Title>dbi_result_bind_uint</Title>
@@ -2644,6 +2843,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>0 upon success, DBI_BIND_ERROR if there was an error. Possible <link linkend="errornumbers">error numbers</link> are DBI_ERROR_BADPTR, DBI_ERROR_NOMEM, and DBI_ERROR_BADNAME.</Para></ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-result-bind-long" XRefLabel="dbi_result_bind_long"><Title>dbi_result_bind_long</Title>
@@ -3013,6 +3218,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>The data stored in the specified field, or 0 (zero) if an error occurs. In the latter case the <link linkend="errornumbers">error number</link> is DBI_ERROR_BADTYPE or DBI_ERROR_BADIDX.</Para></ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-result-get-uint-idx" XRefLabel="dbi_result_get_uint_idx"><Title>dbi_result_get_uint_idx</Title>
@@ -3036,6 +3247,12 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>The data stored in the specified field, or 0 (zero) if an error occurs. In the latter case the <link linkend="errornumbers">error number</link> is DBI_ERROR_BADTYPE or DBI_ERROR_BADIDX.</Para></ListItem>
 	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.8.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
       <Section id="dbi-result-get-long-idx" XRefLabel="dbi_result_get_long_idx"><Title>dbi_result_get_long_idx</Title>
@@ -3265,6 +3482,64 @@ published by the Free Software Foundation.
 	    <term>Returns</term>
 	    <ListItem><Para>The data stored in the specified field as a time_t value. To convert this into human-readable dates or times, use the C library functions gmtime (3) and localtime (3). In case of an error this function returns 0 (zero) which resolves to the Unix epoch when converted. In case of an error the <link linkend="errornumbers">error number</link> is DBI_ERROR_BADTYPE, DBI_ERROR_BADIDX, or DBI_ERROR_BADNAME.</Para></ListItem>
 	  </VarListEntry>
+	</VariableList>
+      </Section>
+      <Section id="dbi-result-get-as-longlong-idx" XRefLabel="dbi_result_get_as_longlong_idx"><Title>dbi_result_get_as_longlong_idx</Title>
+	<funcsynopsis>
+	  <funcprototype>
+	    <funcdef>long long <function>dbi_result_get_as_longlong_idx</function></funcdef>
+	    <paramdef>dbi_result <parameter moreinfo="none">Result</parameter></paramdef>
+	    <paramdef>unsigned int <parameter moreinfo="none">fieldidx</parameter></paramdef>
+	  </funcprototype>
+	</funcsynopsis>
+	<Para>Fetch the data stored in the specified field. Return the contents as a long long integer value, using appropriate casts or conversions if applicable.</Para>
+	<VariableList>
+	  <VarListEntry>
+	    <term>Arguments</term>
+	    <ListItem>
+	      <Para><Literal>Result</Literal>: The target query result.</Para>
+	      <Para><Literal>fieldidx</Literal>: The index of the target field (starting at 1).</Para>
+	    </ListItem>
+	  </VarListEntry>
+	  <VarListEntry>
+	    <term>Returns</term>
+	    <ListItem><Para>The data stored in the specified field as a long long integer. Integer and floating point data as well as datetime data are cast to long long. Strings are converted using strtoll(). Empty strings, strings that do not translate into an integer, and binary strings are returned as 0 (zero) without raising an error. In case of an error this function returns 0 (zero) and the <link linkend="errornumbers">error number</link> is DBI_ERROR_BADTYPE, DBI_ERROR_BADIDX, or DBI_ERROR_BADNAME.</Para></ListItem>
+	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.9.0</para>
+	    </listitem>
+	  </varlistentry>
+	</VariableList>
+      </Section>
+      <Section id="dbi-result-get-as-string-copy-idx" XRefLabel="dbi_result_get_as_string_copy_idx"><Title>dbi_result_get_as_string_copy_idx</Title>
+	<funcsynopsis>
+	  <funcprototype>
+	    <funcdef>char *<function>dbi_result_get_as_string_copy_idx</function></funcdef>
+	    <paramdef>dbi_result <parameter moreinfo="none">Result</parameter></paramdef>
+	    <paramdef>unsigned int <parameter moreinfo="none">fieldidx</parameter></paramdef>
+	  </funcprototype>
+	</funcsynopsis>
+	<Para>Fetch the data stored in the specified field. Return the contents as an allocated string, using appropriate conversions if applicable. The caller is responsible for freeing the returned buffer when done.</Para>
+	<VariableList>
+	  <VarListEntry>
+	    <term>Arguments</term>
+	    <ListItem>
+	      <Para><Literal>Result</Literal>: The target query result.</Para>
+	      <Para><Literal>fieldidx</Literal>: The index of the target field (starting at 1).</Para>
+	    </ListItem>
+	  </VarListEntry>
+	  <VarListEntry>
+	    <term>Returns</term>
+	    <ListItem><Para>A string representation of the data stored in the specified field. Integer, floating point and datetime data are pretty-printed using snprintf(). Strings are returned as such. Empty strings and binary strings are returned as empty strings without raising an error. In case of an error this function returns the string "ERROR" and the <link linkend="errornumbers">error number</link> is DBI_ERROR_NOMEM, DBI_ERROR_BADTYPE, DBI_ERROR_BADIDX, or DBI_ERROR_BADNAME.</Para></ListItem>
+	  </VarListEntry>
+	  <varlistentry>
+	    <term>Availability</term>
+	    <listitem>
+	      <para>0.9.0</para>
+	    </listitem>
+	  </varlistentry>
 	</VariableList>
       </Section>
     </Section>
