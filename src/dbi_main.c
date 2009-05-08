@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.95 2008/11/28 22:28:51 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.96 2009/05/08 23:22:33 mhoenicka Exp $
  */
 
 /* silence the deprecated warnings as this lib must implement and call
@@ -275,6 +275,10 @@ void dbi_shutdown() {
 
 const char *dbi_version() {
 	return "libdbi v" VERSION;
+}
+
+unsigned int dbi_version_numeric() {
+  return (unsigned int)LIBDBI_VERSION;
 }
 
 int dbi_set_verbosity_r(int verbosity, dbi_inst Inst) {
@@ -1570,8 +1574,19 @@ unsigned int _isolate_attrib(unsigned int attribs, unsigned int rangemin, unsign
 	/* hahaha! who woulda ever thunk strawberry's code would come in handy? */
 	// find first (highest) bit set; methods not using FP can be found at 
 	// http://graphics.stanford.edu/~seander/bithacks.html#IntegerLogObvious
-	unsigned startbit = log(rangemin)/log(2);
-	unsigned endbit = log(rangemax)/log(2);
+/* 	unsigned startbit = log(rangemin)/log(2); */
+/* 	unsigned endbit = log(rangemax)/log(2); */
+  unsigned int startbit = 0;
+  unsigned int endbit = 0;
+
+  while (rangemin >>= 1) {
+    startbit++;
+  }
+
+  while (rangemax >>= 1) {
+    endbit++;
+  }
+
 	// construct mask from startbit to endbit inclusive
 	unsigned attrib_mask = ((1<<(endbit+1))-1) ^ ((1<<startbit)-1);
 	return attribs & attrib_mask;
