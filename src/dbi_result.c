@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.50 2008/11/28 22:12:21 mhoenicka Exp $
+ * $Id: dbi_result.c,v 1.51 2009/05/22 20:10:23 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -893,6 +893,7 @@ short dbi_result_get_short_idx(dbi_result Result, unsigned int fieldidx) {
 
   switch (RESULT->field_attribs[fieldidx] & DBI_INTEGER_SIZEMASK) {
   case DBI_INTEGER_SIZE1:
+    return RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_char;
   case DBI_INTEGER_SIZE2:
     return RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_short;
   case DBI_INTEGER_SIZE3:
@@ -949,8 +950,10 @@ int dbi_result_get_int_idx(dbi_result Result, unsigned int fieldidx) {
 
   switch (RESULT->field_attribs[fieldidx] & DBI_INTEGER_SIZEMASK) {
   case DBI_INTEGER_SIZE1:
+    return RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_char;
   case DBI_INTEGER_SIZE2:
   case DBI_INTEGER_SIZE3:
+    return RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_short;
   case DBI_INTEGER_SIZE4:
     return RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_long;
   case DBI_INTEGER_SIZE8:
@@ -997,9 +1000,12 @@ long long dbi_result_get_longlong_idx(dbi_result Result, unsigned int fieldidx) 
 
   switch (RESULT->field_attribs[fieldidx] & DBI_INTEGER_SIZEMASK) {
   case DBI_INTEGER_SIZE1:
+    return RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_char;
   case DBI_INTEGER_SIZE2:
   case DBI_INTEGER_SIZE3:
+    return RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_short;
   case DBI_INTEGER_SIZE4:
+    return RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_long;
   case DBI_INTEGER_SIZE8:
     return RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_longlong;
   default:
