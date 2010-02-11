@@ -24,7 +24,7 @@
       <ListItem><Para>All string and binary data returned or bound from DBI is <emphasis>read-only</emphasis>. If you want your own local copy that can be modified at will, use <XRef linkend="dbi-result-get-string-copy">, <XRef linkend="dbi-result-get-binary-copy">, <XRef linkend="dbi-result-bind-string-copy">, or <XRef linkend="dbi-result-bind-binary-copy">. You will be responsible for freeing the memory allocated by these functions.</Para></ListItem>
     </ItemizedList>
     <Para>
-      <XRef linkend="dbi-result-next-row"> and the other row-seeking functions will return zero when there are no more rows available. Before the next database operation is performed, you must call <XRef linkend="dbi-result-free">.  Before the program terminates, the connection must be disconnected and unloaded with <XRef linkend="dbi-conn-close"> and libdbi must be unloaded with <XRef linkend="dbi-shutdown">.
+      <XRef linkend="dbi-result-next-row"> and the other row-seeking functions will return zero when there are no more rows available. Before the program terminates, you must call <XRef linkend="dbi-result-free"> on every result set and the connection must be disconnected and unloaded with <XRef linkend="dbi-conn-close">. Finally, libdbi must be unloaded with <XRef linkend="dbi-shutdown">.
     </Para>
     <table id="table-get-bind-functions">
       <title>get* and bind* functions sorted by field type</title>
