@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h.in,v 1.8 2009/03/21 22:53:48 mhoenicka Exp $
+ * $Id: dbi.h.in,v 1.9 2010/03/21 14:11:53 mhoenicka Exp $
  */
 
 #ifndef __DBI_H__
@@ -170,6 +170,7 @@ int LIBDBI_API_DEPRECATED dbi_initialize(const char *driverdir);
 void dbi_shutdown_r(dbi_inst Inst);
 void LIBDBI_API_DEPRECATED dbi_shutdown();
 const char *dbi_version();
+unsigned int dbi_version_numeric();
 int dbi_set_verbosity_r(int verbosity, dbi_inst Inst);
 int LIBDBI_API_DEPRECATED dbi_set_verbosity(int verbosity);
 
