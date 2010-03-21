@@ -43,7 +43,7 @@ These people have also contributed to the project:
   - assistance with bugfixes
   
 * Toby Thain <qu1j0t3 at sourceforge.net>
-  - improve error handling, code cleanups
+  - improved error handling, code cleanups
 
 * Rainer Gerhards <rgerhards@hq.adiscon.com>
   - made libdbi plugin-safe
@@ -52,9 +52,13 @@ These people have also contributed to the project:
   - pkg-config integration
   - configure uses CFLAGS from the environment
 
+* Florian Forster <octo@verplant.org>
+ - thread safety
+ - fixed tons of compiler warnings
+
 Thanks:
 * Vorbis and Icecast contributors. Monty, Jack, and all the rest are coding machines.
 * The authors of libao, which clued me in to dynamic libraries.
 * Randy Jay Yarger, George Reese, and Tim King (authors of MySQL & mSQL by O'Reilly)
 
-$Id: AUTHORS,v 1.16 2008/02/29 22:31:05 mhoenicka Exp $
+$Id: AUTHORS,v 1.17 2010/03/21 14:10:36 mhoenicka Exp $
