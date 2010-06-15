@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.96 2009/05/08 23:22:33 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.97 2010/06/15 21:18:49 mhoenicka Exp $
  */
 
 /* silence the deprecated warnings as this lib must implement and call
@@ -85,7 +85,9 @@ char *win_dlerror();
 /* end dlopen stuff */
 
 #include <sys/stat.h>
-#include <unistd.h>
+#ifdef HAVE_UNISTD_H
+  #include <unistd.h>
+#endif
 #include <dirent.h>
 
 #include <math.h>
