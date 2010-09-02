@@ -1,6 +1,6 @@
 <!--
 vim:ft=sgml
-$Id: libdbi-reference.sgml,v 1.20 2010/09/02 21:19:28 mhoenicka Exp $
+$Id: libdbi-reference.sgml,v 1.21 2010/09/02 22:15:44 mhoenicka Exp $
 Copyright (C) 2001-2005, David Parker, Neon Goat Productions.
 This document is licensed under the GNU Free Documentation License, version 1.1 or later, as
 published by the Free Software Foundation.
@@ -637,10 +637,10 @@ published by the Free Software Foundation.
       </Section>
     </Section>
     <Section id="reference-conn"><Title>Connection Infrastructure</Title>
-      <Section id="dbi-conn-new-r" XRefLabel="dbi_conn_new_r"><Title>dbi_conn_new_r</Title>
+      <Section id="dbi-conn-new-i" XRefLabel="dbi_conn_new_i"><Title>dbi_conn_new_i</Title>
 	<funcsynopsis>
 	  <funcprototype>
-	    <funcdef>dbi_conn <function>dbi_conn_new_r</function></funcdef>
+	    <funcdef>dbi_conn <function>dbi_conn_new_i</function></funcdef>
 	    <paramdef>const char *<parameter>name</parameter></paramdef>
 	    <paramdef>dbi_inst <parameter moreinfo="none">Inst</parameter></paramdef>
 	  </funcprototype>
@@ -669,7 +669,7 @@ published by the Free Software Foundation.
 	</funcsynopsis>
 	<Para>Creates a connection instance of the driver specified by "name". This is a shortcut for calling <xref linkend="dbi-driver-open"> and passing the result to <xref linkend="dbi-conn-open">.</Para>
 	<note>
-	  <para>This function is deprecated. Use <xref linkend="dbi-conn-new-r"> instead.</para>
+	  <para>This function is deprecated. Use <xref linkend="dbi-conn-new-i"> instead.</para>
 	</note>
 	<VariableList>
 	  <VarListEntry>
