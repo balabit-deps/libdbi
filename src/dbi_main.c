@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.98 2010/09/02 21:19:28 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.99 2010/09/10 19:11:48 mhoenicka Exp $
  */
 
 /* silence the deprecated warnings as this lib must implement and call
@@ -148,7 +148,7 @@ static dbi_inst dbi_inst_legacy;
 
 /* XXX DBI CORE FUNCTIONS XXX */
 
-int dbi_initialize_i(const char *driverdir, dbi_inst *pInst) {
+int dbi_initialize_r(const char *driverdir, dbi_inst *pInst) {
 	dbi_inst_t *inst;
 	DIR *dir;
 	struct dirent *driver_dirent = NULL;
@@ -237,10 +237,10 @@ int dbi_initialize_i(const char *driverdir, dbi_inst *pInst) {
 }
 
 int dbi_initialize(const char *driverdir) {
-  return (dbi_initialize_i(driverdir, &dbi_inst_legacy));
+  return (dbi_initialize_r(driverdir, &dbi_inst_legacy));
 }
 
-void dbi_shutdown_i(dbi_inst Inst) {
+void dbi_shutdown_r(dbi_inst Inst) {
 	dbi_inst_t *inst = (dbi_inst_t*) Inst;
 	dbi_conn_t *curconn = inst->rootconn;
 	dbi_conn_t *nextconn;
@@ -272,7 +272,7 @@ void dbi_shutdown_i(dbi_inst Inst) {
 }
 
 void dbi_shutdown() {
-	dbi_shutdown_i(dbi_inst_legacy);
+	dbi_shutdown_r(dbi_inst_legacy);
 }
 
 const char *dbi_version() {
@@ -283,7 +283,7 @@ unsigned int dbi_version_numeric() {
   return (unsigned int)LIBDBI_VERSION;
 }
 
-int dbi_set_verbosity_i(int verbosity, dbi_inst Inst) {
+int dbi_set_verbosity_r(int verbosity, dbi_inst Inst) {
 	dbi_inst_t *inst = (dbi_inst_t*) Inst;
 	/* whether or not to spew stderr messages when something bad happens (and
 	 * isn't handled through the normal connection-oriented DBI error
@@ -294,12 +294,12 @@ int dbi_set_verbosity_i(int verbosity, dbi_inst Inst) {
 	return prev;
 }
 int dbi_set_verbosity(int verbosity) {
-	return dbi_set_verbosity_i(verbosity, dbi_inst_legacy);
+	return dbi_set_verbosity_r(verbosity, dbi_inst_legacy);
 }
 
 /* XXX DRIVER FUNCTIONS XXX */
 
-dbi_driver dbi_driver_list_i(dbi_driver Current, dbi_inst Inst) {
+dbi_driver dbi_driver_list_r(dbi_driver Current, dbi_inst Inst) {
 	dbi_inst_t *inst = (dbi_inst_t*) Inst;
 	dbi_driver_t *current = Current;
 
@@ -310,10 +310,10 @@ dbi_driver dbi_driver_list_i(dbi_driver Current, dbi_inst Inst) {
 	return (dbi_driver)current->next;
 }
 dbi_driver dbi_driver_list(dbi_driver Current) {
-	return dbi_driver_list_i(Current, dbi_inst_legacy);
+	return dbi_driver_list_r(Current, dbi_inst_legacy);
 }
 
-dbi_driver dbi_driver_open_i(const char *name, dbi_inst Inst) {
+dbi_driver dbi_driver_open_r(const char *name, dbi_inst Inst) {
 	dbi_inst_t *inst = (dbi_inst_t*) Inst;
 	dbi_driver_t *driver = inst->rootdriver;
 
@@ -324,7 +324,7 @@ dbi_driver dbi_driver_open_i(const char *name, dbi_inst Inst) {
 	return driver;
 }
 dbi_driver dbi_driver_open(const char *name) {
-	return dbi_driver_open_i(name, dbi_inst_legacy);
+	return dbi_driver_open_r(name, dbi_inst_legacy);
 }
 
 dbi_inst dbi_driver_get_instance(dbi_driver Driver) {
@@ -526,17 +526,17 @@ const char* dbi_driver_encoding_to_iana(dbi_driver Driver, const char* db_encodi
 
 /* XXX DRIVER FUNCTIONS XXX */
 
-dbi_conn dbi_conn_new_i(const char *name, dbi_inst Inst) {
+dbi_conn dbi_conn_new_r(const char *name, dbi_inst Inst) {
 	dbi_driver driver;
 	dbi_conn conn;
 
-	driver = dbi_driver_open_i(name, Inst);
+	driver = dbi_driver_open_r(name, Inst);
 	conn = dbi_conn_open(driver);
 
 	return conn;
 }
 dbi_conn dbi_conn_new(const char *name) {
-  return (dbi_conn_new_i(name, dbi_inst_legacy));
+  return (dbi_conn_new_r(name, dbi_inst_legacy));
 }
 
 dbi_conn dbi_conn_open(dbi_driver Driver) {
