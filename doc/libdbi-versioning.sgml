@@ -1,0 +1,68 @@
+  <para>Libraries are no static entities, just as any other piece of software. Some parts evolve, some optimizations are made, new features are requested, and old features may be too cumbersome to support if no one uses them anyway. Any of these developments may result in a new release. This chapter briefly discusses the issues related to library and driver versions.</para>
+  <para>The version issues with libdbi are a little more convoluted than with a run-of-the-mill library because we have to consider two application interfaces (APIs):</para>
+  <variablelist>
+    <varlistentry>
+      <term>DBI API</term>
+      <listitem>
+	<para>This is, as with any other library, the data structures and the functions that you, as a programmer of a software linked against libdbi, need to know about.</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>DBD API</term>
+      <listitem>
+	<para>This is the interface that matters to the authors of database engine drivers.</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+  <para>Both interfaces may change independently, and both may affect the version number of the package as will be discussed shortly.</para>
+    <sect1 id="package-library-version">
+    <title>Package and library versions</title>
+      <para>libdbi utilizes <ulink url="http://www.gnu.org/software/libtool/">libtool</ulink> to manage the library in a platform-independent fashion. libtool uses an abstract library versioning scheme which consists of three numbers:</para>
+    <variablelist>
+      <varlistentry>
+	<term>current</term>
+	<listitem>
+	  <para>This is the number of the current interface. The first "incarnation" is usually 0 (zero), the next version that adds or subtracts something from this interface would be 1 (think of new API functions or functions with altered parameter lists).</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>revision</term>
+	<listitem>
+	  <para>This number counts the released changes of the interface which do not alter the interface (think of internal optimizations, bugfixes and so on)</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>age</term>
+	<listitem>
+	  <para>This is the number of previous interfaces that the current version is backwards-compatible with. That is, if <parameter moreinfo="none">current</parameter> is "n", programs linked against "n", "n-1", and "n-2" will run with the current version.</para>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+    <para>The package version number (major.minor.patch) is computed from the above numbers using the formulas:</para>
+    <itemizedlist>
+      <listitem>
+	<para>major = current - age</para>
+      </listitem>
+      <listitem>
+	<para>minor = age + 8</para>
+      </listitem>
+      <listitem>
+	<para>patch = revision</para>
+      </listitem>
+    </itemizedlist>
+    <para>The correction applied to <varname>minor</varname> is currently required to bring the package version in line with earlier releases which did not use proper libtool interface versioning. It will be dropped if <varname>major</varname> rises above zero.</para>
+    </sect1>
+    <sect1 id="libdbi-and-drivers-versions">
+      <title>libdbi and libdbi-drivers versions</title>
+      <para>The libdbi-drivers package is essentially developed independently of libdbi as most new versions are mandated by improvements of existing drivers and by the implementation of new drivers. However, both changes in the DBD API and in the DBI API (which is also accessible to the drivers) may also require a new libdbi-drivers version. In order to keep the confusion at a minimum, libdbi-drivers major and minor version numbers are chosen to match the libdbi versions they are compatible with. That is, any libdbi-drivers version 0.9.* is supposed to work with any libdbi version 0.9.*. Further compatibility information, e.g. whether a putative libdbi version 2.* is able to load libdbi-drivers 1.* are found in the release notes.</para>
+    </sect1>
+  <sect1 id="version-at-runtime">
+    <title>Determining the library version at runtime</title>
+    <para>The functions <xref linkend="dbi-version"> and <xref linkend="dbi-version-numeric"> provide access to the package version. The former returns the name and the version as a string (mainly for display purposes), whereas the latter returns an integer value for easy comparisons, defined as ((major*10000) + (minor * 100) + patch).</para>
+  </sect1>
+
+<!--
+Local Variables:
+sgml-parent-document: ("programmers-guide.sgml" "BOOK" "CHAPTER")
+End:
+-->
