@@ -1,6 +1,6 @@
 <!--
 vim:ft=sgml
-$Id: libdbi-reference.sgml,v 1.21 2010/09/02 22:15:44 mhoenicka Exp $
+$Id: libdbi-reference.sgml,v 1.22 2010/09/23 20:51:58 mhoenicka Exp $
 Copyright (C) 2001-2005, David Parker, Neon Goat Productions.
 This document is licensed under the GNU Free Documentation License, version 1.1 or later, as
 published by the Free Software Foundation.
@@ -8,10 +8,10 @@ published by the Free Software Foundation.
 
   <Chapter id="reference"><Title>libdbi API Reference</Title>
     <Section id="reference-core"><Title>Instance Infrastructure</Title>
-      <Section id="dbi-initialize-i" XRefLabel="dbi_initialize_i"><Title>dbi_initialize_i</Title>
+      <Section id="dbi-initialize-r" XRefLabel="dbi_initialize_r"><Title>dbi_initialize_r</Title>
 	<funcsynopsis>
 	  <funcprototype>
-	    <funcdef>int <function moreinfo="none">dbi_initialize_i</function></funcdef>
+	    <funcdef>int <function moreinfo="none">dbi_initialize_r</function></funcdef>
 	    <paramdef>const char *<parameter moreinfo="none">driverdir</parameter></paramdef>
 	    <paramdef>dbi_inst *pInst</paramdef>
 	  </funcprototype>
@@ -46,7 +46,7 @@ published by the Free Software Foundation.
 	</funcsynopsis>
 	<Para>Locates all available database drivers and loads them into memory.</Para>
 	<note>
-	  <para>This function is deprecated. Use <xref linkend="dbi-initialize-i"> instead. In contrast to that function, dbi_initialize allows only one (internally managed) libdbi instance per process.</para>
+	  <para>This function is deprecated. Use <xref linkend="dbi-initialize-r"> instead. In contrast to that function, dbi_initialize allows only one (internally managed) libdbi instance per process.</para>
 	</note>
 	<VariableList>
 	  <VarListEntry>
@@ -61,10 +61,10 @@ published by the Free Software Foundation.
 	  </VarListEntry>
 	</VariableList>
       </Section>
-      <Section id="dbi-shutdown-i" XRefLabel="dbi_shutdown_i"><Title>dbi_shutdown_i</Title>
+      <Section id="dbi-shutdown-r" XRefLabel="dbi_shutdown_r"><Title>dbi_shutdown_r</Title>
 	<funcsynopsis>
 	  <funcprototype>
-	    <funcdef>void <function>dbi_shutdown_i</function></funcdef>
+	    <funcdef>void <function>dbi_shutdown_r</function></funcdef>
 	    <paramdef>dbi_inst <parameter moreinfo="none">Inst</parameter></paramdef>
 	  </funcprototype>
 	</funcsynopsis>
@@ -93,13 +93,13 @@ published by the Free Software Foundation.
 	</funcsynopsis>
 	<Para>Frees all loaded drivers and terminates the DBI system. You should close each connection you opened before shutting down, but libdbi will clean up after you if you don't.</Para>
 	<note>
-	  <para>This function is deprecated. Use <xref linkend="dbi-shutdown-i"> instead.</para>
+	  <para>This function is deprecated. Use <xref linkend="dbi-shutdown-r"> instead.</para>
 	</note>
       </Section>
-      <Section id="dbi-set-verbosity-i" XRefLabel="dbi_set_verbosity_i"><Title>dbi_set_verbosity_i</Title>
+      <Section id="dbi-set-verbosity-r" XRefLabel="dbi_set_verbosity_r"><Title>dbi_set_verbosity_r</Title>
 	<funcsynopsis>
 	  <funcprototype>
-	    <funcdef>int <function moreinfo="none">dbi_set_verbosity_i</function></funcdef>
+	    <funcdef>int <function moreinfo="none">dbi_set_verbosity_r</function></funcdef>
 	    <paramdef>int <parameter moreinfo="none">verbosity</parameter></paramdef>
 	    <paramdef>dbi_inst Inst</paramdef>
 	  </funcprototype>
@@ -134,7 +134,7 @@ published by the Free Software Foundation.
 	</funcsynopsis>
 	<Para>Toggles internal error messages on or off. This affects only those error messages which are directly sent to stderr, not those handled by the <link linkend="errorhandling">connection error API</link>.</Para>
 	<note>
-	  <para>This function is deprecated. Use <xref linkend="dbi-set-verbosity-i"> instead.</para>
+	  <para>This function is deprecated. Use <xref linkend="dbi-set-verbosity-r"> instead.</para>
 	</note>
 	<VariableList>
 	  <VarListEntry>
@@ -187,10 +187,10 @@ published by the Free Software Foundation.
       </Section>
     </Section>
     <Section id="reference-driver"><Title>Driver Infrastructure</Title>
-      <Section id="dbi-driver-list-i" XRefLabel="dbi_driver_list_i"><Title>dbi_driver_list_i</Title>
+      <Section id="dbi-driver-list-r" XRefLabel="dbi_driver_list_r"><Title>dbi_driver_list_r</Title>
 	<funcsynopsis>
 	  <funcprototype>
-	    <funcdef>dbi_driver <function>dbi_driver_list_i</function></funcdef>
+	    <funcdef>dbi_driver <function>dbi_driver_list_r</function></funcdef>
 	    <paramdef>dbi_driver <parameter>Current</parameter></paramdef>
 	    <paramdef>dbi_inst <parameter moreinfo="none">Inst</parameter></paramdef>
 	  </funcprototype>
@@ -225,7 +225,7 @@ published by the Free Software Foundation.
 	</funcsynopsis>
 	<Para>Enumerates all loaded drivers. If Current is NULL, the first available driver will be returned. If Current is a valid driver, the next available driver will be returned.</Para>
 	<note>
-	  <para>This function is deprecated. Use <xref linkend="dbi-driver-list-i"> instead.</para>
+	  <para>This function is deprecated. Use <xref linkend="dbi-driver-list-r"> instead.</para>
 	</note>
 	<VariableList>
 	  <VarListEntry>
@@ -240,10 +240,10 @@ published by the Free Software Foundation.
 	  </VarListEntry>
 	</VariableList>
       </Section>
-      <Section id="dbi-driver-open-i" XRefLabel="dbi_driver_open_i"><Title>dbi_driver_open_i</Title>
+      <Section id="dbi-driver-open-r" XRefLabel="dbi_driver_open_r"><Title>dbi_driver_open_r</Title>
 	<funcsynopsis>
 	  <funcprototype>
-	    <funcdef>dbi_driver <function>dbi_driver_open_i</function></funcdef>
+	    <funcdef>dbi_driver <function>dbi_driver_open_r</function></funcdef>
 	    <paramdef>const char *<parameter>name</parameter></paramdef>
 	    <paramdef>dbi_inst <parameter moreinfo="none">Inst</parameter></paramdef>
 	  </funcprototype>
@@ -278,7 +278,7 @@ published by the Free Software Foundation.
 	</funcsynopsis>
 	<Para>Locate the driver with the specified name.</Para>
 	<note>
-	  <para>This function is deprecated. Use <xref linkend="dbi-driver-open-i"> instead.</para>
+	  <para>This function is deprecated. Use <xref linkend="dbi-driver-open-r"> instead.</para>
 	</note>
 	<VariableList>
 	  <VarListEntry>
@@ -637,15 +637,15 @@ published by the Free Software Foundation.
       </Section>
     </Section>
     <Section id="reference-conn"><Title>Connection Infrastructure</Title>
-      <Section id="dbi-conn-new-i" XRefLabel="dbi_conn_new_i"><Title>dbi_conn_new_i</Title>
+      <Section id="dbi-conn-new-r" XRefLabel="dbi_conn_new_r"><Title>dbi_conn_new_r</Title>
 	<funcsynopsis>
 	  <funcprototype>
-	    <funcdef>dbi_conn <function>dbi_conn_new_i</function></funcdef>
+	    <funcdef>dbi_conn <function>dbi_conn_new_r</function></funcdef>
 	    <paramdef>const char *<parameter>name</parameter></paramdef>
 	    <paramdef>dbi_inst <parameter moreinfo="none">Inst</parameter></paramdef>
 	  </funcprototype>
 	</funcsynopsis>
-	<Para>Creates a connection instance of the driver specified by "name" loaded by the given libdbi instance. This is a shortcut for calling <xref linkend="dbi-driver-open-i"> and passing the result to <xref linkend="dbi-conn-open">.</Para>
+	<Para>Creates a connection instance of the driver specified by "name" loaded by the given libdbi instance. This is a shortcut for calling <xref linkend="dbi-driver-open-r"> and passing the result to <xref linkend="dbi-conn-open">.</Para>
 	<VariableList>
 	  <VarListEntry>
 	    <term>Arguments</term>
@@ -669,7 +669,7 @@ published by the Free Software Foundation.
 	</funcsynopsis>
 	<Para>Creates a connection instance of the driver specified by "name". This is a shortcut for calling <xref linkend="dbi-driver-open"> and passing the result to <xref linkend="dbi-conn-open">.</Para>
 	<note>
-	  <para>This function is deprecated. Use <xref linkend="dbi-conn-new-i"> instead.</para>
+	  <para>This function is deprecated. Use <xref linkend="dbi-conn-new-r"> instead.</para>
 	</note>
 	<VariableList>
 	  <VarListEntry>
