@@ -20,12 +20,6 @@ all: programmers-guide.pdf programmers-guide/* driver-guide.pdf driver-guide/*
 
 # jadetex spews out tons of useless crap. shut it up:
 programmers-guide.pdf: $(programmers_sources)
-#	@echo "Auto-generating Programmer's Guide reference SGML...";
-#	./include/markup_to_docbook.pl libdbi-reference.tmpl api-documentation.src
-#	@echo "Converting programmers-guide.sgml to PostScript...";
-#	sgmltools -b ps -s include/doc-print.dsl programmers-guide.sgml > /dev/null 2>&1
-#	@echo "Converting programmers-guide.ps to PDF...";
-#	ps2pdf programmers-guide.ps
 	@echo "Converting programmers-guide.sgml to PDF...";
 	openjade -t tex -V tex-backend -d $(top_srcdir)/doc/include/doc-print.dsl programmers-guide.sgml
 # run jadetex three times to get the references right
@@ -35,16 +29,11 @@ programmers-guide.pdf: $(programmers_sources)
 
 programmers-guide/*: $(programmers_sources)
 	@echo "Converting programmers-guide.sgml to HTML...";
-#	sgmltools -b html -s include/doc-html.dsl programmers-guide.sgml
 # the sleep command is a workaround for a race condition which may occur
 # on some filesystems, causing the target to be rebuilt over and over again
 	mkdir -p programmers-guide && cd programmers-guide && openjade -t sgml -d $(top_srcdir)/../doc/include/doc-html.dsl $(top_srcdir)/../doc/programmers-guide.sgml && sleep 1
 
 driver-guide.pdf: $(driver_sources)
-#	@echo "Converting driver-guide.sgml to PostScript...";
-#	sgmltools -b ps -s include/doc-print.dsl driver-guide.sgml > /dev/null 2>&1
-#	@echo "Converting driver-guide.ps to PDF...";
-#	ps2pdf driver-guide.ps
 	@echo "Converting driver-guide.sgml to PDF...";
 	openjade -t tex -d include/doc-print.dsl driver-guide.sgml
 # run jadetex three times to get the references right
@@ -54,7 +43,6 @@ driver-guide.pdf: $(driver_sources)
 
 driver-guide/*: $(driver_sources)
 	@echo "Converting driver-guide.sgml to HTML...";
-#	sgmltools -b html -s include/doc-html.dsl driver-guide.sgml
 	mkdir -p driver-guide && cd driver-guide && openjade -t sgml -d $(top_srcdir)/../doc/include/doc-html.dsl $(top_srcdir)/../doc/driver-guide.sgml && sleep 1
 
 distclean: clean
@@ -63,3 +51,12 @@ distclean: clean
 	rm -f driver-guide.pdf
 	rm -rf driver-guide/
 
+maintainer-clean: distclean
+	rm -f driver-guide.log
+	rm -f programmers-guide.log
+	rm -f driver-guide.tex
+	rm -f programmers-guide.tex
+	rm -f driver-guide.out
+	rm -f programmers-guide.out
+	rm -f driver-guide.aux
+	rm -f programmers-guide.aux

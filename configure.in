@@ -16,7 +16,7 @@ LIBDBI_MAJOR=`expr $LIB_CURRENT - $LIB_AGE - 1`
 LIBDBI_MINOR=`expr $LIB_AGE + 8`
 LIBDBI_PATCH=$LIB_REVISION
 
-AM_INIT_AUTOMAKE(libdbi, $LIBDBI_MAJOR.$LIBDBI_MINOR.$LIBDBI_PATCH-pre2)
+AM_INIT_AUTOMAKE(libdbi, $LIBDBI_MAJOR.$LIBDBI_MINOR.$LIBDBI_PATCH-pre3)
 AM_CONFIG_HEADER(config.h)
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -176,29 +176,6 @@ dnl ==============================
 
 AC_CHECK_HEADERS(string.h strings.h)
 
-dnl ==============================
-dnl See whether to build the docs
-dnl ==============================
-
-ac_docs="YES"
-AC_ARG_ENABLE(docs,
-	[  --disable-docs	  do not build and install the documentation.],
-	[  if test "$enable_docs" = "no"; then
-	      ac_docs="NO"
-	   fi ])
-
-if test "$ac_docs" = "YES"; then
-dnl   AC_PATH_PROGS(myjade, openjade jade)
-dnl   if test "x$myjade" != "x"; then
-      docs_subdirs="doc"
-dnl   else
-dnl      docs_subdirs=""
-dnl   fi
-else
-   docs_subdirs=""
-fi
-
-AC_SUBST(docs_subdirs)
 
 dnl ==============================
 dnl Write output files

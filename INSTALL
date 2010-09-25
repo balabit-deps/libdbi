@@ -1,5 +1,16 @@
-Basic Installation
-==================
+Installation
+============
+
+In a nutshell:
+1. To install the software, run:
+   ./configure
+   make
+   make install
+
+2. To install the prebuilt documentation, run:
+   make install-doc
+
+
 
    These are generic installation instructions.
 
