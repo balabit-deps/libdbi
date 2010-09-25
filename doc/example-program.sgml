@@ -65,6 +65,10 @@ int main() {
     <screen format="linespecific"><prompt moreinfo="none">~/libdbi-drivers #</prompt><userinput>./configure --disable-libdbi --with-mysql</userinput></screen>
   </section>
 
+  <section id="threads">
+    <title>Using libdbi in multithreaded applications</title>
+    <para>With some precautions, libdbi can be used in multithreaded applications. One way to do this is to initialize separate libdbi instances in each thread. If this is not an option and several threads have to share a single instance, you currently need to protect certain libdbi function calls with mutexes. These functions are <xref linkend="dbi-conn-query">, <xref linkend="dbi-conn-ping">, and <xref linkend="dbi-conn-error">.</para>
+  </section>
   <section id="addtoproject">
     <title>Adding libdbi to your project</title>
     <para>If your project uses autoconf to manage the build process on the target machine, you should add some tests to your <filename moreinfo="none">./configure</filename> script to check for the presence and usability of libdbi. The following example shows how this can be done:</para>
