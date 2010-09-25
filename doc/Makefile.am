@@ -36,7 +36,9 @@ programmers-guide.pdf: $(programmers_sources)
 programmers-guide/*: $(programmers_sources)
 	@echo "Converting programmers-guide.sgml to HTML...";
 #	sgmltools -b html -s include/doc-html.dsl programmers-guide.sgml
-	mkdir -p programmers-guide && cd programmers-guide && openjade -t sgml -d $(top_srcdir)/../doc/include/doc-html.dsl $(top_srcdir)/../doc/programmers-guide.sgml
+# the sleep command is a workaround for a race condition which may occur
+# on some filesystems, causing the target to be rebuilt over and over again
+	mkdir -p programmers-guide && cd programmers-guide && openjade -t sgml -d $(top_srcdir)/../doc/include/doc-html.dsl $(top_srcdir)/../doc/programmers-guide.sgml && sleep 1
 
 driver-guide.pdf: $(driver_sources)
 #	@echo "Converting driver-guide.sgml to PostScript...";
@@ -53,7 +55,7 @@ driver-guide.pdf: $(driver_sources)
 driver-guide/*: $(driver_sources)
 	@echo "Converting driver-guide.sgml to HTML...";
 #	sgmltools -b html -s include/doc-html.dsl driver-guide.sgml
-	mkdir -p driver-guide && cd driver-guide && openjade -t sgml -d $(top_srcdir)/../doc/include/doc-html.dsl $(top_srcdir)/../doc/driver-guide.sgml
+	mkdir -p driver-guide && cd driver-guide && openjade -t sgml -d $(top_srcdir)/../doc/include/doc-html.dsl $(top_srcdir)/../doc/driver-guide.sgml && sleep 1
 
 distclean: clean
 	rm -f programmers-guide.pdf
