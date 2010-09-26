@@ -2,14 +2,17 @@ Installation
 ============
 
 In a nutshell:
-1. To install the software, run:
+1. To install everything, run:
    ./configure
    make
    make install
 
-2. To install the prebuilt documentation, run:
-   make install-doc
+2. To install just the prebuilt documentation, run:
+   make install-data
 
+3. To install just the library and associated files, run:
+   make
+   make install-exec
 
 
    These are generic installation instructions.

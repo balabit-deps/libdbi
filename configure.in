@@ -176,6 +176,24 @@ dnl ==============================
 
 AC_CHECK_HEADERS(string.h strings.h)
 
+dnl ==============================
+dnl See whether to build the docs
+dnl ==============================
+
+ac_docs="YES"
+AC_ARG_ENABLE(docs,
+	[  --disable-docs	  do not build and install the documentation.],
+	[  if test "$enable_docs" = "no"; then
+	       ac_docs="NO"
+	   fi])
+
+if test "$ac_docs" = "YES"; then
+      docs_subdirs="doc"
+else
+   docs_subdirs=""
+fi
+
+AC_SUBST(docs_subdirs)
 
 dnl ==============================
 dnl Write output files
