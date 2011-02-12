@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.99 2010/09/10 19:11:48 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.100 2011/02/12 23:24:09 mhoenicka Exp $
  */
 
 /* silence the deprecated warnings as this lib must implement and call
@@ -587,7 +587,7 @@ int dbi_conn_disjoin_results(dbi_conn Conn) {
 void dbi_conn_close(dbi_conn Conn) {
 	dbi_conn_t *conn = Conn;
 	
-	if (!conn) return;
+	if (!conn || !(conn->connection)) return;
 	
 	_update_internal_conn_list(conn, -1);
 	
@@ -1037,7 +1037,7 @@ int dbi_conn_get_socket(dbi_conn Conn){
 	dbi_conn_t *conn = Conn;
 	int retval;
 
-	if (!conn) {
+	if (!conn || !(conn->connection)) {
 	  return -1;
 	}
 
@@ -1052,7 +1052,7 @@ const char *dbi_conn_get_encoding(dbi_conn Conn){
 	dbi_conn_t *conn = Conn;
 	const char *retval;
 
-	if (!conn) return NULL;
+	if (!conn || !(conn->connection)) return NULL;
 
 	_reset_conn_error(conn);
 
@@ -1065,7 +1065,7 @@ unsigned int dbi_conn_get_engine_version(dbi_conn Conn){
 	dbi_conn_t *conn = Conn;
 	char versionstring[VERSIONSTRING_LENGTH];
 
-	if (!conn) return 0;
+	if (!conn || !(conn->connection)) return 0;
 
 	_reset_conn_error(conn);
 
@@ -1077,7 +1077,7 @@ unsigned int dbi_conn_get_engine_version(dbi_conn Conn){
 char* dbi_conn_get_engine_version_string(dbi_conn Conn, char *versionstring) {
 	dbi_conn_t *conn = Conn;
 
-	if (!conn) return 0;
+	if (!conn || !(conn->connection)) return 0;
 
 	_reset_conn_error(conn);
 
@@ -1088,7 +1088,7 @@ dbi_result dbi_conn_get_db_list(dbi_conn Conn, const char *pattern) {
 	dbi_conn_t *conn = Conn;
 	dbi_result_t *result;
 	
-	if (!conn) return NULL;
+	if (!conn || !(conn->connection)) return NULL;
 	
 	_reset_conn_error(conn);
 
@@ -1105,7 +1105,7 @@ dbi_result dbi_conn_get_table_list(dbi_conn Conn, const char *db, const char *pa
 	dbi_conn_t *conn = Conn;
 	dbi_result_t *result;
 	
-	if (!conn) return NULL;
+	if (!conn || !(conn->connection)) return NULL;
 	
 	_reset_conn_error(conn);
 
@@ -1122,7 +1122,7 @@ dbi_result dbi_conn_query(dbi_conn Conn, const char *statement) {
 	dbi_conn_t *conn = Conn;
 	dbi_result_t *result;
 
-	if (!conn) return NULL;
+	if (!conn || !(conn->connection)) return NULL;
 	
 	_reset_conn_error(conn);
 
@@ -1142,7 +1142,7 @@ dbi_result dbi_conn_queryf(dbi_conn Conn, const char *formatstr, ...) {
 	dbi_result_t *result;
 	va_list ap;
 
-	if (!conn) return NULL;
+	if (!conn || !(conn->connection)) return NULL;
 	
 	_reset_conn_error(conn);
 
@@ -1165,7 +1165,7 @@ dbi_result dbi_conn_query_null(dbi_conn Conn, const unsigned char *statement, si
 	dbi_conn_t *conn = Conn;
 	dbi_result_t *result;
 
-	if (!conn) return NULL;
+	if (!conn || !(conn->connection)) return NULL;
 
 	_reset_conn_error(conn);
 
@@ -1183,7 +1183,7 @@ int dbi_conn_select_db(dbi_conn Conn, const char *db) {
 	dbi_conn_t *conn = Conn;
 	const char *retval;
 	
-	if (!conn) return -1;
+	if (!conn || !(conn->connection)) return -1;
 	
 	_reset_conn_error(conn);
 
@@ -1212,7 +1212,7 @@ int dbi_conn_select_db(dbi_conn Conn, const char *db) {
 unsigned long long dbi_conn_sequence_last(dbi_conn Conn, const char *name) {
 	dbi_conn_t *conn = Conn;
 	unsigned long long result;
-	if (!conn) return 0;
+	if (!conn || !(conn->connection)) return 0;
 
 	_reset_conn_error(conn);
 
@@ -1223,7 +1223,7 @@ unsigned long long dbi_conn_sequence_last(dbi_conn Conn, const char *name) {
 unsigned long long dbi_conn_sequence_next(dbi_conn Conn, const char *name) {
 	dbi_conn_t *conn = Conn;
 	unsigned long long result;
-	if (!conn) return 0;
+	if (!conn || !(conn->connection)) return 0;
 
 	_reset_conn_error(conn);
 
@@ -1235,7 +1235,7 @@ int dbi_conn_ping(dbi_conn Conn) {
 	dbi_conn_t *conn = Conn;
 	int result;
 
-	if (!conn) return 0;
+	if (!conn || !(conn->connection)) return 0;
 
 	_reset_conn_error(conn);
 
