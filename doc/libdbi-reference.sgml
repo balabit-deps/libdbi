@@ -1,6 +1,6 @@
 <!--
 vim:ft=sgml
-$Id: libdbi-reference.sgml,v 1.22 2010/09/23 20:51:58 mhoenicka Exp $
+$Id: libdbi-reference.sgml,v 1.23 2011/02/19 20:26:59 mhoenicka Exp $
 Copyright (C) 2001-2005, David Parker, Neon Goat Productions.
 This document is licensed under the GNU Free Documentation License, version 1.1 or later, as
 published by the Free Software Foundation.
@@ -858,7 +858,7 @@ published by the Free Software Foundation.
 	  </VarListEntry>
 	  <VarListEntry>
 	    <term>Returns</term>
-	    <ListItem><Para>The value of the setting, or -1 if it is not available. It is not considered an error if the option has not been set.</Para></ListItem>
+	    <ListItem><Para>The value of the setting, or 0 (zero) if it is not available. It is not considered an error if the option has not been set.</Para></ListItem>
 	  </VarListEntry>
 	</VariableList>
       </Section>
