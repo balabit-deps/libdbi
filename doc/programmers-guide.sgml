@@ -31,8 +31,8 @@
 	<address format="linespecific"><email>markus@mhoenicka.de</email></address>
       </affiliation>
     </author>
-    <Edition>Document revision: $Id: programmers-guide.sgml,v 1.15 2008/03/04 09:00:35 mhoenicka Exp $</Edition>
-    <PubDate>$Date: 2008/03/04 09:00:35 $</PubDate>
+    <Edition>Document revision: $Id: programmers-guide.sgml,v 1.16 2011/02/20 00:34:06 mhoenicka Exp $</Edition>
+    <PubDate>$Date: 2011/02/20 00:34:06 $</PubDate>
     <Copyright>
       <Year>2001-2006</Year>
       <Holder>David Parker, Neon Goat Productions</Holder>
@@ -110,6 +110,26 @@
       </ItemizedList>
     </Section>
   </Chapter>
+
+  <chapter id="buildinstall">
+    <title>Building and Installing libdbi</title>
+    <para>libdbi uses the "autotools", i.e. <application moreinfo="none">automake</application>, <application moreinfo="none">autoconf</application>, and <application moreinfo="none">libtool</application> to provide a simple and consistend build and install process on all supported platforms. The good news is that you usually don't have to fiddle that much with <command moreinfo="none">./configure</command> as libdbi provides only a single option:</para>
+    <variablelist>
+      <varlistentry>
+	<term><option>--disable-docs</option></term>
+	<listitem>
+	  <para>If you build libdbi from a tarball, the docs are already prebuilt and ready to install. In this case, you don't need this option. However, if you build from a cvs checkout, this is a simple way to switch off building the documentation. This is useful if you don't want to install the prerequisites for building the docs (<application moreinfo="none">openjade</application>, the DocBook DSSSL stylesheets, <application moreinfo="none">TeX</application>, and <application moreinfo="none">JadeTeX</application>).</para>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+    <para>If you type <command moreinfo="none">./configure --help</command>, you'll see a few more options. These are provided by the autotools, and you should consult their documentation to make best use of them.</para>
+    <para>Once you have figured out which options to use or not, you are ready to go ahead and run:</para>
+    <screen format="linespecific">
+      <prompt moreinfo="none">$ </prompt><command moreinfo="none">./configure [your options]</command>
+      <prompt moreinfo="none">$ </prompt><command moreinfo="none">make</command>
+      <prompt moreinfo="none">$ </prompt><command moreinfo="none">sudo make install</command>
+</screen>
+  </chapter>
 
   <Chapter id="quickstart"><Title>libdbi in a Nutshell (Quickstart Guide)</Title>
     <!-- this is a section -->
