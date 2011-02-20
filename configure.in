@@ -1,5 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
+AC_PREREQ(2.61)
 AC_INIT(src/dbi_main.c)
+AC_USE_SYSTEM_EXTENSIONS
 AM_MAINTAINER_MODE
 
 dnl set up libtool library versioning
@@ -97,7 +99,7 @@ if [ test -z "$GCC" ]; then
    DEBUG="-g $CFLAGS"
    PROFILE="-g -p $CFLAGS"
 else
-   DEBUG="-g -std=gnu99 $CFLAGS"
+   DEBUG="-g -Wall -std=gnu99 $CFLAGS"
    PROFILE="-g -p -std=gnu99 $CFLAGS"
    CFLAGS="-std=gnu99 $CFLAGS"
 fi
