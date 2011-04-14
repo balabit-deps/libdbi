@@ -1,3 +1,11 @@
+libdbi (1.0pre1-10.syslogng41.1) syslogngdeps30; urgency=low
+
+  * re-release for syslog-ng-deps-3.0
+  * removed no longer supported gcc options for processor optimalization for
+    sparc architectures.
+
+ -- Tamas Pal <folti@balabit.com>  Thu, 14 Apr 2011 18:47:56 +0200
+
 libdbi (1.0pre1-10.syslogng30) syslogngdeps10; urgency=low
 
   * Release for syslog-ng 3.1.
