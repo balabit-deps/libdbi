@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.54 2010/06/15 21:18:49 mhoenicka Exp $
+ * $Id: dbi_result.c,v 1.55 2011/08/08 22:41:22 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -1137,6 +1137,7 @@ double dbi_result_get_double_idx(dbi_result Result, unsigned int fieldidx) {
 
   switch (RESULT->field_attribs[fieldidx] & DBI_DECIMAL_SIZEMASK) {
   case DBI_DECIMAL_SIZE4:
+    return RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_float;
   case DBI_DECIMAL_SIZE8:
     return RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_double;
   default:
