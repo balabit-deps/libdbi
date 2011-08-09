@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd_helper.c,v 1.43 2010/06/15 21:18:49 mhoenicka Exp $
+ * $Id: dbd_helper.c,v 1.44 2011/08/09 11:14:14 mhoenicka Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -169,7 +169,7 @@ void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int
     }
     conn->error_flag = my_errno; /* legacy code may rely on this */
     conn->error_number = my_errno;
-    conn->error_message = my_errmsg ? strdup(my_errmsg) : NULL;
+    conn->error_message = my_errmsg ? my_errmsg : NULL;
     
     if (conn->error_handler != NULL) {
       conn->error_handler((dbi_conn)conn, conn->error_handler_argument);
