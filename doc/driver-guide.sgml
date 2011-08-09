@@ -1,6 +1,6 @@
 <!--
 vim:ft=sgml
-$Id: driver-guide.sgml,v 1.5 2008/03/10 21:07:54 mhoenicka Exp $
+$Id: driver-guide.sgml,v 1.6 2011/08/09 22:56:09 mhoenicka Exp $
 Copyright (C) 2001-2002, David Parker, Neon Goat Productions.
 This document is licensed under the GNU Free Documentation License, version 1.1 or later, as
 published by the Free Software Foundation.
@@ -34,8 +34,8 @@ published by the Free Software Foundation.
 	<address format="linespecific"><email>mhoenicka@users.sourceforge.net</email></address>
       </affiliation>
     </author>
-    <Edition>Document revision: $Id: driver-guide.sgml,v 1.5 2008/03/10 21:07:54 mhoenicka Exp $</Edition>
-    <PubDate>$Date: 2008/03/10 21:07:54 $</PubDate>
+    <Edition>Document revision: $Id: driver-guide.sgml,v 1.6 2011/08/09 22:56:09 mhoenicka Exp $</Edition>
+    <PubDate>$Date: 2011/08/09 22:56:09 $</PubDate>
     <Copyright>
       <Year>2001-2005</Year>
       <Holder>David Parker, Neon Goat Productions</Holder>
@@ -297,7 +297,7 @@ published by the Free Software Foundation.
 	    <ListItem>
 	      <Para><Literal>conn</Literal>: The target connection.</Para>
 	      <Para><Literal>errno</Literal>: The int variable to hold the error number.</Para>
-	      <Para><Literal>errstr</Literal>: The string to hold the error description.</Para>
+	      <Para><Literal>errstr</Literal>: The string to hold the error description. The driver is supposed to provide the string as allocated memory which is further managed by libdbi.</Para>
 	    </ListItem>
 	  </VarListEntry>
 	  <VarListEntry>
