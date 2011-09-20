@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.55 2011/08/08 22:41:22 mhoenicka Exp $
+ * $Id: dbi_result.c,v 1.56 2011/09/20 21:49:46 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -1730,7 +1730,9 @@ static unsigned int _find_field(dbi_result_t *result, const char *fieldname, dbi
 }
 
 static int _is_row_fetched(dbi_result_t *result, unsigned long long row) {
-  if (!result->rows || (row >= result->numrows_matched)) return -1;
+  /* Bull patch reported by Tom Lane */
+  /*  if (!result->rows || (row >= result->numrows_matched)) return -1; */
+  if (!result->rows || (row > result->numrows_matched)) return -1;
   return !(result->rows[row] == NULL);
 }
 
