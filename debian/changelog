@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng41.2) syslogngdeps30; urgency=low
+
+  * add date conversation function which is used by the drivers
+
+ -- Viktor Juhasz <jviktor@balabit.com>  Wed, 26 Oct 2011 18:47:56 +0200
+
 libdbi (1.0pre1-10.syslogng41.1) syslogngdeps30; urgency=low
 
   * re-release for syslog-ng-deps-3.0
