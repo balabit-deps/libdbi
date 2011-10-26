@@ -69,6 +69,7 @@ void _dbd_register_driver_cap(dbi_driver_t *driver, const char *capname, int val
 void _dbd_register_conn_cap(dbi_conn_t *conn, const char *capname, int value);
 int _dbd_result_add_to_conn(dbi_result_t *result);
 time_t _dbd_parse_datetime(const char *raw, unsigned int attribs);
+time_t _dbd_get_datetime(struct tm *tmt);
 size_t _dbd_escape_chars(char *dest, const char *orig, size_t orig_size, const char *toescape);
 size_t _dbd_encode_binary(const unsigned char *in, size_t n, unsigned char *out);
 size_t _dbd_decode_binary(const unsigned char *in, unsigned char *out);
