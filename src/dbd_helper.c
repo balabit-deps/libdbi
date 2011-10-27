@@ -406,18 +406,7 @@ time_t _dbd_parse_datetime(const char *raw, unsigned int attribs) {
 
 
 time_t _dbd_get_datetime(struct tm *tmt) {
-  time_t result = 0;
-  char *tz;
-  tz = getenv("TZ");
-  setenv("TZ", "", 1);
-  tzset();
-  result = mktime(tmt);
-  if (tz)
-    setenv("TZ", tz, 1);
-  else
-    unsetenv("TZ");
-  tzset();
-  return result;
+  return timegm(tmt);
 }
 /* encoding/decoding of binary strings. The code, including the
    introductory comments, was literally stolen from the SQLite 2.8.16
