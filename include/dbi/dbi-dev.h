@@ -71,6 +71,7 @@ typedef struct dbi_result_s {
 	enum { NOTHING_RETURNED, ROWS_RETURNED } result_state;
 	dbi_row_t **rows; /* array of filled rows, elements set to NULL if not fetched yet */
 	unsigned long long currowidx;
+  void *driver_data;
 } dbi_result_t;
 
 typedef struct _field_binding_s {
