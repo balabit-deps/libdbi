@@ -47,7 +47,7 @@ typedef union dbi_data_u {
 	float d_float;
 	double d_double;
 	char *d_string;
-	time_t d_datetime;
+        struct tm d_stime;
 } dbi_data_t;
 
 typedef struct dbi_row_s {

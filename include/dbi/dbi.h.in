@@ -300,6 +300,7 @@ char *dbi_result_get_string_copy(dbi_result Result, const char *fieldname);
 unsigned char *dbi_result_get_binary_copy(dbi_result Result, const char *fieldname);
 
 time_t dbi_result_get_datetime(dbi_result Result, const char *fieldname);
+struct tm *dbi_result_get_stm(dbi_result Result, const char *fieldname, struct tm *stm);
 
 int dbi_result_bind_char(dbi_result Result, const char *fieldname, char *bindto);
 int dbi_result_bind_uchar(dbi_result Result, const char *fieldname, unsigned char *bindto);
@@ -346,6 +347,7 @@ char *dbi_result_get_string_copy_idx(dbi_result Result, unsigned int fieldidx);
 unsigned char *dbi_result_get_binary_copy_idx(dbi_result Result, unsigned int fieldidx);
 
 time_t dbi_result_get_datetime_idx(dbi_result Result, unsigned int fieldidx);
+struct tm *dbi_result_get_stm_idx(dbi_result Result, unsigned int fieldidx, struct tm *stm);
 
 /* get_as* functions */
 long long dbi_result_get_as_longlong(dbi_result Result, const char *fieldname);

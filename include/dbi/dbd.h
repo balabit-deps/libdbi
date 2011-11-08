@@ -68,7 +68,7 @@ dbi_result_t *_dbd_result_create_from_stringarray(dbi_conn_t *conn, unsigned lon
 void _dbd_register_driver_cap(dbi_driver_t *driver, const char *capname, int value);
 void _dbd_register_conn_cap(dbi_conn_t *conn, const char *capname, int value);
 int _dbd_result_add_to_conn(dbi_result_t *result);
-time_t _dbd_parse_datetime(const char *raw, unsigned int attribs);
+void _dbd_parse_datetime(const char *raw, unsigned int attribs, struct tm *tmt);
 time_t _dbd_get_datetime(struct tm *tmt);
 size_t _dbd_escape_chars(char *dest, const char *orig, size_t orig_size, const char *toescape);
 size_t _dbd_encode_binary(const unsigned char *in, size_t n, unsigned char *out);

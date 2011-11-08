@@ -1319,8 +1319,29 @@ unsigned char *dbi_result_get_binary_copy_idx(dbi_result Result, unsigned int fi
   return newblob;
 }
 
-time_t dbi_result_get_datetime(dbi_result Result, const char *fieldname) {
-  time_t ERROR = 0;
+struct tm *dbi_result_get_stm_idx(dbi_result Result, unsigned int fieldidx, struct tm *stm) {
+  fieldidx--;
+
+  _reset_conn_error(RESULT->conn);
+
+  if (fieldidx >= RESULT->numfields) {
+    _error_handler(RESULT->conn, DBI_ERROR_BADIDX);
+    return NULL;
+  }
+  if (RESULT->field_types[fieldidx] != DBI_TYPE_DATETIME) {
+    _verbose_handler(RESULT->conn, "%s: field `%s` is not datetime type\n",
+                     __func__, dbi_result_get_field_name(Result, fieldidx+1));
+    _error_handler(RESULT->conn, DBI_ERROR_BADTYPE);
+    return NULL;
+  }
+
+  if (stm!=NULL)
+    memcpy(stm, &(RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_stime), sizeof(struct tm));
+
+  return stm;
+}
+
+struct tm *dbi_result_get_stm(dbi_result Result, const char *fieldname, struct tm *stm) {
   unsigned int fieldidx;
   dbi_error_flag errflag;
 
@@ -1330,29 +1351,24 @@ time_t dbi_result_get_datetime(dbi_result Result, const char *fieldname) {
   if (errflag != DBI_ERROR_NONE) {
     dbi_conn_t *conn = RESULT->conn;
     _error_handler(conn, DBI_ERROR_BADNAME);
-    return ERROR;
+    return NULL;
   }
-  return dbi_result_get_datetime_idx(Result, fieldidx+1);
+
+  return dbi_result_get_stm_idx(Result, fieldidx+1, stm);
 }
-	
+
+time_t dbi_result_get_datetime(dbi_result Result, const char *fieldname) {
+  struct tm stm;
+
+  dbi_result_get_stm(Result, fieldname, &stm);
+  return _dbd_get_datetime(&stm);
+}
+
 time_t dbi_result_get_datetime_idx(dbi_result Result, unsigned int fieldidx) {
-  time_t ERROR = 0;
-  fieldidx--;
+  struct tm stm;
 
-  _reset_conn_error(RESULT->conn);
-
-  if (fieldidx >= RESULT->numfields) {
-    _error_handler(RESULT->conn, DBI_ERROR_BADIDX);
-    return ERROR;
-  }
-  if (RESULT->field_types[fieldidx] != DBI_TYPE_DATETIME) {
-    _verbose_handler(RESULT->conn, "%s: field `%s` is not datetime type\n",
-                     __func__, dbi_result_get_field_name(Result, fieldidx+1));
-    _error_handler(RESULT->conn, DBI_ERROR_BADTYPE);
-    return ERROR;
-  }
-	
-  return (time_t)(RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_datetime);
+  dbi_result_get_stm_idx(Result, fieldidx, &stm);
+  return _dbd_get_datetime(&stm);
 }
 
 /* RESULT: get_as* functions */
@@ -1415,7 +1431,7 @@ long long dbi_result_get_as_longlong_idx(dbi_result Result, unsigned int fieldid
   case DBI_TYPE_BINARY:
     return 0; /* do not raise an error */
   case DBI_TYPE_DATETIME:
-    return (long long)(RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_datetime);
+    return (long long) _dbd_get_datetime(&(RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_stime));
   default:
     _error_handler(RESULT->conn, DBI_ERROR_BADTYPE);
     return ERROR;
@@ -1530,7 +1546,7 @@ char *dbi_result_get_as_string_copy_idx(dbi_result Result, unsigned int fieldidx
   case DBI_TYPE_BINARY:
     break; /* return empty string, do not raise an error */
   case DBI_TYPE_DATETIME:
-    utctime = gmtime(&(RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_datetime));
+    utctime=&(RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_stime);
     snprintf(newstring, 32, "%04d-%02d-%02d %02d:%02d:%02d", utctime->tm_year+1900, utctime->tm_mon+1, utctime->tm_mday, utctime->tm_hour, utctime->tm_min, utctime->tm_sec);
     break;
   default:
