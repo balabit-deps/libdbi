@@ -311,7 +311,7 @@ void _dbd_parse_datetime(const char *raw, unsigned int attribs, struct tm *tmt) 
 	unixtime->tm_mday = 0; /* days are 1 through 31 */
 	unixtime->tm_mon = 0;
 	unixtime->tm_year = 0; /* can't start before Unix epoch */
-	unixtime->tm_isdst = 0;
+	unixtime->tm_isdst = -1;
 	
 	if (raw && (unparsed = strdup(raw)) != NULL) {
 	  cur = unparsed;
