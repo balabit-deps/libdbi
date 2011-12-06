@@ -43,7 +43,6 @@ clean:
 
 	# Add here commands to clean up after the build process.
 	[ ! -f Makefile ] || $(MAKE) distclean
-	rm -f config.sub config.guess
 	rm -f doc/Makefile doc/driver-guide.tex doc/programmers-guide.tex doc/driver-guide.log doc/programmers-guide.log \
 		doc/programmers-guide.aux doc/programmers-guide.out doc/driver-guide.aux doc/driver-guide.out
 	dh_clean 
