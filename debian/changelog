@@ -1,3 +1,11 @@
+libdbi (1.0pre1-10.syslogng41.3) syslogngdeps40; urgency=low
+
+  * Multiple date/time handling fixes.
+  * bumped version to 41.3
+  * changed tag to syslogngdeps40
+
+ -- Tamas Pal <folti@balabit.com>  Tue, 06 Dec 2011 12:03:15 +0100
+
 libdbi (1.0pre1-10.syslogng41.2) syslogngdeps30; urgency=low
 
   * add date conversation function which is used by the drivers
