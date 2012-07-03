@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.46 2008/11/28 00:00:41 mhoenicka Exp $
+ * $Id: dbi-dev.h,v 1.47 2012/07/03 22:08:10 mhoenicka Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -163,6 +163,7 @@ typedef struct dbi_conn_s {
 	dbi_error_flag error_flag;
 	int error_number; /*XXX*/
 	char *error_message; /*XXX*/
+	char *full_errmsg;
 	dbi_conn_error_handler_func error_handler;
 	void *error_handler_argument;
 	dbi_result_t **results; /* for garbage-collector-mandated result disjoins */
