@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.100 2011/02/12 23:24:09 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.101 2012/07/03 22:12:01 mhoenicka Exp $
  */
 
 /* silence the deprecated warnings as this lib must implement and call
@@ -28,7 +28,7 @@
 #include <config.h>
 #endif
 
-#define _GNU_SOURCE /* since we need the asprintf() prototype */
+/* #define _GNU_SOURCE */ /* we need the asprintf() prototype but _GNU_SOURCE should be defined in config.h */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -559,6 +559,7 @@ dbi_conn dbi_conn_open(dbi_driver Driver) {
 	conn->error_flag = DBI_ERROR_NONE; /* for legacy code only */
 	conn->error_number = DBI_ERROR_NONE;
 	conn->error_message = NULL;
+	conn->full_errmsg = NULL;
 	conn->error_handler = NULL;
 	conn->error_handler_argument = NULL;
 	_update_internal_conn_list(conn, 1);
@@ -599,6 +600,7 @@ void dbi_conn_close(dbi_conn Conn) {
 	
 	if (conn->current_db) free(conn->current_db);
 	if (conn->error_message) free(conn->error_message);
+	if (conn->full_errmsg) free(conn->full_errmsg);
 	conn->error_number = 0;
 	
 	conn->error_handler = NULL;
@@ -620,10 +622,9 @@ dbi_driver dbi_conn_get_driver(dbi_conn Conn) {
 int dbi_conn_error(dbi_conn Conn, const char **errmsg_dest) {
 	dbi_conn_t *conn = Conn;
 	char number_portion[20];
-	static char *errmsg = NULL; // XXX quick hack, revisit this when API is redesigned
 
 	if (errmsg_dest) {
-		if (errmsg) free(errmsg);
+		if (conn->full_errmsg) free(conn->full_errmsg);
 		
 		if (conn->error_number) {
 			snprintf(number_portion, 20, "%d: ", conn->error_number);
@@ -632,8 +633,8 @@ int dbi_conn_error(dbi_conn Conn, const char **errmsg_dest) {
 			number_portion[0] = '\0';
 		}
 
-		asprintf(&errmsg, "%s%s", number_portion, conn->error_message ? conn->error_message : "");
-		*errmsg_dest = errmsg;
+		asprintf(&(conn->full_errmsg), "%s%s", number_portion, conn->error_message ? conn->error_message : "");
+		*errmsg_dest = conn->full_errmsg;
 	}
 
 	return conn->error_number;
