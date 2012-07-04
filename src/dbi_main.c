@@ -525,6 +525,7 @@ dbi_conn dbi_conn_open(dbi_driver Driver) {
 	_update_internal_conn_list(conn, 1);
 	conn->results = NULL;
 	conn->results_size = conn->results_used = 0;
+	conn->formatted_errmsg = NULL;
 
 	return (dbi_conn)conn;
 }
@@ -565,6 +566,7 @@ void dbi_conn_close(dbi_conn Conn) {
 	conn->error_handler = NULL;
 	conn->error_handler_argument = NULL;
 	free(conn->results);
+	if (conn->formatted_errmsg) free(conn->formatted_errmsg);
 
 	free(conn);
 
@@ -581,10 +583,9 @@ dbi_driver dbi_conn_get_driver(dbi_conn Conn) {
 int dbi_conn_error(dbi_conn Conn, const char **errmsg_dest) {
 	dbi_conn_t *conn = Conn;
 	char number_portion[20];
-	static char *errmsg = NULL; // XXX quick hack, revisit this when API is redesigned
 
 	if (errmsg_dest) {
-		if (errmsg) free(errmsg);
+		if (conn->formatted_errmsg) free(conn->formatted_errmsg);
 		
 		if (conn->error_number) {
 			snprintf(number_portion, 20, "%d: ", conn->error_number);
@@ -593,8 +594,8 @@ int dbi_conn_error(dbi_conn Conn, const char **errmsg_dest) {
 			number_portion[0] = '\0';
 		}
 
-		asprintf(&errmsg, "%s%s", number_portion, conn->error_message ? conn->error_message : "");
-		*errmsg_dest = errmsg;
+		asprintf(&(conn->formatted_errmsg), "%s%s", number_portion, conn->error_message ? conn->error_message : "");
+		*errmsg_dest = conn->formatted_errmsg;
 	}
 
 	return conn->error_number;

@@ -168,6 +168,7 @@ typedef struct dbi_conn_s {
 	int results_used;
 	int results_size;
 	struct dbi_conn_s *next; /* so libdbi can unload all conns at exit */
+	char *formatted_errmsg;
 } dbi_conn_t;
 
 unsigned int _isolate_attrib(unsigned int attribs, unsigned int rangemin, unsigned int rangemax);
