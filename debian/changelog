@@ -1,3 +1,10 @@
+libdbi (1.0pre1-10.syslogng42.1) syslogngdeps40; urgency=low
+
+  * pick: dbi_conn: Stop using a static char * in dbi_conn_error() (fixes: #D-05870, #26631)
+  * bumped version to 42.1
+
+ -- Marton Arvai <amarci@balabit.com>  Fri, 03 Aug 2012 15:31:19 +0200
+
 libdbi (1.0pre1-10.syslogng41.3) syslogngdeps40; urgency=low
 
   * Multiple date/time handling fixes.
