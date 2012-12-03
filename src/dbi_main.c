@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.101 2012/07/03 22:12:01 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.102 2012/12/03 00:13:30 mhoenicka Exp $
  */
 
 /* silence the deprecated warnings as this lib must implement and call
@@ -1291,6 +1291,12 @@ static dbi_driver_t *_get_driver(const char *filename, dbi_inst_t *inst) {
 			((driver->functions->list_tables = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_list_tables")) == NULL) ||
 			((driver->functions->query = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_query")) == NULL) ||
 			((driver->functions->query_null = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_query_null")) == NULL) ||
+			((driver->functions->transaction_begin = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_transaction_begin")) == NULL) ||
+			((driver->functions->transaction_commit = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_transaction_commit")) == NULL) ||
+			((driver->functions->transaction_rollback = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_transaction_rollback")) == NULL) ||
+			((driver->functions->savepoint = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_savepoint")) == NULL) ||
+			((driver->functions->rollback_to_savepoint = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_rollback_to_savepoint")) == NULL) ||
+			((driver->functions->release_savepoint = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_release_savepoint")) == NULL) ||
 			((driver->functions->quote_string = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_quote_string")) == NULL) ||
 			((driver->functions->quote_binary = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_quote_binary")) == NULL) ||
 			((driver->functions->conn_quote_string = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_conn_quote_string")) == NULL) ||

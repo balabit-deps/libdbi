@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi.h.in,v 1.12 2010/09/10 19:11:48 mhoenicka Exp $
+ * $Id: dbi.h.in,v 1.13 2012/12/03 00:13:30 mhoenicka Exp $
  */
 
 #ifndef __DBI_H__
@@ -237,6 +237,13 @@ size_t dbi_conn_quote_binary_copy(dbi_conn Conn, const unsigned char *orig, size
 size_t dbi_conn_escape_string_copy(dbi_conn Conn, const char *orig, char **newstr);
 size_t dbi_conn_escape_string(dbi_conn Conn, char **orig);
 size_t dbi_conn_escape_binary_copy(dbi_conn Conn, const unsigned char *orig, size_t from_length, unsigned char **newstr);
+
+int dbi_conn_transaction_begin(dbi_conn Conn);
+int dbi_conn_transaction_commit(dbi_conn Conn);
+int dbi_conn_transaction_rollback(dbi_conn Conn);
+int dbi_conn_savepoint(dbi_conn Conn, const char *savepoint);
+int dbi_conn_rollback_to_savepoint(dbi_conn Conn, const char *savepoint);
+int dbi_conn_release_savepoint(dbi_conn Conn, const char *savepoint);
 
 dbi_conn dbi_result_get_conn(dbi_result Result);
 int dbi_result_free(dbi_result Result);

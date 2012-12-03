@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.47 2012/07/03 22:08:10 mhoenicka Exp $
+ * $Id: dbi-dev.h,v 1.48 2012/12/03 00:13:30 mhoenicka Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -123,6 +123,12 @@ typedef struct dbi_functions_s {
 	dbi_result_t *(*list_tables)(dbi_conn_t_pointer, const char *, const char *);
 	dbi_result_t *(*query)(dbi_conn_t_pointer, const char *);
 	dbi_result_t *(*query_null)(dbi_conn_t_pointer, const unsigned char *, size_t);
+        int (*transaction_begin)(dbi_conn_t_pointer);
+        int (*transaction_commit)(dbi_conn_t_pointer);
+        int (*transaction_rollback)(dbi_conn_t_pointer);
+        int (*savepoint)(dbi_conn_t_pointer, const char *);
+        int (*rollback_to_savepoint)(dbi_conn_t_pointer, const char *);
+        int (*release_savepoint)(dbi_conn_t_pointer, const char *);
 	size_t (*quote_string)(dbi_driver_t_pointer, const char *, char *);
 	size_t (*conn_quote_string)(dbi_conn_t_pointer, const char *, char *);
 	size_t (*quote_binary)(dbi_conn_t_pointer, const unsigned char *, size_t, unsigned char **);

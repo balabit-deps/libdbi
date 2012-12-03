@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd.h,v 1.31 2008/11/11 23:51:42 mhoenicka Exp $
+ * $Id: dbd.h,v 1.32 2012/12/03 00:13:30 mhoenicka Exp $
  */
 
 
@@ -49,6 +49,12 @@ dbi_result_t *dbd_list_dbs(dbi_conn_t *conn, const char *pattern);
 dbi_result_t *dbd_list_tables(dbi_conn_t *conn, const char *db, const char *pattern);
 dbi_result_t *dbd_query(dbi_conn_t *conn, const char *statement);
 dbi_result_t *dbd_query_null(dbi_conn_t *conn, const unsigned char *statement, size_t st_length);
+int dbd_transaction_begin(dbi_conn_t *conn);
+int dbd_transaction_commit(dbi_conn_t *conn);
+int dbd_transaction_rollback(dbi_conn_t *conn);
+int dbd_savepoint(dbi_conn_t *conn, const char *savepoint);
+int dbd_rollback_to_savepoint(dbi_conn_t *conn, const char *savepoint);
+int dbd_release_savepoint(dbi_conn_t *conn, const char *savepoint);
 size_t dbd_quote_string(dbi_driver_t *driver, const char *orig, char *dest);
 size_t dbd_quote_binary(dbi_conn_t *conn, const unsigned char *orig, size_t from_length, unsigned char **ptr_dest);
 size_t dbd_conn_quote_string(dbi_conn_t *conn, const char *orig, char *dest);
