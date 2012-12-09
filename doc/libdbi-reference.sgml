@@ -1,6 +1,6 @@
 <!--
 vim:ft=sgml
-$Id: libdbi-reference.sgml,v 1.23 2011/02/19 20:26:59 mhoenicka Exp $
+$Id: libdbi-reference.sgml,v 1.24 2012/12/09 01:04:48 mhoenicka Exp $
 Copyright (C) 2001-2005, David Parker, Neon Goat Productions.
 This document is licensed under the GNU Free Documentation License, version 1.1 or later, as
 published by the Free Software Foundation.
@@ -634,6 +634,29 @@ published by the Free Software Foundation.
 	    </VarListEntry>
 	  </VariableList>
 	</Section>
+	<Section id="dbi-driver-cap-get" XRefLabel="dbi_driver_cap_get"><Title>dbi_driver_cap_get</Title>
+	  <funcsynopsis>
+	    <funcprototype>
+	      <funcdef>int <function>dbi_driver_cap_get</function></funcdef>
+	      <paramdef>dbi_driver <parameter>Driver</parameter></paramdef>
+	      <paramdef>const char *<parameter>capname</parameter></paramdef>
+	    </funcprototype>
+	  </funcsynopsis>
+	  <Para>Requests the value of the driver capability which is specified as an argument.</Para>
+	  <VariableList>
+	    <VarListEntry>
+	      <term>Arguments</term>
+	      <ListItem>
+		<Para><Literal>Driver</Literal>: The target driver.</Para>
+		<Para><Literal>capname</Literal>: A pointer to a string containing the name of the driver capability to be queried.</Para>
+	      </ListItem>
+	    </VarListEntry>
+	    <VarListEntry>
+	      <term>Returns</term>
+	      <ListItem><Para>The numeric value of the driver capability.</Para></ListItem>
+	    </VarListEntry>
+	  </VariableList>
+	</Section>
       </Section>
     </Section>
     <Section id="reference-conn"><Title>Connection Infrastructure</Title>
@@ -944,6 +967,29 @@ published by the Free Software Foundation.
 	  </VarListEntry>
 	</VariableList>
       </Section>
+      <Section id="dbi-conn-cap-get" XRefLabel="dbi_conn_cap_get"><Title>dbi_conn_cap_get</Title>
+	  <funcsynopsis>
+	    <funcprototype>
+	      <funcdef>int <function>dbi_conn_cap_get</function></funcdef>
+	      <paramdef>dbi_conn <parameter>Conn</parameter></paramdef>
+	      <paramdef>const char *<parameter>capname</parameter></paramdef>
+	    </funcprototype>
+	  </funcsynopsis>
+	  <Para>Requests the value of a driver capability associated with the current connection. The name of the capability is specified as an argument.</Para>
+	  <VariableList>
+	    <VarListEntry>
+	      <term>Arguments</term>
+	      <ListItem>
+		<Para><Literal>Conn</Literal>: The target connection.</Para>
+		<Para><Literal>capname</Literal>: A pointer to a string containing the name of the driver capability to be queried.</Para>
+	      </ListItem>
+	    </VarListEntry>
+	    <VarListEntry>
+	      <term>Returns</term>
+	      <ListItem><Para>The numeric value of the driver capability.</Para></ListItem>
+	    </VarListEntry>
+	  </VariableList>
+	</Section>
       <Section id="dbi-conn-get-socket" XRefLabel="dbi_conn_get_socket"><Title>dbi_conn_get_socket</Title>
 	<funcsynopsis>
 	  <funcprototype>
@@ -1160,6 +1206,152 @@ published by the Free Software Foundation.
 	      <term><emphasis>Returns</emphasis></term>
 	      <listitem>
 		<para>The length of the error message in bytes, or 0 if there was an error.</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</section>
+      </Section>
+      <Section id="reference-conn-transactions-savepoints"><Title>Transactions and Savepoints</Title>
+	<Section id="dbi-conn-transaction-begin" XRefLabel="dbi_conn_transaction_begin"><Title>dbi_conn_transaction_begin</Title>
+	  <funcsynopsis>
+	    <funcprototype>
+	      <funcdef>int <function>dbi_conn_transaction_begin</function></funcdef>
+	      <paramdef>dbi_conn <parameter>Conn</parameter></paramdef>
+	    </funcprototype>
+	  </funcsynopsis>
+	  <Para>Starts a transaction.</Para>
+	  <VariableList>
+	    <VarListEntry>
+	      <term>Arguments</term>
+	      <ListItem>
+		<Para><Literal>Conn</Literal>: The target connection.</Para>
+	      </ListItem>
+	    </VarListEntry>
+	    <VarListEntry>
+	      <term>Returns</term>
+	      <ListItem><Para>0 (zero) if successful, otherwise nonzero.</Para></ListItem>
+	    </VarListEntry>
+	  </VariableList>
+	</Section>
+	<Section id="dbi-conn-transaction-commit" XRefLabel="dbi_conn_transaction_commit"><Title>dbi_conn_transaction_commit</Title>
+	  <funcsynopsis>
+	    <funcprototype>
+	      <funcdef>int <function>dbi_conn_transaction_commit</function></funcdef>
+	      <paramdef>dbi_conn <parameter>Conn</parameter></paramdef>
+	    </funcprototype>
+	  </funcsynopsis>
+	  <Para>Commits a transaction, i.e. writes all changes since the transaction was started to the database.</Para>
+	  <VariableList>
+	    <VarListEntry>
+	      <term>Arguments</term>
+	      <ListItem>
+		<Para><Literal>Conn</Literal>: The target connection.</Para>
+	      </ListItem>
+	    </VarListEntry>
+	    <VarListEntry>
+	      <term>Returns</term>
+	      <ListItem><Para>0 (zero) if successful, otherwise nonzero.</Para></ListItem>
+	    </VarListEntry>
+	  </VariableList>
+	</Section>
+	<section id="dbi-conn-transaction-rollback" xreflabel="dbi_conn_transaction_rollback">
+	  <title>dbi_conn_transaction_rollback</title>
+	  <funcsynopsis>
+	    <funcprototype>
+	      <funcdef>int <function>dbi_conn_transaction_rollback</function></funcdef>
+	      <paramdef>dbi_conn <parameter>Conn</parameter></paramdef>
+	    </funcprototype>
+	  </funcsynopsis>
+	  <para>Rolls back a transaction, i.e. reverts all changes since the transaction started.</para>
+	  <variablelist>
+	    <varlistentry>
+	      <term><emphasis>Arguments</emphasis></term>
+	      <listitem>
+		<Para><Literal>Conn</Literal>: The target connection.</Para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term><emphasis>Returns</emphasis></term>
+	      <listitem>
+		<para>0 (zero) if successful, otherwise nonzero.</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</section>
+	<section id="dbi-conn-savepoint" xreflabel="dbi_conn_savepoint">
+	  <title>dbi_conn_savepoint</title>
+	  <funcsynopsis>
+	    <funcprototype>
+	      <funcdef>int <function>dbi_conn_savepoint</function></funcdef>
+	      <paramdef>dbi_conn <parameter>Conn</parameter></paramdef>
+	      <paramdef>const char *<parameter>savepoint</parameter></paramdef>
+	    </funcprototype>
+	  </funcsynopsis>
+	  <para>Sets a savepoint named <parameter>savepoint</parameter> within the current transaction.</para>
+	  <variablelist>
+	    <varlistentry>
+	      <term><emphasis>Arguments</emphasis></term>
+	      <listitem>
+		<Para><Literal>Conn</Literal>: The target connection.</Para>
+		<Para><Literal>savepoint</Literal>: a pointer to a string containing the name of the savepoint.</Para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term><emphasis>Returns</emphasis></term>
+	      <listitem>
+		<para>0 (zero) if successful, otherwise nonzero.</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</section>
+	<section id="dbi-conn-rollback-to-savepoint" xreflabel="dbi_conn_rollback_to_savepoint">
+	  <title>dbi_conn_rollback_to_savepoint</title>
+	  <funcsynopsis>
+	    <funcprototype>
+	      <funcdef>int <function>dbi_conn_rollback_to_savepoint</function></funcdef>
+	      <paramdef>dbi_conn <parameter>Conn</parameter></paramdef>
+	      <paramdef>const char *<parameter>savepoint</parameter></paramdef>
+	    </funcprototype>
+	  </funcsynopsis>
+	  <para>Rolls back all changes since the savepoint named <parameter>savepoint</parameter> was established within the current transaction.</para>
+	  <variablelist>
+	    <varlistentry>
+	      <term><emphasis>Arguments</emphasis></term>
+	      <listitem>
+		<Para><Literal>Conn</Literal>: The target connection.</Para>
+		<Para><Literal>savepoint</Literal>: a pointer to a string containing the name of the savepoint.</Para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term><emphasis>Returns</emphasis></term>
+	      <listitem>
+		<para>0 (zero) if successful, otherwise nonzero.</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</section>
+	<section id="dbi-conn-release-savepoint" xreflabel="dbi_conn_release_savepoint">
+	  <title>dbi_conn_release_savepoint</title>
+	  <funcsynopsis>
+	    <funcprototype>
+	      <funcdef>int <function>dbi_conn_release_savepoint</function></funcdef>
+	      <paramdef>dbi_conn <parameter>Conn</parameter></paramdef>
+	      <paramdef>const char *<parameter>savepoint</parameter></paramdef>
+	    </funcprototype>
+	  </funcsynopsis>
+	  <para>Removes the savepoint named <parameter>savepoint</parameter> within the current transaction and releases all resources associated with it. Changes can no longer be rolled back to that particular savepoint. However, changes may still be rolled back to different savepoints, or to the beginning of the entire transaction.</para>
+	  <variablelist>
+	    <varlistentry>
+	      <term><emphasis>Arguments</emphasis></term>
+	      <listitem>
+		<Para><Literal>Conn</Literal>: The target connection.</Para>
+		<Para><Literal>savepoint</Literal>: a pointer to a string containing the name of the savepoint.</Para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term><emphasis>Returns</emphasis></term>
+	      <listitem>
+		<para>0 (zero) if successful, otherwise nonzero.</para>
 	      </listitem>
 	    </varlistentry>
 	  </variablelist>

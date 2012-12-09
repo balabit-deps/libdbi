@@ -1,0 +1,58 @@
+      <para>A variety of database engines support the concepts of transactions and savepoints. The common idea of both is to group database commands in a way such that the changes caused by the commands can be either written to the database or be rolled back as if the commands hadn't been issued. libdbi provides a consistent interface for both transactions and savepoints.</para>
+    <sect1 id="transactions">
+      <title>Transactions</title>
+      <para>To find out at runtime whether or not the driver associated with the current connection supports transactions, use the function <link linkend="dbi-conn-cap-get">dbi_conn_cap_get</link> to query if the "transaction_support" capability is nonzero. Drivers should throw an error if transaction-related functions are called although the database engine does not support them. If a database engine supports both transaction-safe and non-transaction safe table types, the behaviour of the driver depends on its implementation.</para>
+    <para>Transactions are usually handled by a standard sequence of actions. First, the transaction is set up. Then one or more commands are executed. Based on the result of these commands, the transaction can either be aborted (rolled back) or be written to the database (committed). libdbi provides the following functions to handle these tasks:</para>
+      <variablelist>
+	<varlistentry>
+	  <term>Start a transaction</term>
+	  <listitem>
+	    <para>Some database engines start a transaction after a connection is established, and after each transaction is finished. These database engines do not strictly need a command to start a transaction. Others work in autocommit mode, i.e. each command is automatically committed. Some of the latter can be coerced to use transactions, while others simply do not provide explicit transaction management. As a database abstraction layer, libdbi has to cover all cases by providing an explicit command to start transactions, see <link linkend="dbi-conn-transaction-begin">dbi_conn_transaction_begin</link>.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>Commit a transaction</term>
+	  <listitem>
+	    <para>If no errors occurred during a transaction, the changes can actually be written to the database by calling <link linkend="dbi-conn-transaction-commit">dbi_conn_transaction_commit</link>.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>Rollback a transaction</term>
+	  <listitem>
+	    <para>If an error occurred during a transaction, the database can be reverted to the state when the transaction started by calling <link linkend="dbi-conn-transaction-rollback">dbi_conn_transaction_rollback</link>.</para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </sect1>
+
+    <sect1 id="savepoints">
+      <title>Savepoints</title>
+      <para>Most database engines which support transactions also support the concept of savepoints. To find out at runtime whether or not the driver associated with the current connection supports savepoints, use the function <link linkend="dbi-conn-cap-get">dbi_conn_cap_get</link> to query if the "savepoint_support" capability is nonzero. Savepoints are essentially named markers within a transaction where you can jump back in case of an error. In this case, all commands that were issued after the savepoint are dismissed. The changes caused by the commands after a savepoint are committed as soon as the entire transaction is committed. Usually several markers may be used at a time within the same transaction. libdbi provides the following commands to manage savepoints:</para>
+
+      <variablelist>
+	<varlistentry>
+	  <term>Set a savepoint</term>
+	  <listitem>
+	    <para>To set a named savepoint within a transaction, use the function <link linkend="dbi-conn-savepoint">dbi_conn_savepoint</link>. You need to keep track of the name of savepoints in order to be able to revert the changes.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>Rollback to a savepoint</term>
+	  <listitem>
+	    <para>To dismiss any changes during an open transaction which occurred after a particular savepoint, use the function <link linkend="dbi-conn-rollback-to-savepoint">dbi_conn_rollback_to_savepoint</link>.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>Release a savepoint</term>
+	  <listitem>
+	    <para>Some database engines allow to clear savepoints if they are no longer needed. This is important only within lengthy transactions as savepoints are automatically cleared when a transaction is committed or rolled back. Releasing a savepoint does not affect the commands that occurred after the savepoint was set. It merely makes it impossible to jump back to that savepoint and releases all system resources which were needed to maintain that savepoint. To release a savepoint, use the command <link linkend="dbi-conn-release-savepoint">dbi_conn_release_savepoint</link>.</para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </sect1>
+
+<!--
+Local Variables:
+sgml-parent-document: ("programmers-guide.sgml" "BOOK" "CHAPTER")
+End:
+-->
