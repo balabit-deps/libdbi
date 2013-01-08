@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbd.h,v 1.32 2012/12/03 00:13:30 mhoenicka Exp $
+ * $Id: dbd.h,v 1.33 2013/01/08 23:54:30 mhoenicka Exp $
  */
 
 
@@ -39,7 +39,7 @@ int dbd_connect(dbi_conn_t *conn);
 int dbd_disconnect(dbi_conn_t *conn);
 int dbd_fetch_row(dbi_result_t *result, unsigned long long rowidx);
 int dbd_free_query(dbi_result_t *result);
-int dbd_goto_row(dbi_result_t *result, unsigned long long rowidx);
+int dbd_goto_row(dbi_result_t *result, unsigned long long rowidx, unsigned long long currowidx);
 int dbd_get_socket(dbi_conn_t *conn);
 const char *dbd_get_encoding(dbi_conn_t *conn);
 const char* dbd_encoding_from_iana(const char *iana_encoding);

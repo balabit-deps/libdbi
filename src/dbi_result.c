@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_result.c,v 1.56 2011/09/20 21:49:46 mhoenicka Exp $
+ * $Id: dbi_result.c,v 1.57 2013/01/08 23:54:30 mhoenicka Exp $
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
  */
@@ -103,7 +103,7 @@ int dbi_result_seek_row(dbi_result Result, unsigned long long rowidx) {
   }
 	
   /* row is one-based for the user, but zero-based to the dbd conn */
-  retval = RESULT->conn->driver->functions->goto_row(RESULT, rowidx-1);
+  retval = RESULT->conn->driver->functions->goto_row(RESULT, rowidx-1, RESULT->currowidx-1);
   if (retval == -1) {
     _error_handler(RESULT->conn, DBI_ERROR_DBD);
     return 0;

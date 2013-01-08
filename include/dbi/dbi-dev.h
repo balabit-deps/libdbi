@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi-dev.h,v 1.48 2012/12/03 00:13:30 mhoenicka Exp $
+ * $Id: dbi-dev.h,v 1.49 2013/01/08 23:54:30 mhoenicka Exp $
  */
 
 #ifndef __DBI_DEV_H__
@@ -116,7 +116,7 @@ typedef struct dbi_functions_s {
 	int (*disconnect)(dbi_conn_t_pointer);
 	int (*fetch_row)(dbi_result_t *, unsigned long long);
 	int (*free_query)(dbi_result_t *);
-	int (*goto_row)(dbi_result_t *, unsigned long long);
+        int (*goto_row)(dbi_result_t *, unsigned long long, unsigned long long);
 	int (*get_socket)(dbi_conn_t_pointer);
 	const char *(*get_encoding)(dbi_conn_t_pointer);
 	dbi_result_t *(*list_dbs)(dbi_conn_t_pointer, const char *);
