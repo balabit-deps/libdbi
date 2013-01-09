@@ -1,6 +1,6 @@
 <!--
 vim:ft=sgml
-$Id: driver-guide.sgml,v 1.6 2011/08/09 22:56:09 mhoenicka Exp $
+$Id: driver-guide.sgml,v 1.7 2013/01/09 23:17:55 mhoenicka Exp $
 Copyright (C) 2001-2002, David Parker, Neon Goat Productions.
 This document is licensed under the GNU Free Documentation License, version 1.1 or later, as
 published by the Free Software Foundation.
@@ -34,8 +34,8 @@ published by the Free Software Foundation.
 	<address format="linespecific"><email>mhoenicka@users.sourceforge.net</email></address>
       </affiliation>
     </author>
-    <Edition>Document revision: $Id: driver-guide.sgml,v 1.6 2011/08/09 22:56:09 mhoenicka Exp $</Edition>
-    <PubDate>$Date: 2011/08/09 22:56:09 $</PubDate>
+    <Edition>Document revision: $Id: driver-guide.sgml,v 1.7 2013/01/09 23:17:55 mhoenicka Exp $</Edition>
+    <PubDate>$Date: 2013/01/09 23:17:55 $</PubDate>
     <Copyright>
       <Year>2001-2005</Year>
       <Holder>David Parker, Neon Goat Productions</Holder>
@@ -155,6 +155,24 @@ published by the Free Software Foundation.
 	    <term>safe_dlclose</term>
 	    <listitem>
 	      <para>A nonzero value indicates that the driver can safely be unloaded from memory by calling dlclose(). A value of 0 (zero) indicates that the driver should not be unloaded when libdbi is shut down. Drivers must not be unloaded if they, or any library they are linked against, install exit handlers via atexit() as this would leave dangling pointers, causing segfaults on some platforms.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </section>
+      <section id="recommendeddrivercaps">
+	<title>Recommended driver capabilities</title>
+	<para>Two driver capabilities may be of interest to programs using libdbi and should therefore be published by drivers:</para>
+	<variablelist>
+	  <varlistentry>
+	    <term>transaction_support</term>
+	    <listitem>
+	      <para>A nonzero value indicates that the database engine supports transactions. Therefore functions to start, commit, or roll back transactions may be safely used.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>savepoint_support</term>
+	    <listitem>
+	      <para>A nonzero value indicates that the database engine supports savepoints within transactions. Functions to set, release, and roll back to savepoints may be safely used.</para>
 	    </listitem>
 	  </varlistentry>
 	</variablelist>
@@ -337,15 +355,17 @@ published by the Free Software Foundation.
 	    <funcdef>int <function moreinfo="none">dbd_goto_row</function></funcdef>
 	    <paramdef>dbi_result_t *<parameter moreinfo="none">result</parameter></paramdef>
 	    <paramdef>unsigned long long <parameter moreinfo="none">rowidx</parameter></paramdef>
+	    <paramdef>unsigned long long <parameter moreinfo="none">currowidx</parameter></paramdef>
 	  </funcprototype>
 	</funcsynopsis>
-	<Para>Jumps to the specifed row in the result set. Internal row counts start at 0.</Para>
+	<Para>Jumps to the specifed row in the result set. Internal row counts start at 0. The current row number is passed to the driver to allow it to check whether a (presumably expensive) seek operation is required.</Para>
 	<VariableList>
 	  <VarListEntry>
 	    <Term>Arguments</Term>
 	    <ListItem>
 	      <Para><Literal>result</Literal>: The target result handle.</Para>
 	      <Para><Literal>row</Literal>: The target row number.</Para>
+	      <Para><Literal>row</Literal>: The current row number.</Para>
 	    </ListItem>
 	  </VarListEntry>
 	  <VarListEntry>
