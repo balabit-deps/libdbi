@@ -17,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: dbi_main.c,v 1.102 2012/12/03 00:13:30 mhoenicka Exp $
+ * $Id: dbi_main.c,v 1.103 2013/01/24 22:10:18 mhoenicka Exp $
  */
 
 /* silence the deprecated warnings as this lib must implement and call
@@ -1243,6 +1243,83 @@ int dbi_conn_ping(dbi_conn Conn) {
 	result = conn->driver->functions->ping(conn);
 	return result;
 }
+
+/* XXX TRANSACTION RELATED FUNCTIONS XXX */
+int dbi_conn_transaction_begin(dbi_conn Conn) {
+	dbi_conn_t *conn = Conn;
+	int result;
+
+	if (!conn || !(conn->connection)) return 0;
+
+	_reset_conn_error(conn);
+
+	result = conn->driver->functions->transaction_begin(conn);
+	return result;
+}
+
+int dbi_conn_transaction_commit(dbi_conn Conn) {
+	dbi_conn_t *conn = Conn;
+	int result;
+
+	if (!conn || !(conn->connection)) return 0;
+
+	_reset_conn_error(conn);
+
+	result = conn->driver->functions->transaction_commit(conn);
+	return result;
+}
+
+int dbi_conn_transaction_rollback(dbi_conn Conn) {
+	dbi_conn_t *conn = Conn;
+	int result;
+
+	if (!conn || !(conn->connection)) return 0;
+
+	_reset_conn_error(conn);
+
+	result = conn->driver->functions->transaction_rollback(conn);
+	return result;
+}
+
+int dbi_conn_savepoint(dbi_conn Conn, const char *savepoint) {
+	dbi_conn_t *conn = Conn;
+	int result;
+
+	if (!conn || !(conn->connection)
+	    || !savepoint) return 0;
+
+	_reset_conn_error(conn);
+
+	result = conn->driver->functions->savepoint(conn, savepoint);
+	return result;
+}
+
+int dbi_conn_rollback_to_savepoint(dbi_conn Conn, const char *savepoint) {
+	dbi_conn_t *conn = Conn;
+	int result;
+
+	if (!conn || !(conn->connection)
+	    || !savepoint) return 0;
+
+	_reset_conn_error(conn);
+
+	result = conn->driver->functions->rollback_to_savepoint(conn, savepoint);
+	return result;
+}
+
+int dbi_conn_release_savepoint(dbi_conn Conn, const char *savepoint) {
+	dbi_conn_t *conn = Conn;
+	int result;
+
+	if (!conn || !(conn->connection)
+	    || !savepoint) return 0;
+
+	_reset_conn_error(conn);
+
+	result = conn->driver->functions->release_savepoint(conn, savepoint);
+	return result;
+}
+
 
 /* XXX INTERNAL PRIVATE IMPLEMENTATION FUNCTIONS XXX */
 
