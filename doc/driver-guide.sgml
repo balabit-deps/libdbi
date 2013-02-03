@@ -1,6 +1,6 @@
 <!--
 vim:ft=sgml
-$Id: driver-guide.sgml,v 1.7 2013/01/09 23:17:55 mhoenicka Exp $
+$Id: driver-guide.sgml,v 1.8 2013/02/03 23:04:32 mhoenicka Exp $
 Copyright (C) 2001-2002, David Parker, Neon Goat Productions.
 This document is licensed under the GNU Free Documentation License, version 1.1 or later, as
 published by the Free Software Foundation.
@@ -34,11 +34,12 @@ published by the Free Software Foundation.
 	<address format="linespecific"><email>mhoenicka@users.sourceforge.net</email></address>
       </affiliation>
     </author>
-    <Edition>Document revision: $Id: driver-guide.sgml,v 1.7 2013/01/09 23:17:55 mhoenicka Exp $</Edition>
-    <PubDate>$Date: 2013/01/09 23:17:55 $</PubDate>
+    <Edition>Document revision: $Id: driver-guide.sgml,v 1.8 2013/02/03 23:04:32 mhoenicka Exp $</Edition>
+    <PubDate>$Date: 2013/02/03 23:04:32 $</PubDate>
     <Copyright>
-      <Year>2001-2005</Year>
+      <Year>2001-2013</Year>
       <Holder>David Parker, Neon Goat Productions</Holder>
+      <holder>Markus Hoenicka</holder>
     </Copyright>
     <LegalNotice>
       <Para>
