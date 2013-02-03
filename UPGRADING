@@ -1,0 +1,6 @@
+UPGRADING
+=========
+
+Please follow the instructions in INSTALL.
+
+libdbi depends on the presence of database engine drivers to do anything useful. To this end, at least one driver from the libdbi-drivers package or any third-party package has to be installed. Drivers have to match the major and minor version number of libdbi. E.g. if you install or upgrade to libdbi 0.9.x, make sure to install libdbi-drivers 0.9.x as well.
