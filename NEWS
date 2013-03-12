@@ -1,16 +1,18 @@
 libdbi NEWS file
 ================
 
-$Id: NEWS,v 1.8 2008/11/26 23:55:56 mhoenicka Exp $
+$Id: NEWS,v 1.9 2013/03/12 00:08:12 mhoenicka Exp $
 
 ______________________________________
-libdbi 1.0 (the "Autumn Shade" release)
+libdbi 0.9.0 (the "Autumn Shade" release)
 
 Bugfixes
 
 - libdbi now supports using custom driver functions correctly (none of
-  the drivers had implemented this feature before libdbi-drivers 1.0, so
+  the drivers had implemented this feature before libdbi-drivers 0.9.0, so
   this was not really a problem).
+
+- a variety of other bug fixes too numerous to list here, see ChangeLog
 
 Improvements
 
@@ -25,6 +27,11 @@ Improvements
   The old interface (with just one instance per process which is
   managed internally) is still around but deprecated. See the file
   UPGRADING for detailed instructions.
+
+- libdbi now provides functions for managing transactions and savepoints
+
+- libdbi now provides a hint to drivers indicating the current position
+  in a result set. This allows drivers to implement additional optimizations
 
 - the libtool library versioning numbers were now set appropriately
   (they had fallen out of maintenance somehow in the past), and starting
