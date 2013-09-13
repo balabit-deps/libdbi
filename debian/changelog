@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng50.1) syslogngdeps50; urgency=low
+
+  * release for syslog-ng-5.0
+
+ -- Laszlo Budai <lbudai@balabit.com>  Fri, 13 Sep 2013 12:00:39 +0200
+
 libdbi (1.0pre1-10.syslogng42.1) syslogngdeps40; urgency=low
 
   * pick: dbi_conn: Stop using a static char * in dbi_conn_error() (fixes: #D-05870, #26631)
