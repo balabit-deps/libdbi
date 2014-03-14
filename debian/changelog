@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng51.2) syslogngdeps51; urgency=low
+
+  * tgzbuild rules fixed
+
+ -- Laszlo Budai <lbudai@balabit.com>  Fri, 14 Mar 2014 13:51:15 +0100
+
 libdbi (1.0pre1-10.syslogng51.1) syslogngdeps51; urgency=low
 
   * release for syslog-ng-5.1
