@@ -35,7 +35,8 @@ $(STAMPDIR)/stamp-setup:
 	touch $@
 
 configure: $(STAMPDIR)/stamp-configure
-	LDFLAGS="$(LDFLAGS)" CFLAGS="$(CFLAGS)" $(SHELL) ./configure $(CONFIGURE_OPTS)
+	LDFLAGS="$(LDFLAGS)" CFLAGS="$(CFLAGS)"
+	$(SHELL) ./configure $(CONFIGURE_OPTS)
 	touch $@
 
 $(STAMPDIR)/stamp-configure: setup
