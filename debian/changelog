@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng52.1) syslogng52; urgency=low
+
+  * release for syslog-ng-5.2
+
+ -- jviktor <jviktor@devel-57>  Fri, 06 Jun 2014 16:39:45 +0200
+
 libdbi (1.0pre1-10.syslogng51.2) syslogngdeps51; urgency=low
 
   * tgzbuild rules fixed
