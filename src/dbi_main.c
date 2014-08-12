@@ -1452,10 +1452,10 @@ void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag) {
 		return;
 	}
 
-	if (errflag == DBI_ERROR_DBD) {
+	if (errflag == DBI_ERROR_DBD || errflag == DBI_ERROR_NOCONN) {
 		errstatus = conn->driver->functions->geterror(conn, &my_errno, &errmsg);
 
-		if (errstatus == -1) {
+		if (errflag == DBI_ERROR_DBD && errstatus == -1) {
 			/* not _really_ an error. XXX debug this, does it ever actually happen? */
 			return;
 		}
@@ -1466,7 +1466,7 @@ void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag) {
 
 	if (conn->error_message) free(conn->error_message);
 
-	if ((errflag-DBI_ERROR_USER) >= 0 && (errflag-DBI_ERROR_USER) < COUNTOF(errflag_messages) 
+	if (my_errno == 0 && (errflag-DBI_ERROR_USER) >= 0 && (errflag-DBI_ERROR_USER) < COUNTOF(errflag_messages)
 			&& errflag_messages[(errflag-DBI_ERROR_USER)] != NULL) {
 		errmsg = strdup(errflag_messages[(errflag-DBI_ERROR_USER)]);
 	}
