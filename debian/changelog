@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng52.2) syslogng52; urgency=low
+
+  * some bug forward ported
+
+ -- jviktor <jviktor@devel-57>  Thu, 28 Aug 2014 12:07:51 +0200
+
 libdbi (1.0pre1-10.syslogng52.1) syslogng52; urgency=low
 
   * release for syslog-ng-5.2
