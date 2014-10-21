@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng53.1) syslogng53; urgency=low
+
+  * release for syslog-ng-5.3
+
+ -- Tusa Viktor <tusa@tusa.balabit>  Tue, 21 Oct 2014 13:28:49 +0200
+
 libdbi (1.0pre1-10.syslogng52.2) syslogng52; urgency=low
 
   * some bug forward ported
