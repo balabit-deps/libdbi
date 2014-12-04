@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng53.2) syslogng53; urgency=low
+
+  * release for syslog-ng-5.3.0alpha2
+
+ -- jviktor <jviktor@balabit.com>  Thu, 04 Dec 2014 15:22:50 +0100
+
 libdbi (1.0pre1-10.syslogng53.1) syslogng53; urgency=low
 
   * release for syslog-ng-5.3
