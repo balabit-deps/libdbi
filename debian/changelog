@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng53.3) syslogng53; urgency=low
+
+  * Fixing memory leak
+
+ -- jviktor <jviktor@balabit.com>  Wed, 25 Feb 2015 08:52:28 +0100
+
 libdbi (1.0pre1-10.syslogng53.2) syslogng53; urgency=low
 
   * release for syslog-ng-5.3.0alpha2
