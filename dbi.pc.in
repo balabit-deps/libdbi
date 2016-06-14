@@ -1,10 +1,10 @@
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 libdir=@libdir@
-includedir=@includedir@
+includedir=@includedir@/dbi
 
 Name: libdbi
 Description: database-independent abstraction layer in C
 Version: @VERSION@
 Libs: -L${libdir} -ldbi
-Cflags: -I${includedir}
+Cflags: -I${includedir} -I${includedir}/dbi
