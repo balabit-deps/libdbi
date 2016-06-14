@@ -1,3 +1,12 @@
+libdbi (1.0pre1-10.syslogng60.4) syslogng60; urgency=low
+
+  * dbi.pc.in pc file change: include dirs cleaned up
+  * Revert fix dbi.pc.in file (port from 1.0pre1-10.syslogng53.4)
+  * add ubuntu-bionic (only used for PE7, port from v1.0pre1-10.syslogng70.1)
+  * remove duplicated platforms glibc2.3.6 (port from v1.0pre1-10.syslogng70.1)
+
+ -- Gabor Nagy <gabor.nagy@balabit.com>  Wed, 10 Apr 2019 15:55:26 +0200
+
 libdbi (1.0pre1-10.syslogng60.3) syslogng60; urgency=low
 
   * Fix buffer overrun
