@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng53.4) UNRELEASED; urgency=medium
+
+  * Fixing dbi.pc.in file
+
+ -- Tibor Benke <tibor.benke@balabit.com>  Tue, 14 Jun 2016 14:26:59 +0200
+
 libdbi (1.0pre1-10.syslogng53.3) syslogng53; urgency=low
 
   * Fixing memory leak
