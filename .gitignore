@@ -33,4 +33,5 @@ typescript
 m4/*.m4
 ylwrap
 sbuild.py
-sbuild/build
+sbuild/*
+!sbuild/config.yml
