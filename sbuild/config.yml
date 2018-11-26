@@ -21,3 +21,4 @@ platforms:
   - freebsd-9.2/i386
   - freebsd-9.2/amd64
   - freebsd-10.1/amd64 
+  - ubuntu-bionic/amd64
