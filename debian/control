@@ -26,3 +26,11 @@ Description: DB Independent Abstraction Layer for C  -- development files
  the DBI/DBD layer in Perl. Writing one generic set of code, programmers can
  leverage the power of multiple databases and multiple simultaneous database
  connections by using this framework.
+
+Package: libdbi0-dbg
+Architecture: any
+Description: -
+
+Package: libdbi0-dev-dbg
+Architecture: any
+Description: -

@@ -1,7 +1,8 @@
-#!/usr/local/bin/make -f                                                                                                                                           
+#!/usr/local/bin/make -f
 STAMPDIR=tgz2build/stamps
 
 CONFIGURE_OPTS := --prefix $(ZBS_PREFIX) --disable-docs
+CFLAGS += -g
 
 ifneq (,$(findstring solaris,$(ZBS_DIST)))
 # Under solaris we need this switch to be able to use iconv.
