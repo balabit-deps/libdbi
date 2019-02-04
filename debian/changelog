@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng60.2) syslogng60; urgency=low
+
+  * Add debug binaries
+
+ -- Laszlo Varady <laszlo.varady@balabit.com>  Mon, 04 Feb 2019 10:55:08 +0100
+
 libdbi (1.0pre1-10.syslogng60.1) syslogng60; urgency=low
 
   * release for syslog-ng-6.0
