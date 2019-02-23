@@ -564,6 +564,9 @@ size_t _dbd_encode_binary(const unsigned char *in, size_t n, unsigned char *out)
 ** to decode a string in place.
 */
 size_t _dbd_decode_binary(const unsigned char *in, unsigned char *out){
+  if (*in == 0)
+    return 0;
+
   int i, e;
   unsigned char c;
   e = *(in++);
