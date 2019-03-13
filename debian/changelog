@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng70.1) syslogng70; urgency=medium
+
+  * release for syslog-ng-7.0.14
+
+ -- Attila Szakacs <attila.szakacs@balabit.com>  Tue, 12 Mar 2019 08:56:49 +0100
+
 libdbi (1.0pre1-10.syslogng53.4) UNRELEASED; urgency=medium
 
   * Fixing dbi.pc.in file
