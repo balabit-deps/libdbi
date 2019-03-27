@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng60.3) syslogng60; urgency=low
+
+  * Fix buffer overrun
+
+ -- Gabor Nagy <gabor.nagy@balabit.com>  Wed, 27 Mar 2019 14:54:22 +0100
+
 libdbi (1.0pre1-10.syslogng60.2) syslogng60; urgency=low
 
   * Add debug binaries
