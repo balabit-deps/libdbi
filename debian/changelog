@@ -1,3 +1,12 @@
+libdbi (1.0pre1-10.syslogng70.2) syslogng70; urgency=low
+
+  * dbi.pc.in pc file change: include dirs cleaned up
+  * add debug packages (port from v1.0pre1-10.syslogng60.2)
+  * fix buffer overrun (port from v1.0pre1-10.syslogng60.3)
+  * remove unsupported platforms (freebsd-9, windows)
+
+ -- Gabor Nagy <gabor.nagy@balabit.com>  Mon, 15 Apr 2019 15:18:13 +0200
+
 libdbi (1.0pre1-10.syslogng60.4) syslogng60; urgency=low
 
   * dbi.pc.in pc file change: include dirs cleaned up
