@@ -12,8 +12,6 @@ platforms:
   - solaris-10/sparc64
   - linux-glibc2.3.6/amd64
   - linux-glibc2.3.6/i386
-  - windows-2012/amd64
-  - windows-2012/i386
   - linux-glibc2.11/amd64
   - linux-glibc2.11/i386
   - solaris-11/amd64
