@@ -7,4 +7,4 @@ Name: libdbi
 Description: database-independent abstraction layer in C
 Version: @VERSION@
 Libs: -L${libdir} -ldbi
-Cflags: -I${includedir}
+Cflags: -I${includedir} -I${includedir}/dbi

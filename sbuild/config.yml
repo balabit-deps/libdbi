@@ -5,8 +5,6 @@ builder:
 platforms:
   - aix-6.1/powerpc
   - hpux-11v2/ia64
-  - linux-glibc2.3.6/amd64
-  - linux-glibc2.3.6/i386
   - solaris-10/amd64
   - solaris-10/sparc
   - solaris-10/sparc64
@@ -16,6 +14,5 @@ platforms:
   - linux-glibc2.11/i386
   - solaris-11/amd64
   - solaris-11/sparc64
-  - freebsd-9.2/i386
-  - freebsd-9.2/amd64
   - freebsd-10.1/amd64 
+  - ubuntu-bionic/amd64
