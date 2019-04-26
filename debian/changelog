@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng60.5) syslogng60; urgency=low
+
+  * revert DBI_TYPE_NUMERIC_AS_STRING
+
+ -- Gabor Nagy <gabor.nagy@balabit.com>  Fri, 26 Apr 2019 11:36:12 +0200
+
 libdbi (1.0pre1-10.syslogng70.2) syslogng70; urgency=low
 
   * dbi.pc.in pc file change: include dirs cleaned up
