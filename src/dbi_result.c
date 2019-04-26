@@ -1524,7 +1524,6 @@ char *dbi_result_get_as_string_copy_idx(dbi_result Result, unsigned int fieldidx
     }
     break;
   case DBI_TYPE_STRING:
-  case DBI_TYPE_NUMERIC_AS_STRING:
     if (RESULT->rows[RESULT->currowidx]->field_sizes[fieldidx] == 0
 	&& RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_string == NULL) {
       /* string does not exist */
