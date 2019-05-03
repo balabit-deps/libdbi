@@ -1,3 +1,9 @@
+libdbi (1.0pre1-10.syslogng70.3) syslogng70; urgency=low
+
+  * version 1.0pre1-10.syslogng70.3
+
+ -- Gabor Nagy <gabor.nagy@balabit.com>  Fri, 03 May 2019 17:20:15 +0200
+
 libdbi (1.0pre1-10.syslogng60.5) syslogng60; urgency=low
 
   * revert DBI_TYPE_NUMERIC_AS_STRING
