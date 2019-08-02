@@ -2,6 +2,7 @@ name: libdbi
 builder:
   name: BalabitBuilder
   configure_options: "--disable-docs"
+  flags: "out-of-tree-build-incompatible"
 platforms:
   - aix-6.1/powerpc
   - hpux-11v2/ia64
