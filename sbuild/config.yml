@@ -15,5 +15,4 @@ platforms:
   - linux-glibc2.11/i386
   - solaris-11/amd64
   - solaris-11/sparc64
-  - freebsd-10.1/amd64 
-  - ubuntu-bionic/amd64
+  - freebsd-10.1/amd64
