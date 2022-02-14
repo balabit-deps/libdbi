@@ -1,0 +1,16 @@
+source="libdbi"
+version=1.0pre1-pe-1
+
+bootstrap() {
+  ./autogen.sh
+}
+
+build() {
+  ./configure CFLAGS="$CFLAGS -std=gnu99" --prefix="${prefix}" --disable-docs
+  make -C "src"
+  make -C "include"
+}
+
+install() {
+  make DESTDIR="${dest_dir}" install
+}
