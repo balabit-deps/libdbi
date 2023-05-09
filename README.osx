@@ -7,10 +7,21 @@ http://libdbi.sourceforge.net
 OS X-SPECIFIC INSTALLATION INSTRUCTIONS:
 ----------------------------------------
 
-LIBTOOLIZE=glibtoolize ./autogen.sh
-./configure
-make
-sudo make install
+	Assuming you are using homebrew (for other package managers please adjust/define your corresponding HOMEBREW_PREFIX)
+
+	if [[ "$CPUTYPE" = "arm64" ]]; then
+		export HOMEBREW_PREFIX=/opt/homebrew
+	else
+		export HOMEBREW_PREFIX=/usr/local
+	fi
+	export PATH=${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+	export CFLAGS=-I${HOMEBREW_PREFIX}/include/
+	export LDFLAGS=-L${HOMEBREW_PREFIX}/lib
+
+  LIBTOOLIZE=glibtoolize ./autogen.sh
+  ./configure --prefix=${HOMEBREW_PREFIX}
+  make
+  sudo make install
 
 If openjade is not available, add '--disable-docs' to configure's options.
 
