@@ -2,21 +2,21 @@
  * libdbi - database independent abstraction layer for C.
  * Copyright (C) 2001-2003, David Parker and Mark Tobenkin.
  * http://libdbi.sourceforge.net
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- * 
+ *
  * $Id$
  *
  * (anything that has to do with row seeking or fetching fields goes in this file)
@@ -35,8 +35,7 @@
 #include <limits.h>
 #include <time.h>
 
-#include <dbi/dbi.h>
-#include <dbi/dbi-dev.h>
+#include <dbi/dbd.h>
 
 #ifdef __MINGW32__
 #define strtok_r(s1,s2,s3) strtok(s1,s2)
@@ -82,11 +81,11 @@ int dbi_result_seek_row(dbi_result Result, unsigned long long rowidx) {
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return 0;
-  }	
+  }
 
   _reset_conn_error(RESULT->conn);
 
-  if (RESULT->result_state == NOTHING_RETURNED 
+  if (RESULT->result_state == NOTHING_RETURNED
       || rowidx <= 0 || rowidx > RESULT->numrows_matched) {
     _error_handler(RESULT->conn, DBI_ERROR_BADIDX);
     return 0;
@@ -98,7 +97,7 @@ int dbi_result_seek_row(dbi_result Result, unsigned long long rowidx) {
     _activate_bindings(RESULT);
     return 1;
   }
-	
+
   /* row is one-based for the user, but zero-based to the dbd conn */
   retval = RESULT->conn->driver->functions->goto_row(RESULT, rowidx-1);
   if (retval == -1) {
@@ -128,7 +127,7 @@ int dbi_result_has_prev_row(dbi_result Result) {
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return 0;
-  }	
+  }
 
   _reset_conn_error(RESULT->conn);
 
@@ -139,7 +138,7 @@ int dbi_result_prev_row(dbi_result Result) {
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return 0;
-  }	
+  }
 
   _reset_conn_error(RESULT->conn);
 
@@ -154,7 +153,7 @@ int dbi_result_has_next_row(dbi_result Result) {
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return 0;
-  }	
+  }
 
   _reset_conn_error(RESULT->conn);
 
@@ -166,7 +165,7 @@ int dbi_result_next_row(dbi_result Result) {
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return 0;
-  }	
+  }
 
   _reset_conn_error(RESULT->conn);
 
@@ -181,7 +180,7 @@ unsigned long long dbi_result_get_currow(dbi_result Result) {
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return 0;
-  }	
+  }
 
   _reset_conn_error(RESULT->conn);
 
@@ -192,7 +191,7 @@ unsigned long long dbi_result_get_numrows(dbi_result Result) {
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return DBI_ROW_ERROR;
-  }	
+  }
 
   _reset_conn_error(RESULT->conn);
 
@@ -203,7 +202,7 @@ unsigned long long dbi_result_get_numrows_affected(dbi_result Result) {
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return DBI_ROW_ERROR;
-  }	
+  }
 
   _reset_conn_error(RESULT->conn);
 
@@ -227,16 +226,16 @@ size_t dbi_result_get_field_length(dbi_result Result, const char *fieldname) {
     _error_handler(RESULT->conn, errflag);
     return DBI_LENGTH_ERROR;
   }
-  
+
   return dbi_result_get_field_length_idx(Result, fieldidx+1);
 }
 
 size_t dbi_result_get_field_length_idx(dbi_result Result, unsigned int fieldidx) {
   unsigned long long currowidx;
-  
+
   /* user-visible indexes start at 1 */
   fieldidx--;
-  
+
   if (!RESULT || !RESULT->rows) {
     _error_handler(RESULT ? RESULT->conn : NULL, DBI_ERROR_BADPTR);
     return DBI_LENGTH_ERROR;
@@ -253,7 +252,7 @@ size_t dbi_result_get_field_length_idx(dbi_result Result, unsigned int fieldidx)
     _error_handler(RESULT->conn, DBI_ERROR_BADIDX);
     return DBI_LENGTH_ERROR;
   }
-  
+
   return RESULT->rows[currowidx]->field_sizes[fieldidx];
 }
 
@@ -277,7 +276,7 @@ unsigned int dbi_result_get_field_idx(dbi_result Result, const char *fieldname) 
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return 0;
-  }	
+  }
 
   _reset_conn_error(RESULT->conn);
 
@@ -287,12 +286,12 @@ unsigned int dbi_result_get_field_idx(dbi_result Result, const char *fieldname) 
     _error_handler(RESULT->conn, errflag);
     return 0;
   }
-  
+
   return fieldidx;
 }
 
 const char *dbi_result_get_field_name(dbi_result Result, unsigned int fieldidx) {
-	
+
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return NULL;
@@ -308,7 +307,7 @@ const char *dbi_result_get_field_name(dbi_result Result, unsigned int fieldidx) 
     _error_handler(RESULT->conn, DBI_ERROR_BADOBJECT);
     return NULL;
   }
-	
+
   return (const char *) RESULT->field_names[fieldidx-1];
 }
 
@@ -323,7 +322,7 @@ unsigned int dbi_result_get_numfields(dbi_result Result) {
 unsigned short dbi_result_get_field_type(dbi_result Result, const char *fieldname) {
   unsigned int fieldidx = 0;
   dbi_error_flag errflag;
-	
+
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return DBI_TYPE_ERROR;
@@ -342,7 +341,7 @@ unsigned short dbi_result_get_field_type(dbi_result Result, const char *fieldnam
 
 unsigned short dbi_result_get_field_type_idx(dbi_result Result, unsigned int fieldidx) {
   fieldidx--;
-	
+
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return DBI_TYPE_ERROR;
@@ -365,7 +364,7 @@ unsigned short dbi_result_get_field_type_idx(dbi_result Result, unsigned int fie
 unsigned int dbi_result_get_field_attrib(dbi_result Result, const char *fieldname, unsigned int attribmin, unsigned int attribmax) {
   unsigned int fieldidx = 0;
   dbi_error_flag errflag;
-	
+
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return DBI_ATTRIBUTE_ERROR;
@@ -382,10 +381,10 @@ unsigned int dbi_result_get_field_attrib(dbi_result Result, const char *fieldnam
   return dbi_result_get_field_attrib_idx(Result, fieldidx+1, attribmin, attribmax);
 }
 
-unsigned int dbi_result_get_field_attrib_idx(dbi_result Result, 
+unsigned int dbi_result_get_field_attrib_idx(dbi_result Result,
 		unsigned int fieldidx, unsigned int attribmin, unsigned int attribmax) {
   fieldidx--;
-	
+
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return DBI_ATTRIBUTE_ERROR;
@@ -408,7 +407,7 @@ unsigned int dbi_result_get_field_attrib_idx(dbi_result Result,
 unsigned int dbi_result_get_field_attribs(dbi_result Result, const char *fieldname) {
   unsigned int fieldidx = 0;
   dbi_error_flag errflag;
-	
+
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return DBI_ATTRIBUTE_ERROR;
@@ -427,7 +426,7 @@ unsigned int dbi_result_get_field_attribs(dbi_result Result, const char *fieldna
 
 unsigned int dbi_result_get_field_attribs_idx(dbi_result Result, unsigned int fieldidx) {
   fieldidx--;
-	
+
   if (!RESULT) {
     _error_handler(/*RESULT->conn*/ NULL, DBI_ERROR_BADPTR);
     return DBI_ATTRIBUTE_ERROR;
@@ -483,7 +482,7 @@ int dbi_result_field_is_null_idx(dbi_result Result, unsigned int fieldidx) {
   unsigned long long currowidx;
 
   fieldidx--;
-	
+
   if (!RESULT || !RESULT->rows) {
     _error_handler(RESULT ? RESULT->conn : NULL, DBI_ERROR_BADPTR);
     return DBI_FIELD_FLAG_ERROR;
@@ -531,7 +530,7 @@ int _disjoin_from_conn(dbi_result_t *result) {
   }
 
   result->conn = NULL;
-	
+
   return retval;
 }
 
@@ -543,7 +542,7 @@ int dbi_result_free(dbi_result Result) {
   int retval = 0;
 
   if (!RESULT) return -1;
-	
+
   if (RESULT->conn) {
     retval = _disjoin_from_conn(RESULT);
   }
@@ -553,11 +552,11 @@ int dbi_result_free(dbi_result Result) {
   while (RESULT->field_bindings) {
     _remove_binding_node(RESULT, RESULT->field_bindings);
   }
-	
+
   if (RESULT->rows) {
     _free_result_rows(RESULT);
   }
-		
+
   if (RESULT->numfields) {
     _free_string_list(RESULT->field_names, RESULT->numfields);
     free(RESULT->field_types);
@@ -595,17 +594,17 @@ static unsigned int _parse_field_formatstr(const char *format, char ***tokens_de
   char *temp1;
   char *temp2;
   char *line = strdup(format);
-	
+
   temp1 = line;
   while (temp1 && (temp1 = strchr(temp1, '.')) != NULL) {
     temp1++;
     found++;
   }
-	
+
   tokens = calloc(found, sizeof(char *));
   fieldnames = calloc(found, sizeof(char *));
   if (!tokens || !fieldnames) return DBI_FIELD_ERROR;
-	
+
   chunk = strtok_r(line, " ", &temp1);
   do {
     temp2 = strchr(chunk, '.');
@@ -620,7 +619,7 @@ static unsigned int _parse_field_formatstr(const char *format, char ***tokens_de
 
   *tokens_dest = tokens;
   *fieldnames_dest = fieldnames;
-	
+
   free(line);
   return found;
 }
@@ -641,22 +640,22 @@ static void _free_result_rows(dbi_result_t *result) {
 
   for (rowidx = 0; rowidx <= result->numrows_matched; rowidx++) {
     if (!result->rows[rowidx]) continue;
-			
+
     for (fieldidx = 0; fieldidx < result->numfields; fieldidx++) {
       if ((result->field_types[fieldidx] == DBI_TYPE_STRING
-        || result->field_types[fieldidx] == DBI_TYPE_BINARY) 
+        || result->field_types[fieldidx] == DBI_TYPE_BINARY)
         && result->rows[rowidx]->field_values[fieldidx].d_string)
       {
         free(result->rows[rowidx]->field_values[fieldidx].d_string);
       }
     }
-		
+
     free(result->rows[rowidx]->field_values);
     free(result->rows[rowidx]->field_sizes);
     free(result->rows[rowidx]->field_flags);
     free(result->rows[rowidx]);
   }
-	
+
   free(result->rows);
 }
 
@@ -672,7 +671,7 @@ unsigned int dbi_result_get_fields(dbi_result Result, const char *format, ...) {
   if (numtokens == DBI_FIELD_ERROR) {
     return numtokens;
   }
-	
+
   va_start(ap, format);
   while (curidx < numtokens) {
     uflag = strlen(tokens[curidx]) > 1 && tokens[curidx][0] == 'u';
@@ -703,22 +702,22 @@ unsigned int dbi_result_get_fields(dbi_result Result, const char *format, ...) {
         *va_arg(ap, long long *) = dbi_result_get_longlong(Result, fieldnames[curidx]);
       break;
     case 'f': /* float */
-      *va_arg(ap, float *) = dbi_result_get_float(Result, fieldnames[curidx]); 
+      *va_arg(ap, float *) = dbi_result_get_float(Result, fieldnames[curidx]);
       break;
     case 'd': /* double */
-      *va_arg(ap, double *) = dbi_result_get_double(Result, fieldnames[curidx]); 
+      *va_arg(ap, double *) = dbi_result_get_double(Result, fieldnames[curidx]);
       break;
     case 's': /* string */
-      *va_arg(ap, const char **) = dbi_result_get_string(Result, fieldnames[curidx]); 
+      *va_arg(ap, const char **) = dbi_result_get_string(Result, fieldnames[curidx]);
       break;
     case 'b': /* binary */
-      *va_arg(ap, const unsigned char **) = dbi_result_get_binary(Result, fieldnames[curidx]); 
+      *va_arg(ap, const unsigned char **) = dbi_result_get_binary(Result, fieldnames[curidx]);
       break;
     case 'S': /* string copy */
-      *va_arg(ap, char **) = dbi_result_get_string_copy(Result, fieldnames[curidx]); 
+      *va_arg(ap, char **) = dbi_result_get_string_copy(Result, fieldnames[curidx]);
       break;
     case 'B': /* binary copy */
-      *va_arg(ap, unsigned char **) = dbi_result_get_binary_copy(Result, fieldnames[curidx]); 
+      *va_arg(ap, unsigned char **) = dbi_result_get_binary_copy(Result, fieldnames[curidx]);
       break;
     case 'm': /* datetiMe (what... you have any better ideas?? */
       *va_arg(ap, time_t *) = dbi_result_get_datetime(Result, fieldnames[curidx]);
@@ -932,7 +931,7 @@ int dbi_result_get_long_idx(dbi_result Result, unsigned int fieldidx) {
 int dbi_result_get_int_idx(dbi_result Result, unsigned int fieldidx) {
   long ERROR = 0;
   fieldidx--;
-	
+
   _reset_conn_error(RESULT->conn);
 
   if (fieldidx >= RESULT->numfields) {
@@ -965,7 +964,7 @@ long long dbi_result_get_longlong(dbi_result Result, const char *fieldname) {
   long long ERROR = 0;
   unsigned int fieldidx;
   dbi_error_flag errflag;
-    
+
   _reset_conn_error(RESULT->conn);
 
   fieldidx = _find_field(RESULT, fieldname, &errflag);
@@ -980,7 +979,7 @@ long long dbi_result_get_longlong(dbi_result Result, const char *fieldname) {
 long long dbi_result_get_longlong_idx(dbi_result Result, unsigned int fieldidx) {
   long long ERROR = 0;
   fieldidx--;
-	
+
   _reset_conn_error(RESULT->conn);
 
   if (fieldidx >= RESULT->numfields) {
@@ -1066,7 +1065,7 @@ float dbi_result_get_float(dbi_result Result, const char *fieldname) {
 float dbi_result_get_float_idx(dbi_result Result, unsigned int fieldidx) {
   float ERROR = 0.0;
   fieldidx--;
-	
+
   _reset_conn_error(RESULT->conn);
 
 
@@ -1108,11 +1107,11 @@ double dbi_result_get_double(dbi_result Result, const char *fieldname) {
   }
   return dbi_result_get_double_idx(Result, fieldidx+1);
 }
-	
+
 double dbi_result_get_double_idx(dbi_result Result, unsigned int fieldidx) {
   double ERROR = 0.0;
   fieldidx--;
-	
+
   _reset_conn_error(RESULT->conn);
 
   if (fieldidx >= RESULT->numfields) {
@@ -1151,11 +1150,11 @@ const char *dbi_result_get_string(dbi_result Result, const char *fieldname) {
   }
   return dbi_result_get_string_idx(Result, fieldidx+1);
 }
-	
+
 const char *dbi_result_get_string_idx(dbi_result Result, unsigned int fieldidx) {
   const char *ERROR = "ERROR";
   fieldidx--;
-	
+
   _reset_conn_error(RESULT->conn);
 
 
@@ -1177,7 +1176,7 @@ const char *dbi_result_get_string_idx(dbi_result Result, unsigned int fieldidx) 
     return NULL;
   }
   /* else if field size == 0: empty string */
-	
+
   return (const char *)(RESULT->rows[RESULT->currowidx]->field_values[fieldidx].d_string);
 }
 
@@ -1196,11 +1195,11 @@ const unsigned char *dbi_result_get_binary(dbi_result Result, const char *fieldn
   }
   return dbi_result_get_binary_idx(Result, fieldidx+1);
 }
-	
+
 const unsigned char *dbi_result_get_binary_idx(dbi_result Result, unsigned int fieldidx) {
   const char *ERROR = "ERROR";
   fieldidx--;
-	
+
   _reset_conn_error(RESULT->conn);
 
 
@@ -1234,12 +1233,12 @@ char *dbi_result_get_string_copy(dbi_result Result, const char *fieldname) {
   }
   return dbi_result_get_string_copy_idx(Result, fieldidx+1);
 }
-	
+
 char *dbi_result_get_string_copy_idx(dbi_result Result, unsigned int fieldidx) {
   char *ERROR = "ERROR";
   char *newstring = NULL;
   fieldidx--;
-	
+
   _reset_conn_error(RESULT->conn);
 
 
@@ -1286,7 +1285,7 @@ unsigned char *dbi_result_get_binary_copy(dbi_result Result, const char *fieldna
   }
   return dbi_result_get_binary_copy_idx(Result, fieldidx+1);
 }
-	
+
 unsigned char *dbi_result_get_binary_copy_idx(dbi_result Result, unsigned int fieldidx) {
   char *ERROR = "ERROR";
   unsigned char *newblob = NULL;
@@ -1377,7 +1376,7 @@ long long dbi_result_get_as_longlong(dbi_result Result, const char *fieldname) {
   long long ERROR = 0;
   unsigned int fieldidx;
   dbi_error_flag errflag;
-    
+
   _reset_conn_error(RESULT->conn);
 
   fieldidx = _find_field(RESULT, fieldname, &errflag);

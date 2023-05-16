@@ -2,21 +2,21 @@
  * libdbi - database independent abstraction layer for C.
  * Copyright (C) 2001-2003, David Parker and Mark Tobenkin.
  * http://libdbi.sourceforge.net
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- * 
+ *
  * $Id$
  */
 
@@ -32,8 +32,7 @@
 #include <math.h>
 #include <limits.h>
 
-#include <dbi/dbi.h>
-#include <dbi/dbi-dev.h>
+#include <dbi/dbd.h>
 
 #ifndef HAVE_TIMEGM
 time_t timegm(struct tm *tm);
@@ -44,7 +43,7 @@ static _capability_t *_find_or_create_conn_cap(dbi_conn_t *conn, const char *cap
 
 int _dbd_result_add_to_conn(dbi_result_t *result) {
 	dbi_conn_t *conn = result->conn;
-	
+
 	if (conn->results_size < conn->results_used+1) {
 		dbi_result_t **results = (dbi_result_t **) realloc(conn->results, sizeof(dbi_result_t *) * (conn->results_size+1));
 		if (!results) {
@@ -79,7 +78,7 @@ dbi_result_t *_dbd_result_create(dbi_conn_t *conn, void *handle, unsigned long l
 		dbi_result_free((dbi_result)result);
 		return NULL;
 	}
-	
+
 	return result;
 }
 
@@ -117,7 +116,7 @@ size_t _dbd_escape_chars(char *dest, const char *orig, size_t orig_size, const c
 	const char *curorig = orig;
 	const char *curescaped;
 	size_t len = 0;
-	
+
 	while (curorig && curorig < orig+orig_size) {
 		curescaped = toescape;
 		while (curescaped && *curescaped) {
@@ -131,7 +130,7 @@ size_t _dbd_escape_chars(char *dest, const char *orig, size_t orig_size, const c
 		}
 		/* Copy char to destination */
 		*curdest = *curorig;
-		
+
 		curorig++;
 		curdest++;
 		len++;
@@ -153,7 +152,7 @@ void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int
   if (conn->error_message) {
     free(conn->error_message);
   }
-	
+
   if (errno == DBI_ERROR_DBD) {
     /* translate into a client-library specific error number */
     errstatus = conn->driver->functions->geterror(conn, &my_errno, &my_errmsg);
@@ -165,7 +164,7 @@ void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int
     conn->error_flag = my_errno; /* legacy code may rely on this */
     conn->error_number = my_errno;
     conn->error_message = my_errmsg ? my_errmsg : NULL;
-    
+
     if (conn->error_handler != NULL) {
       conn->error_handler((dbi_conn)conn, conn->error_handler_argument);
     }
@@ -174,7 +173,7 @@ void _dbd_internal_error_handler(dbi_conn_t *conn, const char *errmsg, const int
     conn->error_flag = errno; /* legacy code may rely on this */
     conn->error_number = errno;
     conn->error_message = strdup(errmsg);
-    
+
     if (conn->error_handler != NULL) {
       conn->error_handler((dbi_conn)conn, conn->error_handler_argument);
     }
@@ -190,9 +189,9 @@ dbi_result_t *_dbd_result_create_from_stringarray(dbi_conn_t *conn, unsigned lon
 	dbi_result_t *result = malloc(sizeof(dbi_result_t));
 	unsigned long long currow = 0;
 	const int numfields = 1;
-	
+
 	if (!result) return NULL;
-	
+
 	/* initialize the result */
 	result->conn = conn;
 	result->result_handle = NULL;
@@ -211,7 +210,7 @@ dbi_result_t *_dbd_result_create_from_stringarray(dbi_conn_t *conn, unsigned lon
 	/* then set numfields */
 	result->field_types[0] = DBI_TYPE_STRING;
 	result->field_attribs[0] = 0;
-	
+
 	/* then alloc a row, set row's data, and finalize (for each row) */
 	for (currow = 0; currow < numrows_matched; currow++) {
 		dbi_row_t *row = _dbd_row_allocate(numfields);
@@ -219,12 +218,12 @@ dbi_result_t *_dbd_result_create_from_stringarray(dbi_conn_t *conn, unsigned lon
 		row->field_sizes[0] = strlen(stringarray[currow]);
 		_dbd_row_finalize(result, row, 0);
 	}
-	
+
 	if (!_dbd_result_add_to_conn(result)) {
 		dbi_result_free((dbi_result)result);
 		return NULL;
 	}
-	
+
 	return result;
 }
 
@@ -312,7 +311,7 @@ void _dbd_parse_datetime(const char *raw, unsigned int attribs, struct tm *tmt) 
 	unixtime->tm_mon = 0;
 	unixtime->tm_year = 0; /* can't start before Unix epoch */
 	unixtime->tm_isdst = -1;
-	
+
 	if (raw && (unparsed = strdup(raw)) != NULL) {
 	  cur = unparsed;
 
@@ -321,7 +320,7 @@ void _dbd_parse_datetime(const char *raw, unsigned int attribs, struct tm *tmt) 
 	  /* this code assumes the following input in cur: */
 	  /* DATE: YYYY-MM-DD (the dashes may be any other separator) */
 	  /* TIME: HH:MM:SS (the colons may be any other separator) */
-	  /* DATETIME: YYYY-MM-DD HH:MM:SS (the dashes and colons may 
+	  /* DATETIME: YYYY-MM-DD HH:MM:SS (the dashes and colons may
 	     be any other separator) */
 	  /* both TIME and DATETIME can have an optional timezone
 	     suffix using the +HH:MM notation */
@@ -342,7 +341,7 @@ void _dbd_parse_datetime(const char *raw, unsigned int attribs, struct tm *tmt) 
 	      }
 	    }
 	  }
-	  
+
 	  if (check_time && strlen(cur) > 7 && attribs & DBI_DATETIME_TIME) {
 	    cur[2] = '\0';
 	    cur[5] = '\0';
@@ -353,7 +352,7 @@ void _dbd_parse_datetime(const char *raw, unsigned int attribs, struct tm *tmt) 
 	    /* check for a timezone suffix */
 	    cur += 8;
 	    if (*cur) {
-			 
+
 /* 	      fprintf(stderr,"part after : %s\n", cur); */
 
 	      char* _tz_start = strchr(cur, '-');
@@ -435,7 +434,7 @@ time_t _dbd_get_datetime(struct tm *tmt) {
 ** We would prefer to keep the size of the encoded string smaller than
 ** this.
 **
-** To minimize the encoding size, we first add a fixed offset value to each 
+** To minimize the encoding size, we first add a fixed offset value to each
 ** byte in the sequence.  The addition is modulo 256.  (That is to say, if
 ** the sum of the original character value and the offset exceeds 256, then
 ** the higher order bits are truncated.)  The offset is chosen to minimize
@@ -444,7 +443,7 @@ time_t _dbd_get_datetime(struct tm *tmt) {
 ** characters, the offset might be 0x01.  Each of the 0x27 characters would
 ** then be converted into an 0x28 character which would not need to be
 ** escaped at all and so the 100 character input string would be converted
-** into just 100 characters of output.  Actually 101 characters of output - 
+** into just 100 characters of output.  Actually 101 characters of output -
 ** we have to record the offset used as the first byte in the sequence so
 ** that the string can be decoded.  Since the offset value is stored as
 ** part of the output string and the output string is not allowed to contain
@@ -467,7 +466,7 @@ time_t _dbd_get_datetime(struct tm *tmt) {
 **
 ** Decoding is obvious:
 **
-**     (5)   Copy encoded characters except the first into the decode 
+**     (5)   Copy encoded characters except the first into the decode
 **           buffer.  Set the first encoded character aside for use as
 **           the offset in step 7 below.
 **
@@ -493,7 +492,7 @@ time_t _dbd_get_datetime(struct tm *tmt) {
 
 /*
 ** Encode a binary buffer "in" of size n bytes so that it contains
-** no instances of characters '\'' or '\000'.  The output is 
+** no instances of characters '\'' or '\000'.  The output is
 ** null-terminated and can be used as a string value in an INSERT
 ** or UPDATE statement.  Use sqlite_decode_binary() to convert the
 ** string back into its original binary.

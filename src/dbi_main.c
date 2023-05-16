@@ -2,21 +2,21 @@
  * libdbi - database independent abstraction layer for C.
  * Copyright (C) 2001-2003, David Parker and Mark Tobenkin.
  * http://libdbi.sourceforge.net
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- * 
+ *
  * $Id$
  */
 
@@ -145,13 +145,13 @@ int dbi_initialize_r(const char *driverdir, dbi_inst *pInst) {
 	struct stat statbuf;
 	char fullpath[256];
 	char *effective_driverdir;
-	
+
 	int num_loaded = 0;
 	dbi_driver_t *driver = NULL;
 	dbi_driver_t *prevdriver = NULL;
 #if HAVE_LTDL_H
         (void)lt_dlinit();
-#endif	
+#endif
 
 	*pInst = NULL; /* use a defined value if the function fails */
 	/* init the instance */
@@ -168,7 +168,8 @@ int dbi_initialize_r(const char *driverdir, dbi_inst *pInst) {
 	dir = opendir(effective_driverdir);
 
 	if (dir == NULL) {
-		return -1;
+		if (inst->dbi_verbosity) fprintf(stderr, "libdbi: Failed to open driver directory: %s\n", effective_driverdir);
+			return -1;
 	}
 	else {
 		while ((driver_dirent = readdir(dir)) != NULL) {
@@ -198,7 +199,7 @@ int dbi_initialize_r(const char *driverdir, dbi_inst *pInst) {
 		}
 		closedir(dir);
 	}
-	
+
 	return num_loaded;
 }
 
@@ -210,16 +211,16 @@ void dbi_shutdown_r(dbi_inst Inst) {
 	dbi_inst_t *inst = (dbi_inst_t*) Inst;
 	dbi_conn_t *curconn = inst->rootconn;
 	dbi_conn_t *nextconn;
-	
+
 	dbi_driver_t *curdriver = inst->rootdriver;
 	dbi_driver_t *nextdriver;
-	
+
 	while (curconn) {
 		nextconn = curconn->next;
 		dbi_conn_close((dbi_conn)curconn);
 		curconn = nextconn;
 	}
-	
+
 	while (curdriver) {
 		nextdriver = curdriver->next;
  		_safe_dlclose(curdriver);
@@ -232,7 +233,7 @@ void dbi_shutdown_r(dbi_inst Inst) {
 	}
 #if HAVE_LTDL_H
         (void)lt_dlexit();
-#endif	
+#endif
 	free(inst);
 }
 
@@ -290,18 +291,18 @@ dbi_driver dbi_driver_open(const char *name) {
 
 dbi_inst dbi_driver_get_instance(dbi_driver Driver) {
 	dbi_driver_t *driver = Driver;
-	
+
 	if (!driver) return NULL;
-	
+
 	return driver->dbi_inst;
 }
 
 int dbi_driver_is_reserved_word(dbi_driver Driver, const char *word) {
 	unsigned int idx = 0;
 	dbi_driver_t *driver = Driver;
-	
+
 	if (!driver) return 0;
-	
+
 	while (driver->reserved_words[idx]) {
 		if (strcasecmp(word, driver->reserved_words[idx]) == 0) {
 			return 1;
@@ -318,7 +319,7 @@ void *dbi_driver_specific_function(dbi_driver Driver, const char *name) {
 	if (!driver) return NULL;
 
 	custom = driver->custom_functions;
-	
+
 	while (custom && strcasecmp(name, custom->name)) {
 		custom = custom->next;
 	}
@@ -350,7 +351,7 @@ int dbi_conn_cap_get(dbi_conn Conn, const char *capname) {
 	if (!conn) return 0;
 
 	cap = conn->caps;
-	
+
 	while (cap && strcmp(capname, cap->name)) {
 		cap = cap->next;
 	}
@@ -362,31 +363,31 @@ int dbi_conn_cap_get(dbi_conn Conn, const char *capname) {
 
 const char *dbi_driver_get_name(dbi_driver Driver) {
 	dbi_driver_t *driver = Driver;
-	
+
 	if (!driver) return my_ERROR;
-	
+
 	return driver->info->name;
 }
 
 const char *dbi_driver_get_filename(dbi_driver Driver) {
 	dbi_driver_t *driver = Driver;
-	
+
 	if (!driver) return my_ERROR;
-	
+
 	return driver->filename;
 }
 
 const char *dbi_driver_get_description(dbi_driver Driver) {
 	dbi_driver_t *driver = Driver;
-	
+
 	if (!driver) return my_ERROR;
-	
+
 	return driver->info->description;
 }
 
 const char *dbi_driver_get_maintainer(dbi_driver Driver) {
 	dbi_driver_t *driver = Driver;
-	
+
 	if (!driver) return my_ERROR;
 
 	return driver->info->maintainer;
@@ -402,17 +403,17 @@ const char *dbi_driver_get_url(dbi_driver Driver) {
 
 const char *dbi_driver_get_version(dbi_driver Driver) {
 	dbi_driver_t *driver = Driver;
-	
+
 	if (!driver) return my_ERROR;
-	
+
 	return driver->info->version;
 }
 
 const char *dbi_driver_get_date_compiled(dbi_driver Driver) {
 	dbi_driver_t *driver = Driver;
-	
+
 	if (!driver) return my_ERROR;
-	
+
 	return driver->info->date_compiled;
 }
 
@@ -421,7 +422,7 @@ size_t dbi_driver_quote_string_copy(dbi_driver Driver, const char *orig, char **
 	dbi_driver_t *driver = Driver;
 	char *newstr;
 	size_t newlen;
-	
+
 	if (!driver || !orig || !newquoted) return 0;
 
 	newstr = malloc((strlen(orig)*2)+4+1); /* worst case, we have to escape every character and add 2*2 surrounding quotes */
@@ -429,7 +430,7 @@ size_t dbi_driver_quote_string_copy(dbi_driver Driver, const char *orig, char **
 	if (!newstr) {
 		return 0;
 	}
-	
+
 	newlen = driver->functions->quote_string(driver, orig, newstr);
 	if (!newlen) {
 		free(newstr);
@@ -450,7 +451,7 @@ size_t dbi_driver_quote_string(dbi_driver Driver, char **orig) {
 	if (!orig || !*orig) {
 		return 0;
 	}
-	
+
 	newlen = dbi_driver_quote_string_copy(Driver, *orig, &newstr);
 	if (!newlen) {
 	  /* in case of an error, leave the original string alone */
@@ -466,7 +467,7 @@ size_t dbi_driver_quote_string(dbi_driver Driver, char **orig) {
 
 const char* dbi_driver_encoding_from_iana(dbi_driver Driver, const char* iana_encoding) {
   dbi_driver_t *driver = Driver;
-	
+
   if (!driver) {
     return NULL;
   }
@@ -476,7 +477,7 @@ const char* dbi_driver_encoding_from_iana(dbi_driver Driver, const char* iana_en
 
 const char* dbi_driver_encoding_to_iana(dbi_driver Driver, const char* db_encoding) {
   dbi_driver_t *driver = Driver;
-	
+
   if (!driver) {
     return NULL;
   }
@@ -503,7 +504,7 @@ dbi_conn dbi_conn_new(const char *name) {
 dbi_conn dbi_conn_open(dbi_driver Driver) {
 	dbi_driver_t *driver = Driver;
 	dbi_conn_t *conn;
-	
+
 	if (!driver) {
 		return NULL;
 	}
@@ -548,21 +549,21 @@ int dbi_conn_disjoin_results(dbi_conn Conn) {
 
 void dbi_conn_close(dbi_conn Conn) {
 	dbi_conn_t *conn = Conn;
-	
+
 	if (!conn) return;
-	
+
 	_update_internal_conn_list(conn, -1);
-	
+
 	conn->driver->functions->disconnect(conn);
 	conn->driver = NULL;
 	dbi_conn_clear_options(Conn);
 	_free_caps(conn->caps);
 	conn->connection = NULL;
-	
+
 	if (conn->current_db) free(conn->current_db);
 	if (conn->error_message) free(conn->error_message);
 	conn->error_number = 0;
-	
+
 	conn->error_handler = NULL;
 	conn->error_handler_argument = NULL;
 	free(conn->results);
@@ -574,9 +575,9 @@ void dbi_conn_close(dbi_conn Conn) {
 
 dbi_driver dbi_conn_get_driver(dbi_conn Conn) {
 	dbi_conn_t *conn = Conn;
-	
+
 	if (!conn) return NULL;
-	
+
 	return conn->driver;
 }
 
@@ -586,7 +587,7 @@ int dbi_conn_error(dbi_conn Conn, const char **errmsg_dest) {
 
 	if (errmsg_dest) {
 		if (conn->formatted_errmsg) free(conn->formatted_errmsg);
-		
+
 		if (conn->error_number) {
 			snprintf(number_portion, 20, "%d: ", conn->error_number);
 		}
@@ -644,7 +645,7 @@ int dbi_conn_set_error(dbi_conn Conn, int errnum, const char *formatstr, ...) {
 		/* trigger the external callback function */
 		conn->error_handler((dbi_conn)conn, conn->error_handler_argument);
 	}
-	
+
 	return len;
 }
 
@@ -656,7 +657,7 @@ size_t dbi_conn_quote_string_copy(dbi_conn Conn, const char *orig, char **newquo
 	dbi_conn_t *conn = Conn;
 	char *newstr;
 	size_t newlen;
-	
+
 	if (!conn) {
 	  return 0;
 	}
@@ -674,7 +675,7 @@ size_t dbi_conn_quote_string_copy(dbi_conn Conn, const char *orig, char **newquo
 	  _error_handler(conn, DBI_ERROR_NOMEM);
 	  return 0;
 	}
-	
+
 	newlen = conn->driver->functions->conn_quote_string(conn, orig, newstr);
 	if (!newlen) {
 	  free(newstr);
@@ -703,7 +704,7 @@ size_t dbi_conn_quote_string(dbi_conn Conn, char **orig) {
 	  _error_handler(conn, DBI_ERROR_BADPTR);
 	  return 0;
 	}
-	
+
 	newlen = dbi_conn_quote_string_copy(Conn, *orig, &newstr);
 	if (!newlen) {
 	  /* leave original string alone in case of an error */
@@ -751,7 +752,7 @@ size_t dbi_conn_quote_binary_copy(dbi_conn Conn, const unsigned char *orig, size
 size_t dbi_conn_escape_string_copy(dbi_conn Conn, const char *orig, char **newquoted) {
 	char *newstr;
 	size_t newlen;
-	
+
 	if (!Conn) {
 	  return 0;
 	}
@@ -796,11 +797,11 @@ size_t dbi_conn_escape_binary_copy(dbi_conn Conn, const unsigned char *orig, siz
 int dbi_conn_set_option(dbi_conn Conn, const char *key, const char *value) {
 	dbi_conn_t *conn = Conn;
 	dbi_option_t *option;
-	
+
 	if (!conn) {
 		return -1;
 	}
-	
+
 	_reset_conn_error(conn);
 
 	option = _find_or_create_option_node(conn, key);
@@ -812,18 +813,18 @@ int dbi_conn_set_option(dbi_conn Conn, const char *key, const char *value) {
 	if (option->string_value) free(option->string_value);
 	option->string_value = (value) ? strdup(value) : NULL;
 	option->numeric_value = 0;
-	
+
 	return 0;
 }
 
 int dbi_conn_set_option_numeric(dbi_conn Conn, const char *key, int value) {
 	dbi_conn_t *conn = Conn;
 	dbi_option_t *option;
-	
+
 	if (!conn) {
 		return -1;
 	}
-	
+
 	_reset_conn_error(conn);
 
 	option = _find_or_create_option_node(conn, key);
@@ -831,11 +832,11 @@ int dbi_conn_set_option_numeric(dbi_conn Conn, const char *key, int value) {
 		_error_handler(conn, DBI_ERROR_NOMEM);
 		return -1;
 	}
-	
+
 	if (option->string_value) free(option->string_value);
 	option->string_value = NULL;
 	option->numeric_value = value;
-	
+
 	return 0;
 }
 
@@ -846,7 +847,7 @@ static const char *_get_option(dbi_conn Conn, const char *key, int aggressive) {
 	if (!conn) {
 		return NULL;
 	}
-	
+
 	_reset_conn_error(conn);
 
 	option = conn->options;
@@ -876,7 +877,7 @@ static int _get_option_numeric(dbi_conn Conn, const char *key, int aggressive) {
 	dbi_option_t *option;
 
 	if (!conn) return 0;
-	
+
 	_reset_conn_error(conn);
 
 	option = conn->options;
@@ -904,7 +905,7 @@ int dbi_conn_require_option_numeric(dbi_conn Conn, const char *key) {
 const char *dbi_conn_get_option_list(dbi_conn Conn, const char *current) {
 	dbi_conn_t *conn = Conn;
 	dbi_option_t *option;
-	
+
 	if (!conn) {
 	  return NULL;
 	}
@@ -916,7 +917,7 @@ const char *dbi_conn_get_option_list(dbi_conn Conn, const char *current) {
 	  return NULL;
 	}
 	option = conn->options;
-	
+
 	if (!current) {
 		return option->key;
 	}
@@ -934,10 +935,10 @@ void dbi_conn_clear_option(dbi_conn Conn, const char *key) {
 	dbi_conn_t *conn = Conn;
 	dbi_option_t *prevoption = NULL; /* shut up compiler */
 	dbi_option_t *option;
-	
+
 	if (!conn) return;
 	option = conn->options;
-	
+
 	while (option && strcasecmp(key, option->key)) {
 		prevoption = option;
 		option = option->next;
@@ -962,7 +963,7 @@ void dbi_conn_clear_options(dbi_conn Conn) {
 
 	if (!conn) return;
 	cur = conn->options;
-	
+
 	while (cur) {
 		next = cur->next;
 		free(cur->key);
@@ -979,9 +980,9 @@ void dbi_conn_clear_options(dbi_conn Conn) {
 int dbi_conn_connect(dbi_conn Conn) {
 	dbi_conn_t *conn = Conn;
 	int retval;
-	
+
 	if (!conn) return -1;
-	
+
 	_reset_conn_error(conn);
 
 	retval = conn->driver->functions->connect(conn);
@@ -1050,13 +1051,13 @@ char* dbi_conn_get_engine_version_string(dbi_conn Conn, char *versionstring) {
 dbi_result dbi_conn_get_db_list(dbi_conn Conn, const char *pattern) {
 	dbi_conn_t *conn = Conn;
 	dbi_result_t *result;
-	
+
 	if (!conn) return NULL;
-	
+
 	_reset_conn_error(conn);
 
 	result = conn->driver->functions->list_dbs(conn, pattern);
-	
+
 	if (result == NULL) {
 		_error_handler(conn, DBI_ERROR_DBD);
 	}
@@ -1067,17 +1068,17 @@ dbi_result dbi_conn_get_db_list(dbi_conn Conn, const char *pattern) {
 dbi_result dbi_conn_get_table_list(dbi_conn Conn, const char *db, const char *pattern) {
 	dbi_conn_t *conn = Conn;
 	dbi_result_t *result;
-	
+
 	if (!conn) return NULL;
-	
+
 	_reset_conn_error(conn);
 
 	result = conn->driver->functions->list_tables(conn, db, pattern);
-	
+
 	if (result == NULL) {
 		_error_handler(conn, DBI_ERROR_DBD);
 	}
-	
+
 	return (dbi_result)result;
 }
 
@@ -1086,7 +1087,7 @@ dbi_result dbi_conn_query(dbi_conn Conn, const char *statement) {
 	dbi_result_t *result;
 
 	if (!conn) return NULL;
-	
+
 	_reset_conn_error(conn);
 
 	_logquery(conn, "[query] %s\n", statement);
@@ -1106,13 +1107,13 @@ dbi_result dbi_conn_queryf(dbi_conn Conn, const char *formatstr, ...) {
 	va_list ap;
 
 	if (!conn) return NULL;
-	
+
 	_reset_conn_error(conn);
 
 	va_start(ap, formatstr);
 	vasprintf(&statement, formatstr, ap);
 	va_end(ap);
-	
+
 	_logquery(conn, "[queryf] %s\n", statement);
 	result = conn->driver->functions->query(conn, statement);
 
@@ -1120,7 +1121,7 @@ dbi_result dbi_conn_queryf(dbi_conn Conn, const char *formatstr, ...) {
 		_error_handler(conn, DBI_ERROR_DBD);
 	}
 	free(statement);
-	
+
 	return (dbi_result)result;
 }
 
@@ -1138,28 +1139,28 @@ dbi_result dbi_conn_query_null(dbi_conn Conn, const unsigned char *statement, si
 	if (result == NULL) {
 		_error_handler(conn, DBI_ERROR_DBD);
 	}
-	
+
 	return (dbi_result)result;
 }
 
 int dbi_conn_select_db(dbi_conn Conn, const char *db) {
 	dbi_conn_t *conn = Conn;
 	const char *retval;
-	
+
 	if (!conn) return -1;
-	
+
 	_reset_conn_error(conn);
 
 	if (conn->current_db) free(conn->current_db);
 	conn->current_db = NULL;
-	
+
 	retval = conn->driver->functions->select_db(conn, db);
-	
+
 	if (retval == NULL) {
 		_error_handler(conn, DBI_ERROR_DBD);
 		return -1;
 	}
-	
+
 	if (*retval == '\0') {
 		/* if "" was returned, conn doesn't support switching databases */
 		_error_handler(conn, DBI_ERROR_UNSUPPORTED);
@@ -1168,7 +1169,7 @@ int dbi_conn_select_db(dbi_conn Conn, const char *db) {
 	else {
 		conn->current_db = strdup(retval);
 	}
-	
+
 	return 0;
 }
 
@@ -1221,7 +1222,7 @@ static dbi_driver_t *_get_driver(const char *filename, dbi_inst_t *inst) {
 	dlhandle = my_dlopen(filename, DLOPEN_FLAG); /* DLOPEN_FLAG defined by autoconf */
 
 	if (dlhandle == NULL) {
-	  fprintf(stderr, "%s\n", my_dlerror());
+		fprintf(stderr, "libdbi error: failed to open driver %s, error: %s\n", filename, my_dlerror());
 		return NULL;
 	}
 	else {
@@ -1262,6 +1263,8 @@ static dbi_driver_t *_get_driver(const char *filename, dbi_inst_t *inst) {
 			((driver->functions->ping = my_dlsym(dlhandle, DLSYM_PREFIX "dbd_ping")) == NULL)
 			)
 		{
+			fprintf(stderr, "libdbi error: driver %s did not define all required methods\n",
+					driver->filename);
 			free(driver->functions);
 			free(driver->filename);
 			free(driver);
@@ -1351,7 +1354,7 @@ static void _free_caps(_capability_t *caproot) {
 static int _update_internal_conn_list(dbi_conn_t *conn, const int operation) {
 	/* maintain internal linked list of conns so that we can unload them all
 	 * when dbi is shutdown
-	 * 
+	 *
 	 * operation = -1: remove conn
 	 *           =  0: just look for conn (return 1 if found, -1 if not)
 	 *           =  1: add conn */
@@ -1436,7 +1439,7 @@ void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag) {
 		/* DBI_ERROR_NONE */		NULL,
 		/* DBI_ERROR_CLIENT */          NULL
 };
-	
+
 	if (conn == NULL) {
 		/* temp hack... if a result is disjoined and encounters an error, conn
 		 * will be null when we get here. just ignore it, since we assume
@@ -1470,7 +1473,7 @@ void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag) {
 			&& errflag_messages[(errflag-DBI_ERROR_USER)] != NULL) {
 		errmsg = strdup(errflag_messages[(errflag-DBI_ERROR_USER)]);
 	}
-	
+
 	conn->error_flag = errflag; /* should always be DBI_ERROR_DBD,
 				       DBI_ERROR_UNSUPPORTED,
 				       DBI_ERROR_NOCONN,
@@ -1479,7 +1482,7 @@ void _error_handler(dbi_conn_t *conn, dbi_error_flag errflag) {
 				       errors */
 	conn->error_number = my_errno;
 	conn->error_message = errmsg;
-	
+
 	if (conn->error_handler != NULL) {
 		/* trigger the external callback function */
 		conn->error_handler((dbi_conn)conn, conn->error_handler_argument);
@@ -1532,7 +1535,7 @@ void _logquery_null(dbi_conn_t *conn, const char* statement, size_t st_length) {
 
 unsigned int _isolate_attrib(unsigned int attribs, unsigned int rangemin, unsigned int rangemax) {
 	/* hahaha! who woulda ever thunk strawberry's code would come in handy? */
-	// find first (highest) bit set; methods not using FP can be found at 
+	// find first (highest) bit set; methods not using FP can be found at
 	// http://graphics.stanford.edu/~seander/bithacks.html#IntegerLogObvious
 	unsigned startbit = log(rangemin)/log(2);
 	unsigned endbit = log(rangemax)/log(2);
@@ -1571,7 +1574,7 @@ static unsigned int _parse_versioninfo(const char *version) {
     n_multiplier *= 100;
     i++;
   }
-  
+
   /* take care of the remainder */
   n_version += atoi(start) * n_multiplier;
 
